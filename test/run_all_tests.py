@@ -141,6 +141,34 @@ async def run_cli_tests():
         print_result("FastMCP CLI Tests", False, f"Error: {e}")
         return False
 
+async def run_context_project_tests():
+    """Run context and project parameter tests"""
+    print_header("Context & Project Parameter Tests")
+    
+    try:
+        result = subprocess.run(
+            [sys.executable, "test_context_project_params.py"],
+            capture_output=True,
+            text=True,
+            timeout=30
+        )
+        
+        success = result.returncode == 0
+        print_result("Context & Project Parameter Tests", success)
+        
+        if not success:
+            print("STDOUT:", result.stdout[-500:] if result.stdout else "None")
+            print("STDERR:", result.stderr[-500:] if result.stderr else "None")
+        
+        return success
+        
+    except subprocess.TimeoutExpired:
+        print_result("Context & Project Parameter Tests", False, "Timeout after 30 seconds")
+        return False
+    except Exception as e:
+        print_result("Context & Project Parameter Tests", False, f"Error: {e}")
+        return False
+
 async def main():
     """Run all tests in sequence"""
     print("🛡️ ArchGuard Test Suite")
@@ -157,6 +185,7 @@ async def main():
         results.append(await run_in_memory_stdio_tests())
         results.append(await run_http_tests())
         results.append(await run_cli_tests())
+        results.append(await run_context_project_tests())
         
         # Print summary
         print_header("Test Summary")

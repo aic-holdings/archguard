@@ -179,6 +179,20 @@ def get_guidance(action: str, code: str = "", context: str = "") -> dict:
         if any(word in context.lower() for word in ['enterprise', 'large-scale']):
             guidance.append("🏢 Consider governance, compliance, and audit requirements")
     
+    # Add server context-specific guidance
+    global _server_context, _server_project
+    if _server_context == 'ide-assistant':
+        guidance.append("💡 IDE Integration: Consider adding IntelliSense-friendly type hints")
+        guidance.append("🔧 IDE Integration: Structure code for better refactoring support")
+    elif _server_context == 'agent':
+        guidance.append("🤖 Agent Mode: Focus on automated code generation patterns")
+        guidance.append("🔄 Agent Mode: Design for programmatic modification")
+    
+    # Add project-specific guidance if project directory is available
+    if _server_project:
+        guidance.append(f"📁 Project Context: Working in {_server_project}")
+        # TODO: Add project-specific configuration loading from .archguard.toml
+    
     return {
         "guidance": guidance,
         "status": "advisory",
@@ -451,10 +465,106 @@ architectural decisions while maintaining full control over your development pro
         }
     }
 
-def main():
+# Global variables to store server context and project
+_server_context = "desktop-app"
+_server_project = None
+
+def main(context: str = "desktop-app", project: str = None):
     """Main entry point for the MCP server"""
-    print("🛡️ Starting ArchGuard MCP Server...")
+    import sys
+    global _server_context, _server_project
+    
+    print(f"🛡️ Starting ArchGuard MCP Server...", file=sys.stderr)
+    print(f"🎯 Context: {context}", file=sys.stderr)
+    if project:
+        print(f"📁 Project: {project}", file=sys.stderr)
+    
+    # Store context and project globally
+    _server_context = context
+    _server_project = project
+    
     mcp.run()  # Default: stdio transport
+
+def _get_guidance_impl(action: str, code: str = "", context: str = "") -> dict:
+    """Internal implementation of get_guidance for testing"""
+    guidance = []
+    patterns = []
+    complexity_score = "low"
+    
+    # Analyze action intent and provide comprehensive guidance
+    action_lower = action.lower()
+    
+    # 🏗️ Component/File Creation Guidance
+    if any(word in action_lower for word in ["create", "build", "implement", "develop"]):
+        if any(word in action_lower for word in ["component", "file", "class", "module"]):
+            guidance.extend([
+                "📏 Keep files under 300 lines for maintainability",
+                "🎯 Follow Single Responsibility Principle - one purpose per file",
+                "📁 Use descriptive file names that reflect their purpose",
+                "🔄 Consider if this could be split into smaller, focused modules"
+            ])
+            complexity_score = "medium"
+    
+    # Add context-specific guidance
+    if context:
+        if any(word in context.lower() for word in ['microservice', 'distributed']):
+            guidance.append("🌐 Design for service independence and fault tolerance")
+            patterns.append("Microservices Pattern")
+        if any(word in context.lower() for word in ['startup', 'mvp']):
+            guidance.append("🚀 Focus on core functionality first, optimize later")
+        if any(word in context.lower() for word in ['enterprise', 'large-scale']):
+            guidance.append("🏢 Consider governance, compliance, and audit requirements")
+    
+    # Add server context-specific guidance
+    global _server_context, _server_project
+    if _server_context == 'ide-assistant':
+        guidance.append("💡 IDE Integration: Consider adding IntelliSense-friendly type hints")
+        guidance.append("🔧 IDE Integration: Structure code for better refactoring support")
+    elif _server_context == 'agent':
+        guidance.append("🤖 Agent Mode: Focus on automated code generation patterns")
+        guidance.append("🔄 Agent Mode: Design for programmatic modification")
+    
+    # Add project-specific guidance if project directory is available
+    if _server_project:
+        guidance.append(f"📁 Project Context: Working in {_server_project}")
+    
+    # Provide default guidance if no specific patterns detected
+    if not guidance:
+        guidance.extend([
+            "✅ No specific architectural concerns detected",
+            "🏗️ Follow established coding standards and best practices",
+            "🧪 Consider adding tests for new functionality",
+            "📝 Document complex logic and API interfaces"
+        ])
+    
+    return {
+        "guidance": guidance,
+        "status": "advisory",
+        "action": action,
+        "complexity_score": complexity_score,
+        "patterns": patterns if patterns else ["General Best Practices"],
+        "code_analysis": {
+            "lines_analyzed": len(code.split('\n')) if code else 0,
+            "context_provided": bool(context)
+        }
+    }
+
+def test_guidance_with_context(action: str, code: str = "", context: str = "", server_context: str = None) -> dict:
+    """Test version of get_guidance that allows setting server context"""
+    global _server_context, _server_project
+    
+    # Temporarily set server context if provided
+    original_context = _server_context
+    if server_context:
+        _server_context = server_context
+    
+    try:
+        # Call the guidance function implementation directly
+        result = _get_guidance_impl(action, code, context)
+        return result
+    finally:
+        # Restore original context
+        _server_context = original_context
 
 if __name__ == "__main__":
     main()

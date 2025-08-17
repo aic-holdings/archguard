@@ -1,10 +1,16 @@
 # ArchGuard + Claude Code Integration Guide
 
-This guide explains how to integrate ArchGuard with Claude Code as an MCP (Model Context Protocol) server for semantic code analysis and architectural guidance.
+This guide shows you how to integrate ArchGuard with Claude Code for intelligent architectural guidance, following patterns similar to Serena's approach.
 
-## Overview
+## 🎯 What ArchGuard Provides
 
-ArchGuard provides intelligent architectural guidance and code analysis capabilities through the MCP protocol, making it accessible to Claude Code for enhanced development workflows.
+Unlike Serena's semantic code retrieval, **ArchGuard specializes in architectural guidance**:
+
+- **Architectural Patterns**: Suggests appropriate design patterns and architectural decisions
+- **Security Guidance**: Provides comprehensive security recommendations for any codebase
+- **Code Review**: Generates structured architectural review prompts 
+- **Governance Rules**: Access to 40+ professional architectural standards
+- **Context-Aware**: Understands project context to provide relevant guidance
 
 ## Installation
 

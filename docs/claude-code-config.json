@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "archguard": {
+      "command": "archguard",
+      "args": ["server"],
+      "env": {
+        "ARCHGUARD_LOG_LEVEL": "INFO"
+      }
+    }
+  }
+}

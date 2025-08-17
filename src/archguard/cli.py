@@ -229,6 +229,13 @@ For uvx usage:
     
     # Server command
     server_parser = subparsers.add_parser("server", help="Start MCP server (stdio)")
+    server_parser.add_argument("--context", 
+                              choices=["desktop-app", "agent", "ide-assistant"], 
+                              default="desktop-app",
+                              help="Context for the server environment (default: desktop-app)")
+    server_parser.add_argument("--project", 
+                              type=str,
+                              help="Project directory path or name to activate")
     
     # HTTP server command  
     http_parser = subparsers.add_parser("http", help="Start HTTP server")
@@ -251,7 +258,8 @@ For uvx usage:
             sys.exit(1)
         config_command(args)
     elif args.command == "server":
-        server_main()
+        server_main(context=getattr(args, 'context', 'desktop-app'), 
+                   project=getattr(args, 'project', None))
     elif args.command == "http":
         # Import and run HTTP server with args
         from .http_server import main as http_main
