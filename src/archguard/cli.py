@@ -9,9 +9,19 @@ import os
 from pathlib import Path
 from typing import List, Optional
 
-from .server import main as server_main
-from .http_server import main as http_server_main
-from .config import ArchGuardConfig
+# Use absolute imports to avoid issues with direct module execution
+try:
+    from archguard.server import main as server_main
+    from archguard.http_server import main as http_server_main
+    from archguard.config import ArchGuardConfig
+except ImportError:
+    # Fallback for development/direct execution
+    import sys
+    import os
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    from archguard.server import main as server_main
+    from archguard.http_server import main as http_server_main
+    from archguard.config import ArchGuardConfig
 
 
 def init_command(args) -> None:
