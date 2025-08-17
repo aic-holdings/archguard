@@ -8,13 +8,14 @@ ArchGuard v0 is a working MCP (Model Context Protocol) server that provides real
 
 ### Core Components
 
-1. **`archguard_server.py`** - Main MCP server implementation
-2. **`archguard_http_server.py`** - Production HTTP wrapper
-3. **Test Suite** - Comprehensive testing across all transports
+1. **`src/archguard/server.py`** - Main MCP server implementation
+2. **`src/archguard/http_server.py`** - Production HTTP wrapper
+3. **`src/archguard/cli.py`** - Command line interface
+4. **Test Suite** - Comprehensive testing across all transports
 
 ### Technology Stack
 
-- **Framework**: FastMCP 2.0 (16.3k stars, actively maintained by Prefect)
+- **Framework**: FastMCP 2.11.3 (actively maintained)
 - **Protocol**: Model Context Protocol (MCP) 1.13.0
 - **Transports**: Stdio (local) + HTTP (production)
 - **Language**: Python 3.10+
@@ -97,12 +98,13 @@ python test_http_client.py
 
 ### For Claude Code
 ```bash
-fastmcp install archguard_server.py --name "ArchGuard"
+pip install -e .
+archguard server
 ```
 
 ### For Development
 ```bash
-pip install fastmcp
+pip install -e .
 python test_client.py
 ```
 
@@ -199,7 +201,8 @@ git pull
 python archguard_http_server.py
 
 # Update Claude Code integration
-fastmcp install archguard_server.py --name "ArchGuard" --force
+pip install -e .
+archguard server --force
 ```
 
 This implementation provides a solid foundation for AI governance while maintaining simplicity and extensibility.

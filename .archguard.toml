@@ -1,0 +1,25 @@
+# ArchGuard Project Configuration
+# This file defines architectural rules and settings for your project
+
+[project]
+name = "archguard"
+# architecture_style = "clean_architecture"  # Options: clean_architecture, layered, microservices
+
+[rules]
+max_file_lines = 300
+max_function_lines = 50
+complexity_threshold = "medium"  # Options: low, medium, high
+enforce_type_hints = true
+
+[ignore]
+paths = [
+    "migrations/",
+    "node_modules/",
+    ".git/",
+    "__pycache__/",
+    "*.pyc"
+]
+
+# [custom_rules]
+# no_god_objects = true
+# single_responsibility = true

@@ -5,8 +5,10 @@ Tests the HTTP version of ArchGuard server.
 
 import asyncio
 import httpx
+import pytest
 from fastmcp import Client
 
+@pytest.mark.asyncio
 async def test_http_connection():
     """Test HTTP transport connectivity"""
     print("🌐 Testing HTTP Transport")
@@ -20,7 +22,7 @@ async def test_http_connection():
             print(f"✅ HTTP endpoint responding: {response.status_code}")
     except Exception as e:
         print(f"❌ HTTP endpoint not available: {e}")
-        print("💡 Start HTTP server first: python archguard_http_server.py")
+        print("💡 Start HTTP server first: archguard http --port 8003")
         return False
     
     # Test MCP over HTTP
@@ -44,6 +46,7 @@ async def test_http_connection():
     print("✅ HTTP transport testing complete!")
     return True
 
+@pytest.mark.asyncio
 async def test_production_readiness():
     """Test production deployment features"""
     print("\n🚀 Testing Production Features")
@@ -80,7 +83,7 @@ async def main():
     http_ok = await test_http_connection()
     if not http_ok:
         print("\n💡 To start HTTP server:")
-        print("   python archguard_http_server.py")
+        print("   archguard http --port 8003")
         print("   Then run this test again.")
         return
     

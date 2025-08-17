@@ -61,12 +61,13 @@ async def run_http_tests():
     try:
         print("🚀 Starting HTTP server...")
         parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        server_path = os.path.join(parent_dir, "archguard_http_server.py")
+        # Use the CLI command instead of direct file execution
         server_proc = subprocess.Popen(
-            [sys.executable, server_path],
+            [sys.executable, "-m", "archguard.cli", "http", "--port", "8003"],
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
-            cwd=parent_dir
+            cwd=parent_dir,
+            env={**os.environ, "PYTHONPATH": os.path.join(parent_dir, "src")}
         )
         
         # Give server time to start

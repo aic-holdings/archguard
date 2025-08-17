@@ -70,7 +70,8 @@
 ### **Immediate (Working v0)**
 ```bash
 # For Claude Code integration
-fastmcp install archguard_server.py --name "ArchGuard"
+pip install -e .
+archguard server
 
 # For development testing
 python test_client.py
@@ -96,7 +97,7 @@ python archguard_http_server.py
 
 ## 🔧 **Technical Stack**
 
-- **Framework**: FastMCP 2.0 (16.3k stars, actively maintained)
+- **Framework**: FastMCP 2.11.3 (actively maintained)
 - **Transport**: Stdio (local) + HTTP (production)
 - **Testing**: In-memory + subprocess + network
 - **Deployment**: Ready for Docker containers

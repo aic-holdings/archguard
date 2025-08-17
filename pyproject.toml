@@ -1,0 +1,85 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "archguard"
+version = "0.1.0"
+description = "ArchGuard MCP Server - Architectural decision tracking and governance"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [
+    {name = "Claude", email = "noreply@anthropic.com"},
+]
+keywords = ["mcp", "architecture", "governance", "decisions", "server"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: System :: Systems Administration",
+]
+
+dependencies = [
+    "fastmcp>=2.11.0",
+    "fastapi>=0.104.0",
+    "uvicorn[standard]>=0.24.0",
+    "pydantic>=2.5.0",
+    "aiofiles>=23.2.0",
+    "python-multipart>=0.0.6",
+    "httpx>=0.28.0",
+    "toml>=0.10.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.21.0",
+    "httpx>=0.25.0",
+    "black>=23.0.0",
+    "isort>=5.12.0",
+    "flake8>=6.0.0",
+    "mypy>=1.7.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/aic-holdings/archguard"
+Repository = "https://github.com/aic-holdings/archguard"
+Issues = "https://github.com/aic-holdings/archguard/issues"
+
+[project.scripts]
+archguard = "archguard.cli:main"
+archguard-server = "archguard.cli:server_main_cli"
+archguard-http = "archguard.cli:http_main_cli"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/archguard"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/src",
+    "/README.md",
+    "/docs",
+    "/test",
+]
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+
+[tool.isort]
+profile = "black"
+line_length = 88
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true

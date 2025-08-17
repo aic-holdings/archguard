@@ -75,6 +75,10 @@ Consider:
 - Best practices adherence
 """
 
-if __name__ == "__main__":
+def main():
+    """Main entry point for the MCP server"""
     print("🛡️ Starting ArchGuard MCP Server...")
     mcp.run()  # Default: stdio transport
+
+if __name__ == "__main__":
+    main()

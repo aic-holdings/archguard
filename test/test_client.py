@@ -6,11 +6,15 @@ Tests the ArchGuard MCP server through all phases.
 import asyncio
 import sys
 import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import pytest
+
+# Add src directory to path for development testing
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'src'))
 
 from fastmcp import Client
-from archguard_server import mcp
+from archguard.server import mcp
 
+@pytest.mark.asyncio
 async def test_phase_1_in_memory():
     """Phase 1: In-memory testing - fastest iteration"""
     print("🧪 Phase 1: In-Memory Testing")
@@ -67,13 +71,15 @@ async def test_phase_1_in_memory():
     print("\n✅ Phase 1 Complete: All in-memory tests passed!")
     return True
 
+@pytest.mark.asyncio
 async def test_phase_2_stdio():
     """Phase 2: Stdio testing - real subprocess communication"""
     print("\n🖥️ Phase 2: Stdio Testing")
     print("=" * 50)
     
-    # Connect via stdio to server file
-    async with Client("../archguard_server.py") as client:
+    # Connect via stdio to server file  
+    server_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'src', 'archguard', 'server.py')
+    async with Client(server_path) as client:
         print("📋 Testing stdio connection...")
         
         # Test tool discovery via stdio
@@ -89,6 +95,7 @@ async def test_phase_2_stdio():
     print("✅ Phase 2 Complete: Stdio communication works!")
     return True
 
+@pytest.mark.asyncio
 async def test_phase_3_http():
     """Phase 3: HTTP testing - production deployment path"""
     print("\n🌐 Phase 3: HTTP Testing")
@@ -96,7 +103,7 @@ async def test_phase_3_http():
     
     # This will be run separately since HTTP server needs to be started first
     print("ℹ️ HTTP testing requires manual server startup:")
-    print("   python archguard_server.py --transport http --port 8000")
+    print("   archguard http --port 8000")
     print("   Then run: python test_http_client.py")
     
     return True
