@@ -1,0 +1,12 @@
+# ArchGuard Dependencies
+# MCP server for AI governance
+
+# FastMCP - MCP server framework
+fastmcp>=2.11.0
+
+# HTTP client for testing
+httpx>=0.28.0
+
+# Development and testing
+pytest>=7.0.0
+pytest-asyncio>=0.21.0
