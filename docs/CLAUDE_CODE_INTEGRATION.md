@@ -8,21 +8,35 @@ ArchGuard provides intelligent architectural guidance and code analysis capabili
 
 ## Installation
 
-### Method 1: Install via uvx (Recommended)
+### Method 1: Direct Execution with uvx (Recommended - Serena Style)
+
+No permanent installation needed! Run ArchGuard directly:
 
 ```bash
-# Install ArchGuard via uvx
-uvx install git+https://github.com/dshanklinbv/archguard.git
+# Run MCP server directly (for Claude Code)
+uvx --from git+https://github.com/aic-holdings/archguard archguard server
 
-# Verify installation
-archguard --help
+# Or test other commands
+uvx --from git+https://github.com/aic-holdings/archguard archguard --help
+uvx --from git+https://github.com/aic-holdings/archguard archguard init
 ```
 
-### Method 2: Install via pip
+### Method 2: Permanent Installation via uvx
+
+```bash
+# Install ArchGuard globally
+uvx install git+https://github.com/aic-holdings/archguard.git
+
+# Then use normally
+archguard --help
+archguard server
+```
+
+### Method 3: Install via pip
 
 ```bash
 # Clone and install
-git clone https://github.com/dshanklinbv/archguard.git
+git clone https://github.com/aic-holdings/archguard.git
 cd archguard
 pip install -e .
 ```
@@ -35,6 +49,22 @@ Add ArchGuard to your Claude Code MCP servers configuration:
 
 **Location**: Claude Code settings → MCP Servers
 
+#### Option A: Direct uvx execution (Serena style - Recommended)
+```json
+{
+  "mcpServers": {
+    "archguard": {
+      "command": "uvx",
+      "args": ["--from", "git+https://github.com/aic-holdings/archguard", "archguard", "server"],
+      "env": {
+        "ARCHGUARD_LOG_LEVEL": "INFO"
+      }
+    }
+  }
+}
+```
+
+#### Option B: If you've installed ArchGuard globally
 ```json
 {
   "mcpServers": {
