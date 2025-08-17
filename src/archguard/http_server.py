@@ -2,8 +2,17 @@
 ArchGuard HTTP Server - Production deployment version
 """
 
-from .server import mcp
-from .config import ArchGuardConfig
+# Use absolute imports to avoid issues with direct module execution
+try:
+    from archguard.server import mcp
+    from archguard.config import ArchGuardConfig
+except ImportError:
+    # Fallback for development/direct execution
+    import sys
+    import os
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    from archguard.server import mcp
+    from archguard.config import ArchGuardConfig
 
 # Create FastAPI app for uvicorn compatibility  
 try:
