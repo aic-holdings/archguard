@@ -4,9 +4,13 @@ Provides real-time coding guidance for AI agents.
 """
 
 from fastmcp import FastMCP
+from .rules_engine import create_rule_engine
 
 # Create the ArchGuard MCP server
 mcp = FastMCP("ArchGuard")
+
+# Initialize rule engine (will switch to vector engine later)
+rule_engine = create_rule_engine("keyword")
 
 @mcp.tool
 def get_guidance(action: str, code: str = "", context: str = "") -> dict:
@@ -47,110 +51,40 @@ def get_guidance(action: str, code: str = "", context: str = "") -> dict:
         "Review this 200-line component for architectural improvements"
         "Suggest database schema design for e-commerce orders"
     """
+    global _server_context, _server_project
+    
+    # Build project context for rule engine
+    project_context = {
+        "server_context": _server_context,
+        "project": _server_project
+    }
+    
+    # Use rule engine to find relevant rules
+    relevant_rules = rule_engine.find_relevant_rules(
+        action=action,
+        code=code,
+        context=context,
+        project_context=project_context
+    )
+    
+    # Extract guidance from rules
     guidance = []
     patterns = []
-    complexity_score = "low"
+    rules_applied = []
     
-    # Analyze action intent and provide comprehensive guidance
-    action_lower = action.lower()
+    for rule in relevant_rules[:5]:  # Top 5 most relevant rules
+        guidance.append(rule["guidance"])
+        rules_applied.append(rule["rule_id"])
+        
+        # Add any patterns from the rule
+        if "patterns" in rule:
+            patterns.extend(rule["patterns"])
     
-    # 🏗️ Component/File Creation Guidance
-    if any(word in action_lower for word in ["create", "build", "implement", "develop"]):
-        if any(word in action_lower for word in ["component", "file", "class", "module"]):
-            guidance.extend([
-                "📏 Keep files under 300 lines for maintainability",
-                "🎯 Follow Single Responsibility Principle - one purpose per file",
-                "📁 Use descriptive file names that reflect their purpose",
-                "🔄 Consider if this could be split into smaller, focused modules"
-            ])
-            complexity_score = "medium"
-    
-    # 🔒 Security & Authentication Guidance  
-    if any(keyword in action_lower for keyword in ["auth", "password", "login", "security", "token", "jwt", "session"]):
-        guidance.extend([
-            "🔒 Use established authentication libraries (OAuth2, Passport, etc.)",
-            "🔐 Never store passwords in plain text - use bcrypt, Argon2, or similar",
-            "🎫 Implement proper session management with secure tokens",
-            "🛡️ Add rate limiting to prevent brute force attacks",
-            "🌐 Use HTTPS only for authentication endpoints",
-            "🔑 Store secrets in environment variables, never in code",
-            "⏰ Implement proper token expiration and refresh mechanisms"
-        ])
-        patterns.extend(["Authentication Pattern", "Security Layer Pattern"])
-        complexity_score = "high"
-    
-    # 🌐 API Design Guidance
-    if any(keyword in action_lower for keyword in ["api", "endpoint", "route", "rest", "graphql"]):
-        guidance.extend([
-            "🌐 Follow RESTful conventions: GET (read), POST (create), PUT (update), DELETE (remove)",
-            "📝 Document API endpoints with OpenAPI/Swagger specifications",
-            "✅ Implement consistent error handling and status codes",
-            "🔍 Add input validation and sanitization",
-            "📊 Include proper HTTP status codes (200, 201, 400, 401, 404, 500)",
-            "🚀 Consider API versioning strategy (v1, v2) for future changes",
-            "⚡ Implement caching headers for performance"
-        ])
-        patterns.extend(["API Gateway Pattern", "RESTful Service Pattern"])
-        complexity_score = "medium"
-    
-    # 🗄️ Database Design Guidance
-    if any(keyword in action_lower for keyword in ["database", "db", "sql", "schema", "table", "collection"]):
-        guidance.extend([
-            "🗄️ Use soft deletes (deleted_at timestamp) instead of hard deletes",
-            "🔍 Add database indexes for frequently queried fields",
-            "🔗 Design proper foreign key relationships and constraints",
-            "📊 Normalize data to reduce redundancy, but consider denormalization for performance",
-            "🔒 Implement database-level security with proper user permissions",
-            "⚡ Plan for database migrations and version control",
-            "💾 Consider backup and disaster recovery strategies"
-        ])
-        patterns.extend(["Repository Pattern", "Data Access Layer Pattern"])
-        complexity_score = "medium"
-    
-    # 🧩 Refactoring & Code Quality Guidance
-    if any(keyword in action_lower for keyword in ["refactor", "improve", "clean", "optimize"]):
-        guidance.extend([
-            "🧩 Extract common logic into reusable functions/modules",
-            "📋 Add comprehensive tests before refactoring",
-            "🏷️ Use meaningful variable and function names",
-            "📝 Add clear documentation and comments for complex logic",
-            "🔄 Consider design patterns: Strategy, Factory, Observer, etc.",
-            "⚡ Profile performance before and after changes"
-        ])
-        patterns.extend(["Strategy Pattern", "Factory Pattern"])
-        complexity_score = "medium"
-    
-    # 🎯 Frontend/UI Guidance
-    if any(keyword in action_lower for keyword in ["frontend", "ui", "component", "react", "vue", "angular"]):
-        guidance.extend([
-            "🎨 Keep components focused and reusable",
-            "📱 Design for mobile responsiveness from the start",
-            "♿ Implement accessibility features (ARIA labels, keyboard navigation)",
-            "⚡ Optimize bundle size and loading performance",
-            "🎭 Separate presentation logic from business logic",
-            "🧪 Write component tests for critical user interactions"
-        ])
-        patterns.extend(["Component Pattern", "Container/Presenter Pattern"])
-    
-    # 🚀 Performance & Scalability Guidance
-    if any(keyword in action_lower for keyword in ["performance", "scale", "optimize", "cache", "load"]):
-        guidance.extend([
-            "⚡ Implement caching strategies (Redis, Memcached) for frequent data",
-            "🔄 Use asynchronous processing for heavy operations",
-            "📊 Add monitoring and logging for performance metrics",
-            "🚀 Consider horizontal scaling with load balancers",
-            "💾 Optimize database queries and use connection pooling",
-            "📦 Implement lazy loading for large datasets"
-        ])
-        patterns.extend(["Caching Pattern", "Circuit Breaker Pattern"])
-        complexity_score = "high"
-    
-    # Analyze provided code for additional insights
+    # Add legacy code analysis (keep existing code analysis logic)
     if code:
         code_lines = len(code.split('\n'))
         if code_lines > 50:
             guidance.append(f"📏 Code length ({code_lines} lines) suggests considering decomposition")
-            complexity_score = "high" if code_lines > 200 else "medium"
         
         # Check for potential code smells
         if code.count('if') > 10:
@@ -160,27 +94,7 @@ def get_guidance(action: str, code: str = "", context: str = "") -> dict:
         if any(word in code.lower() for word in ['password', 'secret', 'key']) and any(word in code for word in ['"', "'"]):
             guidance.append("🚨 Potential hardcoded secrets detected - use environment variables")
     
-    # Provide default guidance if no specific patterns detected
-    if not guidance:
-        guidance.extend([
-            "✅ No specific architectural concerns detected",
-            "🏗️ Follow established coding standards and best practices",
-            "🧪 Consider adding tests for new functionality",
-            "📝 Document complex logic and API interfaces"
-        ])
-    
-    # Add context-specific guidance
-    if context:
-        if any(word in context.lower() for word in ['microservice', 'distributed']):
-            guidance.append("🌐 Design for service independence and fault tolerance")
-            patterns.append("Microservices Pattern")
-        if any(word in context.lower() for word in ['startup', 'mvp']):
-            guidance.append("🚀 Focus on core functionality first, optimize later")
-        if any(word in context.lower() for word in ['enterprise', 'large-scale']):
-            guidance.append("🏢 Consider governance, compliance, and audit requirements")
-    
     # Add server context-specific guidance
-    global _server_context, _server_project
     if _server_context == 'ide-assistant':
         guidance.append("💡 IDE Integration: Consider adding IntelliSense-friendly type hints")
         guidance.append("🔧 IDE Integration: Structure code for better refactoring support")
@@ -193,16 +107,102 @@ def get_guidance(action: str, code: str = "", context: str = "") -> dict:
         guidance.append(f"📁 Project Context: Working in {_server_project}")
         # TODO: Add project-specific configuration loading from .archguard.toml
     
+    # Provide default guidance if no rules matched
+    if not guidance:
+        guidance.extend([
+            "✅ No specific architectural concerns detected",
+            "🏗️ Follow established coding standards and best practices",
+            "🧪 Consider adding tests for new functionality",
+            "📝 Document complex logic and API interfaces"
+        ])
+    
+    # Determine complexity score based on number of rules and priority
+    complexity_score = "low"
+    if len(relevant_rules) > 3:
+        complexity_score = "high"
+    elif len(relevant_rules) > 1:
+        complexity_score = "medium"
+    elif any(rule.get("priority") == "high" for rule in relevant_rules):
+        complexity_score = "medium"
+    
     return {
         "guidance": guidance,
         "status": "advisory",
         "action": action,
         "complexity_score": complexity_score,
         "patterns": patterns if patterns else ["General Best Practices"],
+        "rules_applied": rules_applied,
         "code_analysis": {
             "lines_analyzed": len(code.split('\n')) if code else 0,
-            "context_provided": bool(context)
+            "context_provided": bool(context),
+            "rules_matched": len(relevant_rules)
         }
+    }
+
+@mcp.tool
+def search_rules(query: str, max_results: int = 5) -> dict:
+    """
+    🔍 Search ArchGuard rules by query text
+    
+    This tool allows you to search through ArchGuard's rule database to find
+    specific guidance on architectural patterns, best practices, and design decisions.
+    
+    Args:
+        query: Search query text (searches titles, guidance, keywords, etc.)
+        max_results: Maximum number of results to return (default: 5)
+        
+    Returns:
+        Dictionary with matching rules and their relevance scores
+    """
+    results = rule_engine.search_rules(query, max_results)
+    
+    return {
+        "query": query,
+        "total_results": len(results),
+        "rules": [
+            {
+                "rule_id": rule["rule_id"],
+                "title": rule["title"],
+                "guidance": rule["guidance"],
+                "category": rule.get("category", "general"),
+                "priority": rule.get("priority", "medium"),
+                "search_score": rule.get("search_score", 0),
+                "contexts": rule.get("contexts", [])
+            }
+            for rule in results
+        ]
+    }
+
+@mcp.tool
+def list_rule_categories() -> dict:
+    """
+    📋 List all available rule categories
+    
+    Returns all rule categories available in ArchGuard's rule engine,
+    helping you understand what types of guidance are available.
+    """
+    all_rules = rule_engine.list_all_rules()
+    categories = {}
+    
+    for rule in all_rules:
+        category = rule.get("category", "general")
+        if category not in categories:
+            categories[category] = {
+                "name": category,
+                "count": 0,
+                "rules": []
+            }
+        
+        categories[category]["count"] += 1
+        categories[category]["rules"].append({
+            "rule_id": rule["rule_id"],
+            "title": rule["title"],
+            "priority": rule.get("priority", "medium")
+        })
+    
+    return {
+        "total_categories": len(categories),
+        "categories": categories
     }
 
 @mcp.resource("archguard://rules")
