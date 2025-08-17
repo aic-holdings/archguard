@@ -170,6 +170,208 @@ uv run archguard server
 archguard http --port 8080
 ```
 
+## 🔗 Detailed Integration Guide
+
+### Project Setup & Configuration
+
+If you are mostly working with the same project, you can configure to always activate it at startup
+by passing `--project <path_or_name>` to the ArchGuard server command in your client's MCP config.
+This is especially useful for clients which configure MCP servers on a per-project basis, like Claude Code.
+
+Otherwise, the recommended way is to just ask the LLM to activate a project by providing it an absolute path to, or,
+in case the project was configured before, by its name. The default project name is the directory name.
+
+* "Configure ArchGuard for the project /path/to/my_project"
+* "Activate ArchGuard for my_project"
+
+All projects that have been configured will be automatically added to your global ArchGuard config, and for each
+project, the file `.archguard.toml` will be generated. You can adjust the latter, e.g., by changing the name
+(which you refer to during activation) or other architectural rules. Make sure to not have two different projects with
+the same name.
+
+ℹ️ For larger projects, we recommend that you analyze your project to accelerate ArchGuard's guidance; otherwise the first
+analysis may be slower. To do so, run this from the project directory (or pass the path to the project as an argument):
+
+```shell
+uvx --from git+https://github.com/aic-holdings/archguard archguard check
+```
+
+### Running the ArchGuard MCP Server
+
+There are several ways to run the ArchGuard MCP server, depending on your setup:
+
+**Option 1: Direct execution with uvx (Recommended)**
+```shell
+uvx --from git+https://github.com/aic-holdings/archguard archguard server
+```
+
+**Option 2: Local development with uv**
+```shell
+# From ArchGuard source directory
+uv run archguard server
+```
+
+**Option 3: After installation**
+```shell
+# If you've installed ArchGuard globally
+archguard server
+```
+
+**Option 4: Docker**
+```shell
+docker run --rm -i --network host \
+  -v "$(pwd)":/workspace \
+  ghcr.io/aic-holdings/archguard:latest \
+  archguard server --transport stdio
+```
+
+### Claude Code
+
+ArchGuard is a great way to make Claude Code both cheaper and more powerful with architectural guidance!
+
+From your project directory, add ArchGuard with a command like this:
+
+```shell
+claude mcp add archguard -- <archguard-mcp-server> --context ide-assistant --project $(pwd)
+```
+
+where `<archguard-mcp-server>` is your way of [running the ArchGuard MCP server](#running-the-archguard-mcp-server).
+For example, when using `uvx`, you would run:
+
+```shell
+claude mcp add archguard -- uvx --from git+https://github.com/aic-holdings/archguard archguard server --context ide-assistant --project $(pwd)
+```
+
+ℹ️ ArchGuard comes with architectural guidance instructions, and Claude needs to read them to properly use ArchGuard's tools.
+  As of version `v1.0.52`, Claude Code reads the instructions of the MCP server, so this **is handled automatically**.
+  If you are using an older version, or if Claude fails to read the instructions, you can ask it explicitly
+  to "read ArchGuard's initial instructions" or access ArchGuard's guidance resources directly.
+  Note that you may have to make Claude read the instructions when you start a new conversation and after any compacting operation to ensure Claude remains properly configured to use ArchGuard's tools.
+
+### Other Terminal-Based Clients
+
+There are many terminal-based coding assistants that support MCP servers, such as [Codex](https://github.com/openai/codex?tab=readme-ov-file#model-context-protocol-mcp),
+[Gemini-CLI](https://github.com/google-gemini/gemini-cli), [Qwen3-Coder](https://github.com/QwenLM/Qwen3-Coder),
+[rovodev](https://community.atlassian.com/forums/Rovo-for-Software-Teams-Beta/Introducing-Rovo-Dev-CLI-AI-Powered-Development-in-your-terminal/ba-p/3043623),
+the [OpenHands CLI](https://docs.all-hands.dev/usage/how-to/cli-mode) and [opencode](https://github.com/sst/opencode).
+
+They generally benefit from the architectural guidance tools provided by ArchGuard. You might want to customize some aspects of ArchGuard
+by writing your own rules or configuration to adjust it to your workflow, to other MCP servers you are using, and to
+the client's internal capabilities.
+
+### Claude Desktop
+
+For [Claude Desktop](https://claude.ai/download) (available for Windows and macOS), go to File / Settings / Developer / MCP Servers / Edit Config,
+which will let you open the JSON file `claude_desktop_config.json`.
+Add the `archguard` MCP server configuration, using a [run command](#running-the-archguard-mcp-server) depending on your setup.
+
+* local installation:
+
+   ```json
+   {
+       "mcpServers": {
+           "archguard": {
+               "command": "/abs/path/to/uv",
+               "args": ["run", "--directory", "/abs/path/to/archguard", "archguard", "server"]
+           }
+       }
+   }
+   ```
+
+* uvx:
+
+   ```json
+   {
+       "mcpServers": {
+           "archguard": {
+               "command": "/abs/path/to/uvx",
+               "args": ["--from", "git+https://github.com/aic-holdings/archguard", "archguard", "server"]
+           }
+       }
+   }
+   ```
+
+* docker:
+
+  ```json
+   {
+       "mcpServers": {
+           "archguard": {
+               "command": "docker",
+               "args": ["run", "--rm", "-i", "--network", "host", "-v", "/path/to/your/projects:/workspaces/projects", "ghcr.io/aic-holdings/archguard:latest", "archguard", "server", "--transport", "stdio"]
+           }
+       }
+   }
+   ```
+
+If you are using paths containing backslashes for paths on Windows
+(note that you can also just use forward slashes), be sure to escape them correctly (`\\`).
+
+That's it! Save the config and then restart Claude Desktop. You are ready for configuring your first project.
+
+ℹ️ You can further customize the run command using additional arguments (see [command-line arguments](#command-line-arguments)).
+
+Note: on Windows and macOS there are official Claude Desktop applications by Anthropic, for Linux there is an [open-source
+community version](https://github.com/aaddrick/claude-desktop-debian).
+
+⚠️ Be sure to fully quit the Claude Desktop application, as closing Claude will just minimize it to the system tray – at least on Windows.
+
+⚠️ Some clients may leave behind zombie processes. You will have to find and terminate them manually then.
+    With ArchGuard, you can activate the HTTP mode to prevent unnoted processes and also use the HTTP interface
+    for monitoring ArchGuard status.
+
+After restarting, you should see ArchGuard's tools in your chat interface (notice the small hammer icon).
+
+For more information on MCP servers with Claude Desktop, see [the official quick start guide](https://modelcontextprotocol.io/quickstart/user).
+
+### MCP Coding Clients (Cline, Roo-Code, Cursor, Windsurf, etc.)
+
+Being an MCP Server, ArchGuard can be included in any MCP Client. The same configuration as above,
+perhaps with small client-specific modifications, should work. Most of the popular
+existing coding assistants (IDE extensions or VSCode-like IDEs) support connections
+to MCP Servers. It is **recommended to use the `ide-assistant` context** for these integrations by adding `"--context", "ide-assistant"` to the `args` in your MCP client's configuration. Including ArchGuard generally boosts their performance
+by providing them tools for architectural guidance and code quality analysis.
+
+In this case, the billing for the usage continues to be controlled by the client of your choice
+(unlike with the Claude Desktop client). But you may still want to use ArchGuard through such an approach,
+e.g., for one of the following reasons:
+
+1. You are already using a coding assistant (say Cline or Cursor) and just want to make it more architecturally aware.
+2. You are on Linux and don't want to use the [community-created Claude Desktop](https://github.com/aaddrick/claude-desktop-debian).
+3. You want tighter integration of ArchGuard into your IDE and don't mind paying for that.
+
+### Command-Line Arguments
+
+The ArchGuard MCP server supports several command-line arguments for customization:
+
+```shell
+archguard server [OPTIONS]
+
+Options:
+  --project PATH          Project path to activate automatically
+  --context CONTEXT       Context mode (ide-assistant, terminal, etc.)
+  --transport TRANSPORT   Transport mode (stdio, http)
+  --port PORT            HTTP port (when using http transport)
+  --log-level LEVEL      Logging level (DEBUG, INFO, WARNING, ERROR)
+  --config PATH          Custom configuration file path
+  --help                 Show this message and exit
+```
+
+**Examples:**
+```shell
+# Start with specific project
+archguard server --project /path/to/my/project
+
+# Start in IDE assistant mode
+archguard server --context ide-assistant
+
+# Start HTTP server on custom port
+archguard server --transport http --port 8080
+
+# Debug mode with verbose logging
+archguard server --log-level DEBUG
+```
+
 ## ⚙️ Configuration
 
 ArchGuard supports flexible, layered configuration:
