@@ -1,14 +1,14 @@
 # ArchGuard
-> **Your AI-powered architectural co-pilot for maintaining clean, scalable codebases**
+> **Production-ready architectural patterns at the speed of thought**
 
 [![CI Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/aic-holdings/archguard/actions)
 [![PyPI Version](https://img.shields.io/pypi/v/archguard.svg)](https://pypi.org/project/archguard/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Python Versions](https://img.shields.io/pypi/pyversions/archguard.svg)](https://pypi.org/project/archguard/)
 
-**ArchGuard is an extensible AI-powered toolkit that helps development teams define, verify, and maintain their software architecture through real-time guidance and automated analysis.**
+**ArchGuard is your AI coding assistant's expert architectural consultant, providing instant access to battle-tested patterns, complete implementations, and security-first best practices.**
 
-Unlike traditional linters that focus on syntax, ArchGuard provides **semantic architectural guidance** that understands your codebase's structure, patterns, and design decisions, helping prevent architectural drift before it starts.
+Instead of researching Stack Overflow and piecing together tutorials, your AI assistant gets **complete, production-ready solutions** with built-in security, error handling, and deployment guidance - accelerating development while reducing architectural risk.
 
 ---
 
@@ -23,12 +23,12 @@ Unlike traditional linters that focus on syntax, ArchGuard provides **semantic a
 
 ## ✨ Key Features
 
-- **🏗️ Real-time Architectural Guidance**: Get instant feedback on architectural decisions as you code
-- **🤖 AI-Native Integration**: Works seamlessly with AI coding assistants through Model Context Protocol (MCP)
-- **📐 Configurable Rule Engine**: Define project-specific architectural patterns and constraints
-- **🔄 Multi-Transport Support**: Stdio for local development, HTTP for production deployment
-- **🎯 Advisory, Not Blocking**: Provides guidance without breaking your development flow
-- **🌐 Framework Agnostic**: Works with any MCP-compatible AI system (Claude Code, Claude Desktop, etc.)
+- **🚀 Complete Implementations**: Get entire auth systems, CRUD patterns, and integrations - not just code snippets
+- **🔒 Security-First**: Every pattern includes RLS policies, input validation, and vulnerability prevention
+- **⚡ Instant Delivery**: Vector-powered search returns comprehensive solutions in milliseconds
+- **🎯 Context-Aware**: Patterns adapt to your stack (Next.js, Supabase, Tailwind, ShadCN, etc.)
+- **🤖 AI-Native Integration**: Seamless integration with Claude Code and other MCP-compatible assistants
+- **📋 Project Checklists**: Step-by-step guidance for building complete applications from scratch
 
 ## 🚀 Quick Start
 
@@ -98,37 +98,36 @@ Add to your Claude Desktop settings:
 
 Once integrated, ask your AI assistant:
 
-- *"Should I create this 500-line component?"*
-- *"Get guidance for implementing user authentication"*
-- *"What are the architectural patterns I should follow for this API?"*
-- *"Review this code for architectural anti-patterns"*
+- *"Get guidance for implementing Supabase authentication"* → Complete Next.js SSR auth system
+- *"Show me a ShadCN form with validation"* → Full react-hook-form + zod + error handling
+- *"I need file upload with Supabase Storage"* → Drag-drop, resize, security policies included
+- *"Help me build a documentation site"* → Step-by-step Nextra setup checklist
+- *"Create a Stripe subscription flow"* → Payment processing with webhooks and edge cases
 
-## 📋 Core Capabilities
+## 📋 What You Get
 
-### Architectural Guidance
-ArchGuard provides intelligent recommendations for:
+### Production-Ready Patterns
+ArchGuard provides complete implementations for:
 
-- **Component Size**: Suggests optimal file and component sizes
-- **Separation of Concerns**: Identifies when logic should be split or refactored
-- **Design Patterns**: Recommends appropriate architectural patterns
-- **Security Practices**: Guides secure coding practices and authentication patterns
-- **Database Design**: Suggests proper indexing, relationships, and data modeling
-- **API Design**: Promotes consistent, well-documented API patterns
+- **🔐 Authentication Systems**: Supabase Auth with SSR, email confirmation, RLS policies
+- **📝 Form Handling**: ShadCN + react-hook-form + Zod validation with error states
+- **📁 File Management**: Upload, resize, CDN delivery with security best practices
+- **💳 Payment Processing**: Stripe integration with webhooks and subscription management
+- **📊 Data Tables**: Server-side pagination, filtering, sorting with Supabase
+- **✉️ Email Systems**: Transactional emails with templates and delivery tracking
+- **🔄 Real-time Features**: Live chat, notifications with Supabase Realtime
+- **📱 Image Optimization**: Next.js Image with WebP conversion and responsive sizing
 
-### Example Response
-```json
-{
-  "guidance": [
-    "🏗️ Consider breaking this 450-line component into smaller, focused modules",
-    "🔒 Use secure authentication patterns with proper session management",
-    "🔐 Never store passwords in plain text - use bcrypt or similar hashing",
-    "📊 Add database indexes for frequently queried fields"
-  ],
-  "status": "advisory",
-  "action": "create user authentication system",
-  "complexity_score": "medium"
-}
-```
+### Example: Complete Auth Implementation
+When you ask for "Supabase authentication guidance", you get:
+- ✅ 2,700+ lines of production-ready code
+- ✅ Server and client component setup
+- ✅ Middleware for session management
+- ✅ Email confirmation flow
+- ✅ Protected route patterns
+- ✅ RLS security policies
+- ✅ Error handling and edge cases
+- ✅ Testing examples and deployment checklist
 
 ## 🔧 Commands & Usage
 

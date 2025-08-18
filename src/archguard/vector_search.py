@@ -90,7 +90,7 @@ class VectorSearchEngine:
             query_embedding = model.encode(query)
             
             # Get all rules (with project filtering if specified)
-            query_builder = client.table('rules').select('rule_id, title, guidance, rationale, category, priority, embedding')
+            query_builder = client.table('rules').select('rule_id, title, guidance, rationale, category, priority, embedding, external_urls, freshness_priority')
             
             # Filter by project - include global rules (project_id IS NULL) and project-specific rules
             if project_id:
@@ -127,6 +127,8 @@ class VectorSearchEngine:
                         'guidance': rule['guidance'],
                         'rationale': rule.get('rationale', ''),
                         'category': rule['category'],
+                        'external_urls': json.loads(rule['external_urls']) if rule.get('external_urls') else None,
+                        'freshness_priority': rule.get('freshness_priority', 'medium'),
                         'priority': rule['priority'],
                         'similarity': float(similarity)
                     })

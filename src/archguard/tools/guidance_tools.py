@@ -70,14 +70,24 @@ def get_guidance(action: str, code: str = "", context: str = "",
     guidance = []
     patterns = []
     rules_applied = []
+    external_resources = []
     
     for rule in relevant_rules[:5]:  # Top 5 most relevant rules
         guidance.append(rule["guidance"])
-        rules_applied.append(rule["rule_id"])
+        rules_applied.append(rule["title"])  # Use title instead of rule_id for readability
         
         # Add any patterns from the rule
         if "patterns" in rule:
             patterns.extend(rule["patterns"])
+            
+        # Add external URLs if available
+        if rule.get("external_urls"):
+            for key, url in rule["external_urls"].items():
+                external_resources.append({
+                    "title": key.replace("_", " ").title(),
+                    "url": url,
+                    "why": f"For latest {key.replace('_', ' ')}"
+                })
     
     # Add legacy code analysis (keep existing code analysis logic)
     if code:
@@ -124,7 +134,7 @@ def get_guidance(action: str, code: str = "", context: str = "",
     elif any(rule.get("priority") == "high" for rule in relevant_rules):
         complexity_score = "medium"
     
-    return {
+    result = {
         "guidance": guidance,
         "status": "advisory",
         "action": action,
@@ -137,6 +147,12 @@ def get_guidance(action: str, code: str = "", context: str = "",
             "rules_matched": len(relevant_rules)
         }
     }
+    
+    # Add external resources if any were found
+    if external_resources:
+        result["external_resources"] = external_resources
+    
+    return result
 
 def search_rules(query: str, max_results: int = 5) -> dict:
     """
