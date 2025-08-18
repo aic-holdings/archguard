@@ -220,6 +220,151 @@ def list_rule_categories() -> Dict[str, Any]:
 
 
 @mcp.tool()
+def analyze_codebase(action: str, context: str = "", project_id: str = None) -> Dict[str, Any]:
+    """
+    🔍 Analyze existing codebase for architectural guidance
+    
+    This tool provides comprehensive architectural analysis by requesting that you
+    provide relevant code files from your project. It's designed to give detailed,
+    context-aware guidance similar to a comprehensive web scrape of architectural
+    documentation.
+    
+    **How to use this tool effectively:**
+    1. Call this tool with your intended action
+    2. The tool will request specific code files to analyze
+    3. Provide the requested files using additional context
+    4. Receive comprehensive implementation guidance based on your actual code
+    
+    Args:
+        action: What you want to implement or improve (e.g., "add user authentication", 
+                "improve database performance", "implement caching")
+        context: Additional context about your project, tech stack, constraints
+        project_id: Optional project ID for team-specific rules
+        
+    Returns:
+        Request for specific code files needed for comprehensive analysis
+        
+    Example usage:
+        "Analyze my authentication system for security improvements"
+        "Review my API endpoints for performance optimization"
+        "Assess my database schema design for scalability"
+    """
+    try:
+        logger.info(f"Analyzing codebase for action: {action}")
+        
+        # Determine what code files would be most relevant for analysis
+        action_lower = action.lower()
+        context_lower = context.lower()
+        
+        # Build specific file requests based on the action
+        file_requests = []
+        
+        if any(word in action_lower for word in ['auth', 'login', 'user', 'session', 'token', 'password']):
+            file_requests.extend([
+                "Authentication/login related files (routes, controllers, middleware)",
+                "User model/schema files",
+                "Authentication configuration files",
+                "Any existing JWT/session management code",
+                "Database migration files for user tables"
+            ])
+            
+        elif any(word in action_lower for word in ['api', 'endpoint', 'route', 'controller']):
+            file_requests.extend([
+                "API route definition files",
+                "Controller/handler files", 
+                "API middleware files",
+                "Request validation/serialization code",
+                "API configuration and error handling"
+            ])
+            
+        elif any(word in action_lower for word in ['database', 'db', 'schema', 'model', 'query']):
+            file_requests.extend([
+                "Database model/schema definition files",
+                "Database configuration files",
+                "Migration files",
+                "Query builder or ORM configuration",
+                "Database connection and pooling setup"
+            ])
+            
+        elif any(word in action_lower for word in ['performance', 'cache', 'optimize', 'speed']):
+            file_requests.extend([
+                "Main application entry points",
+                "Frequently called functions/methods",
+                "Database query files",
+                "Caching configuration",
+                "Performance-critical code paths"
+            ])
+            
+        elif any(word in action_lower for word in ['security', 'secure', 'vulnerability']):
+            file_requests.extend([
+                "Authentication and authorization code",
+                "Input validation and sanitization",
+                "Configuration files with security settings",
+                "API endpoint handlers",
+                "Database access and query code"
+            ])
+        else:
+            # General analysis
+            file_requests.extend([
+                "Main application files (entry points, core logic)",
+                "Configuration files",
+                "Key business logic files",
+                "Database/data access files",
+                "Any files you think are most relevant to the task"
+            ])
+        
+        # Add technology-specific requests
+        if any(tech in context_lower for tech in ['fastapi', 'flask', 'django', 'express']):
+            file_requests.append("Framework-specific configuration and setup files")
+            
+        if any(db in context_lower for db in ['postgres', 'mysql', 'mongodb', 'redis']):
+            file_requests.append("Database-specific configuration and connection files")
+        
+        return {
+            "guidance": [
+                f"📋 **To provide comprehensive guidance for: {action}**",
+                "",
+                "I need to analyze your existing codebase to give you detailed, context-aware architectural guidance.",
+                "This will allow me to provide implementation advice similar to a comprehensive documentation site.",
+                "",
+                "**Please provide the following code files:**",
+                "",
+                *[f"• {req}" for req in file_requests],
+                "",
+                "**How to proceed:**",
+                "1. Read and share the requested files above",
+                "2. Include any additional files you think are relevant", 
+                "3. Call `get_guidance` again with the same action and include the file contents in the 'code' parameter",
+                "",
+                "**Example:**",
+                "```",
+                f'get_guidance(action="{action}", code="<contents of your relevant files>", context="{context}")',
+                "```",
+                "",
+                "Once you provide the code files, I'll analyze your existing architecture and provide:",
+                "• Detailed implementation guidance tailored to your codebase",
+                "• Specific recommendations based on your current patterns",
+                "• Code examples that fit your existing style and structure",
+                "• Security, performance, and maintainability improvements",
+                "• Step-by-step implementation plan"
+            ],
+            "status": "analysis_requested",
+            "action": action,
+            "files_requested": file_requests,
+            "next_step": f"Provide the requested code files and call get_guidance with action='{action}' and the code content"
+        }
+        
+    except Exception as e:
+        logger.error(f"Error in analyze_codebase: {e}")
+        return {
+            "guidance": ["Unable to analyze codebase at this time"],
+            "status": "error",
+            "action": action,
+            "files_requested": []
+        }
+
+
+@mcp.tool()
 def get_archguard_help() -> Dict[str, Any]:
     """
     📚 Get comprehensive help on using ArchGuard effectively

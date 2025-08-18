@@ -24,6 +24,8 @@ class GuidanceResponse:
     action: str  # Original action for reference
     complexity_score: str  # "low", "medium", "high"
     patterns: List[str] = None  # Suggested architectural patterns
+    rules_applied: List[str] = None  # Which rules were used
+    code_analysis: Dict[str, Any] = None  # Code analysis metadata
     
     def to_dict(self) -> Dict[str, Any]:
         return {
@@ -31,7 +33,13 @@ class GuidanceResponse:
             "status": self.status,
             "action": self.action,
             "complexity_score": self.complexity_score,
-            "patterns": self.patterns or []
+            "patterns": self.patterns or [],
+            "rules_applied": self.rules_applied or [],
+            "code_analysis": self.code_analysis or {
+                "lines_analyzed": len(self.action.split()) if hasattr(self, 'action') else 0,
+                "context_provided": bool(self.rules_applied),
+                "rules_matched": len(self.rules_applied) if self.rules_applied else 0
+            }
         }
 
 
@@ -71,12 +79,28 @@ class AIGuidanceEngine:
             complexity = self._assess_complexity(action, code)
             patterns = self._suggest_patterns(action, context)
             
+            # Collect metadata for response
+            rules_applied = []
+            if vector_search_engine.is_available() and guidance != self._analyze_action(action, code, context):
+                # We used vector search, extract rule names
+                try:
+                    relevant_rules = vector_search_engine.search_rules(f"{action} {context}".strip(), project_id=project_id, limit=3)
+                    rules_applied = [rule['title'] for rule in relevant_rules]
+                except:
+                    pass
+            
             return GuidanceResponse(
                 guidance=guidance,
                 status="advisory",
                 action=action,
                 complexity_score=complexity,
-                patterns=patterns
+                patterns=patterns,
+                rules_applied=rules_applied,
+                code_analysis={
+                    "lines_analyzed": len(code.split('\n')) if code else 0,
+                    "context_provided": bool(context),
+                    "rules_matched": len(rules_applied)
+                }
             )
             
         except Exception as e:
@@ -154,15 +178,19 @@ class AIGuidanceEngine:
         guidance = []
         action_lower = action.lower()
         
-        # Authentication guidance
-        if any(word in action_lower for word in ['auth', 'login', 'user', 'password']):
+        # Authentication guidance - Minimal fallback (detailed guides should be in vector DB)
+        if any(word in action_lower for word in ['auth', 'login', 'user', 'password', 'jwt', 'token']):
             guidance.extend([
-                "🔐 For authentication systems:",
-                "• Use established libraries (OAuth, JWT) rather than custom solutions",
-                "• Implement proper password hashing (bcrypt, Argon2)",
+                "🔐 **Authentication Implementation:**",
+                "• Use bcrypt/Argon2 for password hashing",
+                "• Implement JWT with proper secret management (RS256 preferred)",
                 "• Add rate limiting to prevent brute force attacks",
-                "• Consider multi-factor authentication for sensitive applications",
-                "• Never store passwords in plain text or reversible encryption"
+                "• Use HTTPS everywhere for auth endpoints",
+                "• Consider OAuth 2.0 for third-party integrations",
+                "",
+                "⚠️ **Note**: For comprehensive implementation guides, ensure your team's",
+                "authentication patterns are stored in the ArchGuard vector database.",
+                "This fallback provides basic guidance only."
             ])
             
         # Database guidance  

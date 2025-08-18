@@ -10,6 +10,7 @@ import json
 import logging
 from typing import List, Dict, Any, Optional
 import numpy as np
+from datetime import datetime, timezone
 from dotenv import load_dotenv
 
 logger = logging.getLogger(__name__)
@@ -138,6 +139,10 @@ class VectorSearchEngine:
             results.sort(key=lambda x: x['similarity'], reverse=True)
             top_results = results[:limit]
             
+            # Log retrieval times for each retrieved rule
+            if top_results:
+                self._log_retrieval_times([rule['rule_id'] for rule in top_results])
+            
             self.logger.info(f"Found {len(top_results)} relevant rules for query: '{query[:50]}...'")
             
             return top_results
@@ -145,6 +150,30 @@ class VectorSearchEngine:
         except Exception as e:
             self.logger.error(f"Vector search failed: {e}")
             return []
+    
+    def _log_retrieval_times(self, rule_ids: List[str]):
+        """Log retrieval times for rules"""
+        client = self._get_supabase_client()
+        if not client:
+            return
+            
+        try:
+            current_time = datetime.now(timezone.utc).isoformat()
+            
+            # Update last_retrieved timestamp for each rule
+            for rule_id in rule_ids:
+                try:
+                    client.table('rules').update({
+                        'last_retrieved': current_time
+                    }).eq('rule_id', rule_id).execute()
+                    
+                    self.logger.debug(f"Updated retrieval time for rule: {rule_id}")
+                    
+                except Exception as e:
+                    self.logger.warning(f"Failed to update retrieval time for rule {rule_id}: {e}")
+                    
+        except Exception as e:
+            self.logger.error(f"Failed to log retrieval times: {e}")
     
     def is_available(self) -> bool:
         """Check if vector search is available"""
