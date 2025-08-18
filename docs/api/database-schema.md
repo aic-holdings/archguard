@@ -1,6 +1,6 @@
-# ArchGuard Database Schema
+# Symmetra Database Schema
 
-ArchGuard uses PostgreSQL with pgvector for semantic rule storage and retrieval.
+Symmetra uses PostgreSQL with pgvector for semantic rule storage and retrieval.
 
 ## Schema Overview
 
@@ -90,7 +90,7 @@ CREATE INDEX idx_projects_created_by ON projects(created_by);
 **Example Data**:
 ```sql
 INSERT INTO projects (github_url, name, description) VALUES
-('https://github.com/aic-holdings/archguard', 'ArchGuard', 'AI-powered architectural guidance system'),
+('https://github.com/aic-holdings/symmetra', 'Symmetra', 'AI-powered architectural guidance system'),
 ('https://github.com/company/webapp', 'WebApp', 'Main company web application');
 ```
 
@@ -438,10 +438,10 @@ pg_dump -h db.kkvkwxfirmeywhvndjaa.supabase.co \
   -U postgres \
   -d postgres \
   --no-password \
-  -f archguard_backup.sql
+  -f symmetra_backup.sql
 
 # Restore from backup
-psql -h localhost -U postgres -d archguard < archguard_backup.sql
+psql -h localhost -U postgres -d symmetra < symmetra_backup.sql
 ```
 
 ### Rules-Only Backup

@@ -24,8 +24,8 @@ def main():
         model = SentenceTransformer('all-MiniLM-L6-v2')
         print("📥 Loaded embedding model: all-MiniLM-L6-v2")
         
-        url = os.getenv('ARCHGUARD_SUPABASE_URL')
-        key = os.getenv('ARCHGUARD_SUPABASE_KEY')
+        url = os.getenv('SYMMETRA_SUPABASE_URL')
+        key = os.getenv('SYMMETRA_SUPABASE_KEY')
         client = create_client(url, key)
         print("✅ Connected to Supabase")
         

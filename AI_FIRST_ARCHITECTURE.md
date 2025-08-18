@@ -1,8 +1,8 @@
-# ArchGuard AI-First Architecture
+# Symmetra AI-First Architecture
 
 ## Summary
 
-We've successfully pivoted ArchGuard from a complex deterministic rule system to a simpler, AI-powered architectural guidance system. This aligns much better with our core goal: **getting Claude Code excellent architectural guidance**.
+We've successfully pivoted Symmetra from a complex deterministic rule system to a simpler, AI-powered architectural guidance system. This aligns much better with our core goal: **getting Claude Code excellent architectural guidance**.
 
 ## What We Built
 
@@ -55,7 +55,7 @@ Focused on Claude Code integration
 
 ### Simple Mode (Default - Recommended)
 ```bash
-archguard server --mode simple
+symmetra server --mode simple
 ```
 - AI-powered architectural guidance
 - Essential security scanning
@@ -64,7 +64,7 @@ archguard server --mode simple
 
 ### Complex Mode (Legacy/Advanced)
 ```bash
-archguard server --mode complex  
+symmetra server --mode complex  
 ```
 - Full detector suite
 - Comprehensive static analysis
@@ -77,9 +77,9 @@ archguard server --mode complex
 ```json
 {
   "mcpServers": {
-    "archguard": {
+    "symmetra": {
       "command": "uvx",
-      "args": ["--from", "git+https://github.com/aic-holdings/archguard", "archguard", "server", "--mode", "simple"],
+      "args": ["--from", "git+https://github.com/aic-holdings/symmetra", "symmetra", "server", "--mode", "simple"],
       "env": {
         "ARCHGUARD_LOG_LEVEL": "INFO"
       }
@@ -94,7 +94,7 @@ archguard server --mode complex
 2. **`scan_secrets(code)`** - Essential security scanning
 3. **`search_rules(query)`** - Search architectural knowledge base
 4. **`list_rule_categories()`** - View available guidance categories
-5. **`get_archguard_help()`** - Usage instructions
+5. **`get_symmetra_help()`** - Usage instructions
 
 ## Test Results
 
@@ -124,12 +124,12 @@ This proves that sometimes the best architecture is the simplest one that achiev
 ## Files Created/Modified
 
 ### New Files (AI-First)
-- `src/archguard/ai_guidance.py` - AI guidance engine
-- `src/archguard/simple_server.py` - Simple MCP server
+- `src/symmetra/ai_guidance.py` - AI guidance engine
+- `src/symmetra/simple_server.py` - Simple MCP server
 - `test_simple_server.py` - Test suite
 
 ### Modified Files
-- `src/archguard/cli.py` - Added --mode option
+- `src/symmetra/cli.py` - Added --mode option
 - `docs/technical/CLAUDE_CODE_INTEGRATION.md` - Updated for both modes
 
 ### Kept (Essential)

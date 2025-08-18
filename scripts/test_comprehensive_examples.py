@@ -2154,8 +2154,8 @@ async def main():
     if not vector_search_engine.is_available():
         logger.error("❌ Vector search engine not available. Check Supabase configuration.")
         logger.error("Required environment variables:")
-        logger.error("- ARCHGUARD_SUPABASE_URL")
-        logger.error("- ARCHGUARD_SUPABASE_KEY")
+        logger.error("- SYMMETRA_SUPABASE_URL")
+        logger.error("- SYMMETRA_SUPABASE_KEY")
         return
     
     # Get clients

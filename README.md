@@ -1,12 +1,12 @@
-# ArchGuard
+# Symmetra
 > **Production-ready architectural patterns at the speed of thought**
 
-[![CI Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/aic-holdings/archguard/actions)
-[![PyPI Version](https://img.shields.io/pypi/v/archguard.svg)](https://pypi.org/project/archguard/)
+[![CI Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/aic-holdings/symmetra/actions)
+[![PyPI Version](https://img.shields.io/pypi/v/symmetra.svg)](https://pypi.org/project/symmetra/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Python Versions](https://img.shields.io/pypi/pyversions/archguard.svg)](https://pypi.org/project/archguard/)
+[![Python Versions](https://img.shields.io/pypi/pyversions/symmetra.svg)](https://pypi.org/project/symmetra/)
 
-**ArchGuard is your AI coding assistant's expert architectural consultant, providing instant access to battle-tested patterns, complete implementations, and security-first best practices.**
+**Symmetra is your AI coding assistant's expert architectural consultant, providing instant access to battle-tested patterns, complete implementations, and security-first best practices.**
 
 Instead of researching Stack Overflow and piecing together tutorials, your AI assistant gets **complete, production-ready solutions** with built-in security, error handling, and deployment guidance - accelerating development while reducing architectural risk.
 
@@ -14,9 +14,9 @@ Instead of researching Stack Overflow and piecing together tutorials, your AI as
 
 <!-- TODO: Add demo GIF or screenshot -->
 <p align="center">
-  <img src="docs/assets/archguard-demo.png" alt="ArchGuard providing real-time architectural guidance" width="600">
+  <img src="docs/assets/symmetra-demo.png" alt="Symmetra providing real-time architectural guidance" width="600">
   <br>
-  <em>ArchGuard integrated with Claude Code, providing real-time architectural guidance</em>
+  <em>Symmetra integrated with Claude Code, providing real-time architectural guidance</em>
 </p>
 
 ---
@@ -36,28 +36,28 @@ Instead of researching Stack Overflow and piecing together tutorials, your AI as
 
 **Option 1: Direct execution with uvx (Recommended)**
 ```bash
-# Run without installation - perfect for trying ArchGuard
-uvx --from git+https://github.com/aic-holdings/archguard archguard --help
+# Run without installation - perfect for trying Symmetra
+uvx --from git+https://github.com/aic-holdings/symmetra symmetra --help
 ```
 
 **Option 2: Local development**
 ```bash
 # Clone and install with uv
-git clone https://github.com/aic-holdings/archguard
-cd archguard
-uv run archguard --help
+git clone https://github.com/aic-holdings/symmetra
+cd symmetra
+uv run symmetra --help
 
 # Or with pip
 pip install -e .
-archguard --help
+symmetra --help
 ```
 
 **Option 3: Docker (Experimental)**
 ```bash
 docker run --rm -i --network host \
   -v "$(pwd)":/workspace \
-  ghcr.io/aic-holdings/archguard:latest \
-  archguard check
+  ghcr.io/aic-holdings/symmetra:latest \
+  symmetra check
 ```
 
 ### Integration with AI Coding Assistants
@@ -69,11 +69,11 @@ Add to your Claude Code MCP settings (`~/claude_desktop_config.json`):
 ```json
 {
   "mcpServers": {
-    "archguard": {
+    "symmetra": {
       "command": "uvx",
       "args": [
-        "--from", "git+https://github.com/aic-holdings/archguard",
-        "archguard-server"
+        "--from", "git+https://github.com/aic-holdings/symmetra",
+        "symmetra-server"
       ]
     }
   }
@@ -87,8 +87,8 @@ Add to your Claude Desktop settings:
 ```json
 {
   "mcpServers": {
-    "archguard": {
-      "command": "archguard-server"
+    "symmetra": {
+      "command": "symmetra-server"
     }
   }
 }
@@ -107,7 +107,7 @@ Once integrated, ask your AI assistant:
 ## 📋 What You Get
 
 ### Production-Ready Patterns
-ArchGuard provides complete implementations for:
+Symmetra provides complete implementations for:
 
 - **🔐 Authentication Systems**: Supabase Auth with SSR, email confirmation, RLS policies
 - **📝 Form Handling**: ShadCN + react-hook-form + Zod validation with error states
@@ -135,22 +135,22 @@ When you ask for "Supabase authentication guidance", you get:
 
 ```bash
 # Start MCP server for AI integration
-archguard server
+symmetra server
 
 # Start HTTP server for production deployment  
-archguard http --host 0.0.0.0 --port 8080
+symmetra http --host 0.0.0.0 --port 8080
 
-# Initialize ArchGuard in a new project
-archguard init
+# Initialize Symmetra in a new project
+symmetra init
 
 # Run architectural analysis on current project
-archguard check
+symmetra check
 
 # Validate specific files or directories
-archguard validate src/components/
+symmetra validate src/components/
 
 # Show configuration
-archguard config show
+symmetra config show
 ```
 
 ### Development Workflow
@@ -160,13 +160,13 @@ archguard config show
 pytest test/
 
 # Check architectural compliance
-archguard check
+symmetra check
 
 # Start development server
-uv run archguard server
+uv run symmetra server
 
 # Deploy to production
-archguard http --port 8080
+symmetra http --port 8080
 ```
 
 ## 🔗 Detailed Integration Guide
@@ -174,78 +174,78 @@ archguard http --port 8080
 ### Project Setup & Configuration
 
 If you are mostly working with the same project, you can configure to always activate it at startup
-by passing `--project <path_or_name>` to the ArchGuard server command in your client's MCP config.
+by passing `--project <path_or_name>` to the Symmetra server command in your client's MCP config.
 This is especially useful for clients which configure MCP servers on a per-project basis, like Claude Code.
 
 Otherwise, the recommended way is to just ask the LLM to activate a project by providing it an absolute path to, or,
 in case the project was configured before, by its name. The default project name is the directory name.
 
-* "Configure ArchGuard for the project /path/to/my_project"
-* "Activate ArchGuard for my_project"
+* "Configure Symmetra for the project /path/to/my_project"
+* "Activate Symmetra for my_project"
 
-All projects that have been configured will be automatically added to your global ArchGuard config, and for each
-project, the file `.archguard.toml` will be generated. You can adjust the latter, e.g., by changing the name
+All projects that have been configured will be automatically added to your global Symmetra config, and for each
+project, the file `.symmetra.toml` will be generated. You can adjust the latter, e.g., by changing the name
 (which you refer to during activation) or other architectural rules. Make sure to not have two different projects with
 the same name.
 
-ℹ️ For larger projects, we recommend that you analyze your project to accelerate ArchGuard's guidance; otherwise the first
+ℹ️ For larger projects, we recommend that you analyze your project to accelerate Symmetra's guidance; otherwise the first
 analysis may be slower. To do so, run this from the project directory (or pass the path to the project as an argument):
 
 ```shell
-uvx --from git+https://github.com/aic-holdings/archguard archguard check
+uvx --from git+https://github.com/aic-holdings/symmetra symmetra check
 ```
 
-### Running the ArchGuard MCP Server
+### Running the Symmetra MCP Server
 
-There are several ways to run the ArchGuard MCP server, depending on your setup:
+There are several ways to run the Symmetra MCP server, depending on your setup:
 
 **Option 1: Direct execution with uvx (Recommended)**
 ```shell
-uvx --from git+https://github.com/aic-holdings/archguard archguard server
+uvx --from git+https://github.com/aic-holdings/symmetra symmetra server
 ```
 
 **Option 2: Local development with uv**
 ```shell
-# From ArchGuard source directory
-uv run archguard server
+# From Symmetra source directory
+uv run symmetra server
 ```
 
 **Option 3: After installation**
 ```shell
-# If you've installed ArchGuard globally
-archguard server
+# If you've installed Symmetra globally
+symmetra server
 ```
 
 **Option 4: Docker**
 ```shell
 docker run --rm -i --network host \
   -v "$(pwd)":/workspace \
-  ghcr.io/aic-holdings/archguard:latest \
-  archguard server --transport stdio
+  ghcr.io/aic-holdings/symmetra:latest \
+  symmetra server --transport stdio
 ```
 
 ### Claude Code
 
-ArchGuard is a great way to make Claude Code both cheaper and more powerful with architectural guidance!
+Symmetra is a great way to make Claude Code both cheaper and more powerful with architectural guidance!
 
-From your project directory, add ArchGuard with a command like this:
+From your project directory, add Symmetra with a command like this:
 
 ```shell
-claude mcp add archguard -- <archguard-mcp-server> --context ide-assistant --project $(pwd)
+claude mcp add symmetra -- <symmetra-mcp-server> --context ide-assistant --project $(pwd)
 ```
 
-where `<archguard-mcp-server>` is your way of [running the ArchGuard MCP server](#running-the-archguard-mcp-server).
+where `<symmetra-mcp-server>` is your way of [running the Symmetra MCP server](#running-the-symmetra-mcp-server).
 For example, when using `uvx`, you would run:
 
 ```shell
-claude mcp add archguard -- uvx --from git+https://github.com/aic-holdings/archguard archguard server --context ide-assistant --project $(pwd)
+claude mcp add symmetra -- uvx --from git+https://github.com/aic-holdings/symmetra symmetra server --context ide-assistant --project $(pwd)
 ```
 
-ℹ️ ArchGuard comes with architectural guidance instructions, and Claude needs to read them to properly use ArchGuard's tools.
+ℹ️ Symmetra comes with architectural guidance instructions, and Claude needs to read them to properly use Symmetra's tools.
   As of version `v1.0.52`, Claude Code reads the instructions of the MCP server, so this **is handled automatically**.
   If you are using an older version, or if Claude fails to read the instructions, you can ask it explicitly
-  to "read ArchGuard's initial instructions" or access ArchGuard's guidance resources directly.
-  Note that you may have to make Claude read the instructions when you start a new conversation and after any compacting operation to ensure Claude remains properly configured to use ArchGuard's tools.
+  to "read Symmetra's initial instructions" or access Symmetra's guidance resources directly.
+  Note that you may have to make Claude read the instructions when you start a new conversation and after any compacting operation to ensure Claude remains properly configured to use Symmetra's tools.
 
 ### Other Terminal-Based Clients
 
@@ -254,7 +254,7 @@ There are many terminal-based coding assistants that support MCP servers, such a
 [rovodev](https://community.atlassian.com/forums/Rovo-for-Software-Teams-Beta/Introducing-Rovo-Dev-CLI-AI-Powered-Development-in-your-terminal/ba-p/3043623),
 the [OpenHands CLI](https://docs.all-hands.dev/usage/how-to/cli-mode) and [opencode](https://github.com/sst/opencode).
 
-They generally benefit from the architectural guidance tools provided by ArchGuard. You might want to customize some aspects of ArchGuard
+They generally benefit from the architectural guidance tools provided by Symmetra. You might want to customize some aspects of Symmetra
 by writing your own rules or configuration to adjust it to your workflow, to other MCP servers you are using, and to
 the client's internal capabilities.
 
@@ -262,16 +262,16 @@ the client's internal capabilities.
 
 For [Claude Desktop](https://claude.ai/download) (available for Windows and macOS), go to File / Settings / Developer / MCP Servers / Edit Config,
 which will let you open the JSON file `claude_desktop_config.json`.
-Add the `archguard` MCP server configuration, using a [run command](#running-the-archguard-mcp-server) depending on your setup.
+Add the `symmetra` MCP server configuration, using a [run command](#running-the-symmetra-mcp-server) depending on your setup.
 
 * local installation:
 
    ```json
    {
        "mcpServers": {
-           "archguard": {
+           "symmetra": {
                "command": "/abs/path/to/uv",
-               "args": ["run", "--directory", "/abs/path/to/archguard", "archguard", "server"]
+               "args": ["run", "--directory", "/abs/path/to/symmetra", "symmetra", "server"]
            }
        }
    }
@@ -282,9 +282,9 @@ Add the `archguard` MCP server configuration, using a [run command](#running-the
    ```json
    {
        "mcpServers": {
-           "archguard": {
+           "symmetra": {
                "command": "/abs/path/to/uvx",
-               "args": ["--from", "git+https://github.com/aic-holdings/archguard", "archguard", "server"]
+               "args": ["--from", "git+https://github.com/aic-holdings/symmetra", "symmetra", "server"]
            }
        }
    }
@@ -295,9 +295,9 @@ Add the `archguard` MCP server configuration, using a [run command](#running-the
   ```json
    {
        "mcpServers": {
-           "archguard": {
+           "symmetra": {
                "command": "docker",
-               "args": ["run", "--rm", "-i", "--network", "host", "-v", "/path/to/your/projects:/workspaces/projects", "ghcr.io/aic-holdings/archguard:latest", "archguard", "server", "--transport", "stdio"]
+               "args": ["run", "--rm", "-i", "--network", "host", "-v", "/path/to/your/projects:/workspaces/projects", "ghcr.io/aic-holdings/symmetra:latest", "symmetra", "server", "--transport", "stdio"]
            }
        }
    }
@@ -316,35 +316,35 @@ community version](https://github.com/aaddrick/claude-desktop-debian).
 ⚠️ Be sure to fully quit the Claude Desktop application, as closing Claude will just minimize it to the system tray – at least on Windows.
 
 ⚠️ Some clients may leave behind zombie processes. You will have to find and terminate them manually then.
-    With ArchGuard, you can activate the HTTP mode to prevent unnoted processes and also use the HTTP interface
-    for monitoring ArchGuard status.
+    With Symmetra, you can activate the HTTP mode to prevent unnoted processes and also use the HTTP interface
+    for monitoring Symmetra status.
 
-After restarting, you should see ArchGuard's tools in your chat interface (notice the small hammer icon).
+After restarting, you should see Symmetra's tools in your chat interface (notice the small hammer icon).
 
 For more information on MCP servers with Claude Desktop, see [the official quick start guide](https://modelcontextprotocol.io/quickstart/user).
 
 ### MCP Coding Clients (Cline, Roo-Code, Cursor, Windsurf, etc.)
 
-Being an MCP Server, ArchGuard can be included in any MCP Client. The same configuration as above,
+Being an MCP Server, Symmetra can be included in any MCP Client. The same configuration as above,
 perhaps with small client-specific modifications, should work. Most of the popular
 existing coding assistants (IDE extensions or VSCode-like IDEs) support connections
-to MCP Servers. It is **recommended to use the `ide-assistant` context** for these integrations by adding `"--context", "ide-assistant"` to the `args` in your MCP client's configuration. Including ArchGuard generally boosts their performance
+to MCP Servers. It is **recommended to use the `ide-assistant` context** for these integrations by adding `"--context", "ide-assistant"` to the `args` in your MCP client's configuration. Including Symmetra generally boosts their performance
 by providing them tools for architectural guidance and code quality analysis.
 
 In this case, the billing for the usage continues to be controlled by the client of your choice
-(unlike with the Claude Desktop client). But you may still want to use ArchGuard through such an approach,
+(unlike with the Claude Desktop client). But you may still want to use Symmetra through such an approach,
 e.g., for one of the following reasons:
 
 1. You are already using a coding assistant (say Cline or Cursor) and just want to make it more architecturally aware.
 2. You are on Linux and don't want to use the [community-created Claude Desktop](https://github.com/aaddrick/claude-desktop-debian).
-3. You want tighter integration of ArchGuard into your IDE and don't mind paying for that.
+3. You want tighter integration of Symmetra into your IDE and don't mind paying for that.
 
 ### Command-Line Arguments
 
-The ArchGuard MCP server supports several command-line arguments for customization:
+The Symmetra MCP server supports several command-line arguments for customization:
 
 ```shell
-archguard server [OPTIONS]
+symmetra server [OPTIONS]
 
 Options:
   --project PATH          Project path to activate automatically
@@ -359,24 +359,24 @@ Options:
 **Examples:**
 ```shell
 # Start with specific project
-archguard server --project /path/to/my/project
+symmetra server --project /path/to/my/project
 
 # Start in IDE assistant mode
-archguard server --context ide-assistant
+symmetra server --context ide-assistant
 
 # Start HTTP server on custom port
-archguard server --transport http --port 8080
+symmetra server --transport http --port 8080
 
 # Debug mode with verbose logging
-archguard server --log-level DEBUG
+symmetra server --log-level DEBUG
 ```
 
 ## ⚙️ Configuration
 
-ArchGuard supports flexible, layered configuration:
+Symmetra supports flexible, layered configuration:
 
 ### Global Configuration
-`~/.config/archguard/config.toml`
+`~/.config/symmetra/config.toml`
 ```toml
 [general]
 default_complexity_threshold = "medium"
@@ -389,7 +389,7 @@ enforce_type_hints = true
 ```
 
 ### Project Configuration
-`.archguard.toml` (in project root)
+`.symmetra.toml` (in project root)
 ```toml
 [project]
 name = "my-awesome-app"
@@ -409,10 +409,10 @@ paths = ["migrations/", "legacy/"]
 ## 🏗️ Architecture & Integration
 
 ### MCP Protocol Integration
-ArchGuard implements the Model Context Protocol (MCP) specification:
+Symmetra implements the Model Context Protocol (MCP) specification:
 
 - **Tools**: `get_guidance(action, code)` - Real-time architectural advice
-- **Resources**: `archguard://rules` - Access to governance rules and patterns  
+- **Resources**: `symmetra://rules` - Access to governance rules and patterns  
 - **Prompts**: `review_code(code)` - Structured code review templates
 
 ### Transport Modes
@@ -433,11 +433,11 @@ ArchGuard implements the Model Context Protocol (MCP) specification:
 - **[Rule Development](docs/rules.md)** - Writing custom architectural rules
 - **[API Reference](docs/api.md)** - MCP protocol implementation details
 - **[Integration Guide](docs/integrations.md)** - Platform-specific setup instructions
-- **[Contributing Guide](CONTRIBUTING.md)** - How to contribute to ArchGuard
+- **[Contributing Guide](CONTRIBUTING.md)** - How to contribute to Symmetra
 
 ## 🎯 Design Philosophy
 
-**🤝 Advisory, Not Blocking**: ArchGuard provides intelligent suggestions without breaking your development flow. AI agents receive guidance but developers maintain full control.
+**🤝 Advisory, Not Blocking**: Symmetra provides intelligent suggestions without breaking your development flow. AI agents receive guidance but developers maintain full control.
 
 **🧠 AI-Native**: Built specifically for AI-powered development workflows, ensuring seamless integration with modern coding assistants.
 
@@ -467,18 +467,18 @@ ArchGuard implements the Model Context Protocol (MCP) specification:
 
 ## 🤝 Contributing
 
-We welcome contributions! ArchGuard is built by developers, for developers.
+We welcome contributions! Symmetra is built by developers, for developers.
 
-- **🐛 Found a bug?** [Open an issue](https://github.com/aic-holdings/archguard/issues/new/choose)
-- **💡 Have a feature idea?** [Start a discussion](https://github.com/aic-holdings/archguard/discussions)
+- **🐛 Found a bug?** [Open an issue](https://github.com/aic-holdings/symmetra/issues/new/choose)
+- **💡 Have a feature idea?** [Start a discussion](https://github.com/aic-holdings/symmetra/discussions)
 - **📝 Want to contribute?** Check our [Contributing Guide](CONTRIBUTING.md)
 
 ### Development Setup
 
 ```bash
 # Clone the repository
-git clone https://github.com/aic-holdings/archguard
-cd archguard
+git clone https://github.com/aic-holdings/symmetra
+cd symmetra
 
 # Install development dependencies
 uv sync --dev
@@ -487,15 +487,15 @@ uv sync --dev
 pytest
 
 # Run the development server
-uv run archguard server
+uv run symmetra server
 ```
 
 ## 🌟 Community & Support
 
-- **📖 Documentation**: [archguard.dev](https://archguard.dev)
-- **💬 Discussions**: [GitHub Discussions](https://github.com/aic-holdings/archguard/discussions)
-- **🐛 Issues**: [GitHub Issues](https://github.com/aic-holdings/archguard/issues)
-- **📧 Email**: support@archguard.dev
+- **📖 Documentation**: [symmetra.dev](https://symmetra.dev)
+- **💬 Discussions**: [GitHub Discussions](https://github.com/aic-holdings/symmetra/discussions)
+- **🐛 Issues**: [GitHub Issues](https://github.com/aic-holdings/symmetra/issues)
+- **📧 Email**: support@symmetra.dev
 
 ## 📄 License
 
@@ -509,6 +509,6 @@ This project is licensed under the [MIT License](LICENSE) - see the LICENSE file
 
 ---
 
-**ArchGuard v0** - Bringing architectural intelligence to AI-powered development.
+**Symmetra v0** - Bringing architectural intelligence to AI-powered development.
 
 *Built with ❤️ by developers who care about code quality and team productivity.*

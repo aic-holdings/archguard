@@ -1,6 +1,6 @@
-# ArchGuard MCP Tools API Reference
+# Symmetra MCP Tools API Reference
 
-ArchGuard provides several MCP tools for architectural guidance and rule management. All tools return structured data optimized for AI consumption.
+Symmetra provides several MCP tools for architectural guidance and rule management. All tools return structured data optimized for AI consumption.
 
 ## Core Tools
 
@@ -117,32 +117,32 @@ for category in categories['categories']:
 
 ## Advanced Tools
 
-### get_archguard_help()
+### get_symmetra_help()
 
-**Purpose**: Get comprehensive help on using ArchGuard effectively
+**Purpose**: Get comprehensive help on using Symmetra effectively
 
 **Parameters**: None
 
 **Returns**:
 ```json
 {
-  "usage_guide": "Detailed instructions on using ArchGuard",
+  "usage_guide": "Detailed instructions on using Symmetra",
   "best_practices": ["How to phrase requests", "Integration workflows"],
   "examples": ["Example interactions", "Common patterns"],
-  "capabilities": ["What ArchGuard can analyze", "Supported architectures"]
+  "capabilities": ["What Symmetra can analyze", "Supported architectures"]
 }
 ```
 
 **Example Usage**:
 ```python
-# Get help using ArchGuard
-help_info = get_archguard_help()
+# Get help using Symmetra
+help_info = get_symmetra_help()
 print(help_info['usage_guide'])
 ```
 
 ## Context-Aware Behavior
 
-ArchGuard adapts its responses based on context:
+Symmetra adapts its responses based on context:
 
 ### IDE Assistant Context
 - **Concise, actionable guidance**
@@ -228,7 +228,7 @@ All tools return structured error information:
 
 ### Direct Integration
 ```python
-from archguard.server import get_guidance
+from symmetra.server import get_guidance
 
 # Direct function calls
 result = get_guidance("implement caching layer")
@@ -253,7 +253,7 @@ curl -X POST http://localhost:8000/mcp \
 
 ## Rule Matching Algorithm
 
-ArchGuard uses different matching strategies based on engine type:
+Symmetra uses different matching strategies based on engine type:
 
 ### Keyword Engine
 1. **Tokenize** action and code into keywords
@@ -301,7 +301,7 @@ class CustomRuleEngine(RuleEngine):
 
 ### Custom Metrics
 ```python
-from archguard.metrics import track_usage
+from symmetra.metrics import track_usage
 
 @track_usage("custom_guidance")
 def my_guidance_function():
@@ -313,6 +313,6 @@ def my_guidance_function():
 ```python
 import logging
 
-# Configure ArchGuard logging
-logging.getLogger('archguard').setLevel(logging.DEBUG)
+# Configure Symmetra logging
+logging.getLogger('symmetra').setLevel(logging.DEBUG)
 ```

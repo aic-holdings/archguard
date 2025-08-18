@@ -3,9 +3,9 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "archguard"
+name = "symmetra"
 version = "0.1.0"
-description = "ArchGuard MCP Server - Architectural decision tracking and governance"
+description = "Symmetra MCP Server - Architectural decision tracking and governance"
 readme = "README.md"
 requires-python = ">=3.8"
 license = {text = "MIT"}
@@ -55,17 +55,17 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/aic-holdings/archguard"
-Repository = "https://github.com/aic-holdings/archguard"
-Issues = "https://github.com/aic-holdings/archguard/issues"
+Homepage = "https://github.com/aic-holdings/symmetra"
+Repository = "https://github.com/aic-holdings/symmetra"
+Issues = "https://github.com/aic-holdings/symmetra/issues"
 
 [project.scripts]
-archguard = "archguard.cli:main"
-archguard-server = "archguard.cli:server_main_cli"
-archguard-http = "archguard.cli:http_main_cli"
+symmetra = "symmetra.cli:main"
+symmetra-server = "symmetra.cli:server_main_cli"
+symmetra-http = "symmetra.cli:http_main_cli"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/archguard"]
+packages = ["src/symmetra"]
 
 [tool.hatch.build.targets.sdist]
 include = [

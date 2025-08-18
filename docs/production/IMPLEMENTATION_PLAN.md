@@ -1,10 +1,10 @@
-# ArchGuard Implementation Plan: From Current State to Production
+# Symmetra Implementation Plan: From Current State to Production
 
 ## Current State Assessment
 
 We have built impressive infrastructure that's largely unused. The Supabase database is set up with pgvector, complete with rule tables, embedding storage, and row-level security. We have migration scripts, bootstrap rules, and embedding generation tools. What we don't have is the actual connection between the AI guidance system and this powerful foundation.
 
-The current `ai_guidance.py` contains hardcoded guidance that ignores the vector database entirely. It's essentially providing generic architectural advice that any AI could give, rather than team-specific guidance that makes ArchGuard valuable. Meanwhile, our Supabase setup sits ready with 384-dimensional vector storage and semantic search capabilities.
+The current `ai_guidance.py` contains hardcoded guidance that ignores the vector database entirely. It's essentially providing generic architectural advice that any AI could give, rather than team-specific guidance that makes Symmetra valuable. Meanwhile, our Supabase setup sits ready with 384-dimensional vector storage and semantic search capabilities.
 
 ## The Bridge We Need to Build
 
@@ -34,7 +34,7 @@ The testing approach should include both automated tests for the core functional
 
 ## Deployment and Rollout Approach
 
-The initial deployment should focus on getting the core vector search and AI synthesis working with the existing bootstrap rules. This provides immediate value for teams while the system's rule customization capabilities are being refined. Teams can start using ArchGuard with sensible defaults and gradually add their own specific rules over time.
+The initial deployment should focus on getting the core vector search and AI synthesis working with the existing bootstrap rules. This provides immediate value for teams while the system's rule customization capabilities are being refined. Teams can start using Symmetra with sensible defaults and gradually add their own specific rules over time.
 
 The rollout can be gradual, starting with internal testing and expanding to early adopter teams who can provide feedback on both the technical functionality and the guidance quality. This feedback loop will be essential for refining the AI synthesis prompts and identifying gaps in the rule coverage.
 
@@ -52,9 +52,9 @@ The system should collect usage analytics that help improve both individual team
 
 ## Success Metrics and Validation
 
-Success should be measured by whether teams actually follow the guidance ArchGuard provides and whether their architectural consistency improves over time. Technical metrics like response time and search accuracy are necessary but not sufficient. The real validation comes from teams reporting that ArchGuard helps them make better architectural decisions faster.
+Success should be measured by whether teams actually follow the guidance Symmetra provides and whether their architectural consistency improves over time. Technical metrics like response time and search accuracy are necessary but not sufficient. The real validation comes from teams reporting that Symmetra helps them make better architectural decisions faster.
 
-The system should track decision outcomes where possible. When ArchGuard recommends a particular approach and the team follows that guidance, how does that choice work out over time? This kind of longitudinal tracking will be essential for validating that the system provides genuine value rather than just convenient advice.
+The system should track decision outcomes where possible. When Symmetra recommends a particular approach and the team follows that guidance, how does that choice work out over time? This kind of longitudinal tracking will be essential for validating that the system provides genuine value rather than just convenient advice.
 
 ## Resource Requirements and Timeline
 
@@ -70,6 +70,6 @@ The main product risk involves rule content quality. If teams create rules that 
 
 ## Long-term Vision Alignment
 
-This implementation plan aligns with the long-term vision of ArchGuard as a system that captures and applies team-specific architectural knowledge. By building on the vector database foundation we've already created, we can deliver immediate value while preserving the flexibility to add more sophisticated capabilities over time.
+This implementation plan aligns with the long-term vision of Symmetra as a system that captures and applies team-specific architectural knowledge. By building on the vector database foundation we've already created, we can deliver immediate value while preserving the flexibility to add more sophisticated capabilities over time.
 
-The approach balances pragmatic near-term delivery with architectural flexibility for future enhancement. Teams can start benefiting from ArchGuard quickly, while the underlying infrastructure supports more advanced features as both the technology and user needs evolve.
+The approach balances pragmatic near-term delivery with architectural flexibility for future enhancement. Teams can start benefiting from Symmetra quickly, while the underlying infrastructure supports more advanced features as both the technology and user needs evolve.

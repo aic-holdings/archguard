@@ -1,18 +1,18 @@
 """
-ArchGuard HTTP Server - Production deployment version
+Symmetra HTTP Server - Production deployment version
 """
 
 # Use absolute imports to avoid issues with direct module execution
 try:
-    from archguard.server import mcp
-    from archguard.config import ArchGuardConfig
+    from symmetra.server import mcp
+    from symmetra.config import SymmetraConfig
 except ImportError:
     # Fallback for development/direct execution
     import sys
     import os
     sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    from archguard.server import mcp
-    from archguard.config import ArchGuardConfig
+    from symmetra.server import mcp
+    from symmetra.config import SymmetraConfig
 
 # Create FastAPI app for uvicorn compatibility  
 try:
@@ -26,13 +26,13 @@ def main(host: str = None, port: int = None):
     """Main entry point for the HTTP server"""
     # Use centralized config if not provided
     if host is None:
-        host = ArchGuardConfig.get_http_host()
+        host = SymmetraConfig.get_http_host()
     if port is None:
-        port = ArchGuardConfig.get_http_port()
+        port = SymmetraConfig.get_http_port()
     
-    path = ArchGuardConfig.get_http_path()
+    path = SymmetraConfig.get_http_path()
     
-    print("🛡️ Starting ArchGuard MCP Server (HTTP mode)...")
+    print("🛡️ Starting Symmetra MCP Server (HTTP mode)...")
     print(f"🌐 Server will be available at: http://localhost:{port}{path}")
     print("📋 Use this for production deployments and Docker containers")
     

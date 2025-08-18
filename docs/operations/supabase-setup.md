@@ -1,15 +1,15 @@
-# ArchGuard Supabase Database Setup Guide
+# Symmetra Supabase Database Setup Guide
 
 ## Overview
 
-This guide outlines the complete setup process for ArchGuard's Supabase backend with pgvector for semantic rule storage and retrieval.
+This guide outlines the complete setup process for Symmetra's Supabase backend with pgvector for semantic rule storage and retrieval.
 
 ## Architecture
 
 ```
 ┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
 │   MCP Client    │───▶│  Edge Function   │───▶│   PostgreSQL    │
-│   (Claude)      │    │  (ArchGuard API) │    │   + pgvector    │
+│   (Claude)      │    │  (Symmetra API) │    │   + pgvector    │
 └─────────────────┘    └──────────────────┘    └─────────────────┘
                                 │                       │
                                 ▼                       ▼
@@ -26,7 +26,7 @@ This guide outlines the complete setup process for ArchGuard's Supabase backend 
 
 ```bash
 # Using Supabase CLI
-npx supabase projects create archguard-rules --org your-org-id
+npx supabase projects create symmetra-rules --org your-org-id
 ```
 
 ### 1.2 Enable pgvector Extension
@@ -159,10 +159,10 @@ CREATE TABLE rule_examples (
 
 ## Phase 4: Edge Function Setup
 
-### 4.1 Deploy ArchGuard Edge Function
+### 4.1 Deploy Symmetra Edge Function
 
 ```typescript
-// supabase/functions/archguard-mcp/index.ts
+// supabase/functions/symmetra-mcp/index.ts
 import { createClient } from '@supabase/supabase-js'
 import { serve } from 'std/http'
 
@@ -224,7 +224,7 @@ serve(async (req: Request) => {
 
 ```bash
 # Deploy the edge function
-npx supabase functions deploy archguard-mcp
+npx supabase functions deploy symmetra-mcp
 ```
 
 ## Phase 5: Data Migration
@@ -374,4 +374,4 @@ OPENAI_API_KEY=optional-for-embeddings  # if using OpenAI embeddings
 3. **Migration Scripts**: Version control all schema changes
 4. **Disaster Recovery**: Document recovery procedures
 
-This setup provides a production-ready, scalable foundation for ArchGuard's rule management system with semantic search capabilities.
+This setup provides a production-ready, scalable foundation for Symmetra's rule management system with semantic search capabilities.

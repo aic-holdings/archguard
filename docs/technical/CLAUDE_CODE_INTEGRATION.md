@@ -1,10 +1,10 @@
-# ArchGuard + Claude Code Integration Guide
+# Symmetra + Claude Code Integration Guide
 
-This guide shows you how to integrate ArchGuard with Claude Code for intelligent architectural guidance, following patterns similar to Serena's approach.
+This guide shows you how to integrate Symmetra with Claude Code for intelligent architectural guidance, following patterns similar to Serena's approach.
 
-## 🎯 What ArchGuard Provides
+## 🎯 What Symmetra Provides
 
-**ArchGuard specializes in AI-powered architectural guidance**:
+**Symmetra specializes in AI-powered architectural guidance**:
 
 - **AI-First Analysis**: Uses intelligent reasoning rather than rigid rules for contextual guidance
 - **Architectural Patterns**: Suggests appropriate design patterns and architectural decisions
@@ -14,7 +14,7 @@ This guide shows you how to integrate ArchGuard with Claude Code for intelligent
 
 ## 🔄 Server Modes
 
-ArchGuard offers two modes to match different needs:
+Symmetra offers two modes to match different needs:
 
 ### Simple Mode (Recommended - Default)
 - **AI-powered guidance** for architectural decisions
@@ -32,34 +32,34 @@ ArchGuard offers two modes to match different needs:
 
 ### Method 1: Direct Execution with uvx (Recommended - Serena Style)
 
-No permanent installation needed! Run ArchGuard directly:
+No permanent installation needed! Run Symmetra directly:
 
 ```bash
 # Run MCP server directly (for Claude Code)
-uvx --from git+https://github.com/aic-holdings/archguard archguard server
+uvx --from git+https://github.com/aic-holdings/symmetra symmetra server
 
 # Or test other commands
-uvx --from git+https://github.com/aic-holdings/archguard archguard --help
-uvx --from git+https://github.com/aic-holdings/archguard archguard init
+uvx --from git+https://github.com/aic-holdings/symmetra symmetra --help
+uvx --from git+https://github.com/aic-holdings/symmetra symmetra init
 ```
 
 ### Method 2: Permanent Installation via uvx
 
 ```bash
-# Install ArchGuard globally
-uvx install git+https://github.com/aic-holdings/archguard.git
+# Install Symmetra globally
+uvx install git+https://github.com/aic-holdings/symmetra.git
 
 # Then use normally
-archguard --help
-archguard server
+symmetra --help
+symmetra server
 ```
 
 ### Method 3: Install via pip
 
 ```bash
 # Clone and install
-git clone https://github.com/aic-holdings/archguard.git
-cd archguard
+git clone https://github.com/aic-holdings/symmetra.git
+cd symmetra
 pip install -e .
 ```
 
@@ -67,7 +67,7 @@ pip install -e .
 
 ### 1. Configure MCP Server
 
-Add ArchGuard to your Claude Code MCP servers configuration:
+Add Symmetra to your Claude Code MCP servers configuration:
 
 **Location**: Claude Code settings → MCP Servers
 
@@ -75,9 +75,9 @@ Add ArchGuard to your Claude Code MCP servers configuration:
 ```json
 {
   "mcpServers": {
-    "archguard": {
+    "symmetra": {
       "command": "uvx",
-      "args": ["--from", "git+https://github.com/aic-holdings/archguard", "archguard", "server", "--mode", "simple"],
+      "args": ["--from", "git+https://github.com/aic-holdings/symmetra", "symmetra", "server", "--mode", "simple"],
       "env": {
         "ARCHGUARD_LOG_LEVEL": "INFO"
       }
@@ -90,9 +90,9 @@ Add ArchGuard to your Claude Code MCP servers configuration:
 ```json
 {
   "mcpServers": {
-    "archguard": {
+    "symmetra": {
       "command": "uvx",
-      "args": ["--from", "git+https://github.com/aic-holdings/archguard", "archguard", "server", "--mode", "complex"],
+      "args": ["--from", "git+https://github.com/aic-holdings/symmetra", "symmetra", "server", "--mode", "complex"],
       "env": {
         "ARCHGUARD_LOG_LEVEL": "INFO"
       }
@@ -101,12 +101,12 @@ Add ArchGuard to your Claude Code MCP servers configuration:
 }
 ```
 
-#### Option B: If you've installed ArchGuard globally
+#### Option B: If you've installed Symmetra globally
 ```json
 {
   "mcpServers": {
-    "archguard": {
-      "command": "archguard",
+    "symmetra": {
+      "command": "symmetra",
       "args": ["server"],
       "env": {
         "ARCHGUARD_LOG_LEVEL": "INFO"
@@ -123,12 +123,12 @@ For development or custom installations:
 ```json
 {
   "mcpServers": {
-    "archguard-dev": {
+    "symmetra-dev": {
       "command": "python",
-      "args": ["-m", "archguard.cli", "server"],
-      "cwd": "/path/to/archguard",
+      "args": ["-m", "symmetra.cli", "server"],
+      "cwd": "/path/to/symmetra",
       "env": {
-        "PYTHONPATH": "/path/to/archguard/src",
+        "PYTHONPATH": "/path/to/symmetra/src",
         "ARCHGUARD_LOG_LEVEL": "DEBUG"
       }
     }
@@ -144,7 +144,7 @@ After configuration, restart Claude Code for the changes to take effect.
 
 ### 1. Architectural Guidance
 
-ArchGuard provides intelligent suggestions for:
+Symmetra provides intelligent suggestions for:
 
 - **Code Architecture**: Best practices for structuring applications
 - **Design Patterns**: Recommendations for appropriate design patterns
@@ -161,11 +161,11 @@ ArchGuard provides intelligent suggestions for:
 
 ### 3. Interactive Resources
 
-ArchGuard exposes several resources that Claude Code can access:
+Symmetra exposes several resources that Claude Code can access:
 
-- `archguard://rules` - Architectural rules and guidelines
-- `archguard://patterns` - Design pattern recommendations
-- `archguard://checklist` - Code review checklist
+- `symmetra://rules` - Architectural rules and guidelines
+- `symmetra://patterns` - Design pattern recommendations
+- `symmetra://checklist` - Code review checklist
 
 ## Usage Examples
 
@@ -174,14 +174,14 @@ ArchGuard exposes several resources that Claude Code can access:
 In Claude Code, you can now ask questions like:
 
 ```
-"Can you use ArchGuard to analyze this function and suggest improvements?"
+"Can you use Symmetra to analyze this function and suggest improvements?"
 
 def complex_function(data, options, flags, mode):
     # Complex nested logic here
     pass
 ```
 
-Claude Code will automatically use ArchGuard's `get_guidance` tool to provide:
+Claude Code will automatically use Symmetra's `get_guidance` tool to provide:
 - Complexity analysis
 - Refactoring suggestions
 - Best practice recommendations
@@ -190,10 +190,10 @@ Claude Code will automatically use ArchGuard's `get_guidance` tool to provide:
 ### Project-Level Analysis
 
 ```
-"Use ArchGuard to analyze the overall architecture of this project and suggest improvements."
+"Use Symmetra to analyze the overall architecture of this project and suggest improvements."
 ```
 
-ArchGuard will examine:
+Symmetra will examine:
 - Project structure
 - Module dependencies
 - Design pattern usage
@@ -202,14 +202,14 @@ ArchGuard will examine:
 ### Security Review
 
 ```
-"Have ArchGuard review this code for security issues."
+"Have Symmetra review this code for security issues."
 
 def authenticate_user(username, password):
     # Authentication logic
     pass
 ```
 
-ArchGuard provides:
+Symmetra provides:
 - Security vulnerability detection
 - Best practice recommendations
 - Compliance guidance
@@ -218,7 +218,7 @@ ArchGuard provides:
 
 ### Environment Variables
 
-Configure ArchGuard behavior through environment variables:
+Configure Symmetra behavior through environment variables:
 
 ```bash
 # Logging level
@@ -233,7 +233,7 @@ ARCHGUARD_TEST_MODE=true
 
 ### Project-Level Configuration
 
-Create `.archguard.toml` in your project root:
+Create `.symmetra.toml` in your project root:
 
 ```toml
 [project]
@@ -255,18 +255,18 @@ enforce_https = true
 
 ## Troubleshooting
 
-### ArchGuard Not Available in Claude Code
+### Symmetra Not Available in Claude Code
 
-1. **Check Installation**: Verify ArchGuard is installed and accessible
+1. **Check Installation**: Verify Symmetra is installed and accessible
    ```bash
-   archguard --version
-   archguard server --help
+   symmetra --version
+   symmetra server --help
    ```
 
 2. **Verify Configuration**: Ensure MCP server configuration is correct
    ```bash
    # Test server manually
-   archguard server
+   symmetra server
    ```
 
 3. **Check Logs**: Enable debug logging to see detailed information
@@ -287,14 +287,14 @@ enforce_https = true
 
 2. **Test Server Manually**:
    ```bash
-   archguard server
+   symmetra server
    # Should start without errors
    ```
 
 3. **Verify Python Path**: For development installations
    ```bash
-   export PYTHONPATH=/path/to/archguard/src
-   python -m archguard.cli server
+   export PYTHONPATH=/path/to/symmetra/src
+   python -m symmetra.cli server
    ```
 
 ### Performance Issues
@@ -322,7 +322,7 @@ enforce_https = true
 Create custom architectural rules:
 
 ```toml
-# .archguard.toml
+# .symmetra.toml
 [rules.custom]
 "no-god-objects" = "Classes should not exceed 20 methods"
 "single-responsibility" = "Each module should have one primary responsibility"
@@ -331,11 +331,11 @@ Create custom architectural rules:
 
 ### Integration with CI/CD
 
-Use ArchGuard in continuous integration:
+Use Symmetra in continuous integration:
 
 ```yaml
-# .github/workflows/archguard.yml
-name: ArchGuard Analysis
+# .github/workflows/symmetra.yml
+name: Symmetra Analysis
 on: [push, pull_request]
 
 jobs:
@@ -347,29 +347,29 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: '3.9'
-    - name: Install ArchGuard
-      run: uvx --from git+https://github.com/aic-holdings/archguard archguard
+    - name: Install Symmetra
+      run: uvx --from git+https://github.com/aic-holdings/symmetra symmetra
     - name: Run Analysis
-      run: archguard check --output-format json > analysis.json
+      run: symmetra check --output-format json > analysis.json
 ```
 
 ## Comparison with Serena
 
-ArchGuard provides similar semantic code analysis capabilities to Serena but focuses specifically on:
+Symmetra provides similar semantic code analysis capabilities to Serena but focuses specifically on:
 
 - **Architectural Guidance**: Deep understanding of software architecture patterns
 - **Code Quality**: Comprehensive code quality analysis and suggestions
 - **Security**: Built-in security best practices and vulnerability detection
 - **Performance**: Performance optimization recommendations
 
-While Serena is a broader coding agent toolkit, ArchGuard specializes in architectural analysis and guidance, making it an excellent complement to Claude Code's development capabilities.
+While Serena is a broader coding agent toolkit, Symmetra specializes in architectural analysis and guidance, making it an excellent complement to Claude Code's development capabilities.
 
 ## Getting Help
 
-- **Documentation**: [ArchGuard Docs](https://github.com/aic-holdings/archguard/docs)
-- **Issues**: [GitHub Issues](https://github.com/aic-holdings/archguard/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/aic-holdings/archguard/discussions)
+- **Documentation**: [Symmetra Docs](https://github.com/aic-holdings/symmetra/docs)
+- **Issues**: [GitHub Issues](https://github.com/aic-holdings/symmetra/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/aic-holdings/symmetra/discussions)
 
 ## Contributing
 
-See [CONTRIBUTING.md](../CONTRIBUTING.md) for guidelines on contributing to ArchGuard's Claude Code integration capabilities.
+See [CONTRIBUTING.md](../CONTRIBUTING.md) for guidelines on contributing to Symmetra's Claude Code integration capabilities.

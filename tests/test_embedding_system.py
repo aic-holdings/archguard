@@ -471,8 +471,8 @@ class TestProductionReadiness:
         Supports containerized deployments and configuration management.
         """
         production_config = {
-            "ARCHGUARD_SUPABASE_URL": "https://project.supabase.co",
-            "ARCHGUARD_SUPABASE_KEY": "eyJ...",
+            "SYMMETRA_SUPABASE_URL": "https://project.supabase.co",
+            "SYMMETRA_SUPABASE_KEY": "eyJ...",
             "ARCHGUARD_EMBEDDING_MODEL": "nomic-embed-text",
             "ARCHGUARD_MAX_WORKERS": "3",
             "ARCHGUARD_BATCH_SIZE": "50"

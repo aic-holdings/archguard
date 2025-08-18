@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-ArchGuard CLI - Command line interface for ArchGuard architectural toolkit
+Symmetra CLI - Command line interface for Symmetra architectural toolkit
 """
 
 import argparse
@@ -11,32 +11,32 @@ from typing import List, Optional
 
 # Use absolute imports to avoid issues with direct module execution
 try:
-    from archguard.server import main as server_main
-    from archguard.simple_server import run_server as simple_server_main
-    from archguard.http_server import main as http_server_main
-    from archguard.config import ArchGuardConfig
+    from symmetra.server import main as server_main
+    from symmetra.simple_server import run_server as simple_server_main
+    from symmetra.http_server import main as http_server_main
+    from symmetra.config import SymmetraConfig
 except ImportError:
     # Fallback for development/direct execution
     import sys
     import os
     sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    from archguard.server import main as server_main
-    from archguard.simple_server import run_server as simple_server_main
-    from archguard.http_server import main as http_server_main
-    from archguard.config import ArchGuardConfig
+    from symmetra.server import main as server_main
+    from symmetra.simple_server import run_server as simple_server_main
+    from symmetra.http_server import main as http_server_main
+    from symmetra.config import SymmetraConfig
 
 
 def init_command(args) -> None:
-    """Initialize ArchGuard in a project."""
-    project_config = Path.cwd() / ".archguard.toml"
+    """Initialize Symmetra in a project."""
+    project_config = Path.cwd() / ".symmetra.toml"
     
     if project_config.exists() and not args.force:
-        print(f"❌ .archguard.toml already exists in {Path.cwd()}")
+        print(f"❌ .symmetra.toml already exists in {Path.cwd()}")
         print("Use --force to overwrite")
         sys.exit(1)
     
     # Create sample project configuration
-    config_content = """# ArchGuard Project Configuration
+    config_content = """# Symmetra Project Configuration
 # This file defines architectural rules and settings for your project
 
 [project]
@@ -66,12 +66,12 @@ paths = [
     try:
         with open(project_config, 'w') as f:
             f.write(config_content)
-        print(f"✅ Initialized ArchGuard in {Path.cwd()}")
+        print(f"✅ Initialized Symmetra in {Path.cwd()}")
         print(f"📝 Created {project_config}")
         print("\nNext steps:")
-        print("  1. Edit .archguard.toml to customize rules for your project")
-        print("  2. Run 'archguard check' to analyze your codebase")
-        print("  3. Integrate with your AI assistant using 'archguard server'")
+        print("  1. Edit .symmetra.toml to customize rules for your project")
+        print("  2. Run 'symmetra check' to analyze your codebase")
+        print("  3. Integrate with your AI assistant using 'symmetra server'")
     except Exception as e:
         print(f"❌ Failed to create configuration: {e}")
         sys.exit(1)
@@ -79,39 +79,39 @@ paths = [
 
 def check_command(args) -> None:
     """Run architectural analysis on the project."""
-    print("🔍 Running ArchGuard architectural analysis...")
+    print("🔍 Running Symmetra architectural analysis...")
     
-    # Check if we're in a project with ArchGuard config
-    config_path = ArchGuardConfig._get_project_config_path()
+    # Check if we're in a project with Symmetra config
+    config_path = SymmetraConfig._get_project_config_path()
     if not config_path:
-        print("⚠️  No .archguard.toml found. Run 'archguard init' first.")
+        print("⚠️  No .symmetra.toml found. Run 'symmetra init' first.")
         return
     
     print(f"📋 Using configuration: {config_path}")
     
     # Get project settings
-    project_name = ArchGuardConfig.get_project_name()
+    project_name = SymmetraConfig.get_project_name()
     if project_name:
         print(f"📦 Project: {project_name}")
     
-    arch_style = ArchGuardConfig.get_architecture_style()
+    arch_style = SymmetraConfig.get_architecture_style()
     if arch_style:
         print(f"🏗️  Architecture: {arch_style}")
     
-    max_lines = ArchGuardConfig.get_max_file_lines()
+    max_lines = SymmetraConfig.get_max_file_lines()
     print(f"📏 Max file lines: {max_lines}")
     
-    ignored_paths = ArchGuardConfig.get_ignored_paths()
+    ignored_paths = SymmetraConfig.get_ignored_paths()
     if ignored_paths:
         print(f"🚫 Ignored paths: {', '.join(ignored_paths)}")
     
     print("\n🎯 Analysis Results:")
     print("✅ Configuration is valid")
-    print("💡 For real-time guidance, run 'archguard server' and integrate with your AI assistant")
+    print("💡 For real-time guidance, run 'symmetra server' and integrate with your AI assistant")
     
     if args.verbose:
         print(f"\n🔧 Full configuration:")
-        config = ArchGuardConfig._merge_configs()
+        config = SymmetraConfig._merge_configs()
         for section, values in config.items():
             print(f"  [{section}]")
             if isinstance(values, dict):
@@ -122,13 +122,13 @@ def check_command(args) -> None:
 
 
 def config_command(args) -> None:
-    """Show or manage ArchGuard configuration."""
+    """Show or manage Symmetra configuration."""
     if args.action == "show":
-        print("🔧 ArchGuard Configuration")
+        print("🔧 Symmetra Configuration")
         print("=" * 50)
         
         # Show global config path
-        global_path = ArchGuardConfig._get_global_config_path()
+        global_path = SymmetraConfig._get_global_config_path()
         print(f"📁 Global config: {global_path}")
         if global_path.exists():
             print("   ✅ Found")
@@ -136,7 +136,7 @@ def config_command(args) -> None:
             print("   ❌ Not found (using defaults)")
         
         # Show project config path
-        project_path = ArchGuardConfig._get_project_config_path()
+        project_path = SymmetraConfig._get_project_config_path()
         if project_path:
             print(f"📁 Project config: {project_path}")
             print("   ✅ Found")
@@ -144,22 +144,22 @@ def config_command(args) -> None:
             print("📁 Project config: Not found")
         
         print(f"\n🌐 Current settings:")
-        print(f"   HTTP Host: {ArchGuardConfig.get_http_host()}")
-        print(f"   HTTP Port: {ArchGuardConfig.get_http_port()}")
-        print(f"   Log Level: {ArchGuardConfig.get_log_level()}")
-        print(f"   Max File Lines: {ArchGuardConfig.get_max_file_lines()}")
-        print(f"   Complexity Threshold: {ArchGuardConfig.get_complexity_threshold()}")
+        print(f"   HTTP Host: {SymmetraConfig.get_http_host()}")
+        print(f"   HTTP Port: {SymmetraConfig.get_http_port()}")
+        print(f"   Log Level: {SymmetraConfig.get_log_level()}")
+        print(f"   Max File Lines: {SymmetraConfig.get_max_file_lines()}")
+        print(f"   Complexity Threshold: {SymmetraConfig.get_complexity_threshold()}")
         
-        project_name = ArchGuardConfig.get_project_name()
+        project_name = SymmetraConfig.get_project_name()
         if project_name:
             print(f"   Project Name: {project_name}")
     
     elif args.action == "init-global":
-        global_path = ArchGuardConfig._get_global_config_path()
+        global_path = SymmetraConfig._get_global_config_path()
         global_path.parent.mkdir(parents=True, exist_ok=True)
         
-        global_config = """# ArchGuard Global Configuration
-# This file defines default settings for all ArchGuard projects
+        global_config = """# Symmetra Global Configuration
+# This file defines default settings for all Symmetra projects
 
 [general]
 log_level = "INFO"
@@ -194,26 +194,26 @@ enforce_type_hints = true
 def main() -> None:
     """Main CLI entry point."""
     parser = argparse.ArgumentParser(
-        description="ArchGuard - Your AI-powered architectural co-pilot",
+        description="Symmetra - Your AI-powered architectural co-pilot",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  archguard init                      # Initialize ArchGuard in current project
-  archguard check                     # Run architectural analysis
-  archguard server                    # Start MCP server for AI integration
-  archguard http --port 8080          # Start HTTP server for production
-  archguard config show               # Show current configuration
+  symmetra init                      # Initialize Symmetra in current project
+  symmetra check                     # Run architectural analysis
+  symmetra server                    # Start MCP server for AI integration
+  symmetra http --port 8080          # Start HTTP server for production
+  symmetra config show               # Show current configuration
 
 For uvx usage:
-  uvx --from git+https://github.com/aic-holdings/archguard archguard init
-  uvx --from git+https://github.com/aic-holdings/archguard archguard check
+  uvx --from git+https://github.com/aic-holdings/symmetra symmetra init
+  uvx --from git+https://github.com/aic-holdings/symmetra symmetra check
         """
     )
     
     subparsers = parser.add_subparsers(dest="command", help="Available commands")
     
     # Init command
-    init_parser = subparsers.add_parser("init", help="Initialize ArchGuard in current project")
+    init_parser = subparsers.add_parser("init", help="Initialize Symmetra in current project")
     init_parser.add_argument("--force", action="store_true", help="Overwrite existing configuration")
     
     # Check command
@@ -221,7 +221,7 @@ For uvx usage:
     check_parser.add_argument("--verbose", "-v", action="store_true", help="Show detailed configuration")
     
     # Config command
-    config_parser = subparsers.add_parser("config", help="Manage ArchGuard configuration")
+    config_parser = subparsers.add_parser("config", help="Manage Symmetra configuration")
     config_subparsers = config_parser.add_subparsers(dest="action", help="Configuration actions")
     
     show_parser = config_subparsers.add_parser("show", help="Show current configuration")
@@ -245,8 +245,8 @@ For uvx usage:
     
     # HTTP server command  
     http_parser = subparsers.add_parser("http", help="Start HTTP server")
-    http_parser.add_argument("--host", default=ArchGuardConfig.get_http_host(), help="Host to bind to")
-    http_parser.add_argument("--port", type=int, default=ArchGuardConfig.get_http_port(), help="Port to bind to")
+    http_parser.add_argument("--host", default=SymmetraConfig.get_http_host(), help="Host to bind to")
+    http_parser.add_argument("--port", type=int, default=SymmetraConfig.get_http_port(), help="Port to bind to")
     
     args = parser.parse_args()
     
@@ -266,10 +266,10 @@ For uvx usage:
     elif args.command == "server":
         mode = getattr(args, 'mode', 'simple')
         if mode == "simple":
-            print("🚀 Starting ArchGuard Simple Server (AI-first mode)")
+            print("🚀 Starting Symmetra Simple Server (AI-first mode)")
             simple_server_main()
         else:
-            print("🔧 Starting ArchGuard Complex Server (full detectors mode)")
+            print("🔧 Starting Symmetra Complex Server (full detectors mode)")
             server_main(context=getattr(args, 'context', 'desktop-app'), 
                        project=getattr(args, 'project', None))
     elif args.command == "http":
@@ -282,18 +282,18 @@ For uvx usage:
 
 
 def server_main_cli() -> None:
-    """Direct entry point for archguard-server command."""
+    """Direct entry point for symmetra-server command."""
     simple_server_main()
 
 
 def http_main_cli() -> None:
-    """Direct entry point for archguard-http command."""
+    """Direct entry point for symmetra-http command."""
     import argparse
     from .http_server import main as http_main
     
-    parser = argparse.ArgumentParser(description="ArchGuard HTTP Server")
-    parser.add_argument("--host", default=ArchGuardConfig.get_http_host(), help="Host to bind to")
-    parser.add_argument("--port", type=int, default=ArchGuardConfig.get_http_port(), help="Port to bind to")
+    parser = argparse.ArgumentParser(description="Symmetra HTTP Server")
+    parser.add_argument("--host", default=SymmetraConfig.get_http_host(), help="Host to bind to")
+    parser.add_argument("--port", type=int, default=SymmetraConfig.get_http_port(), help="Port to bind to")
     
     args = parser.parse_args()
     http_main(host=args.host, port=args.port)

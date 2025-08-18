@@ -1,6 +1,6 @@
-# MCP Inspector Testing for ArchGuard
+# MCP Inspector Testing for Symmetra
 
-The MCP Inspector is an interactive tool that lets you test and explore ArchGuard's capabilities in real-time. This is the best way to validate that ArchGuard works correctly before integrating it with your coding assistants.
+The MCP Inspector is an interactive tool that lets you test and explore Symmetra's capabilities in real-time. This is the best way to validate that Symmetra works correctly before integrating it with your coding assistants.
 
 ## 🔧 Setup MCP Inspector
 
@@ -25,39 +25,39 @@ pnpm add -g @modelcontextprotocol/inspector
 yarn global add @modelcontextprotocol/inspector
 ```
 
-## 🚀 Launch ArchGuard with MCP Inspector
+## 🚀 Launch Symmetra with MCP Inspector
 
 ### Method 1: Direct uvx Execution (Recommended)
 ```bash
-# Launch ArchGuard with MCP Inspector
-mcp-inspector uvx --from git+https://github.com/aic-holdings/archguard archguard server
+# Launch Symmetra with MCP Inspector
+mcp-inspector uvx --from git+https://github.com/aic-holdings/symmetra symmetra server
 ```
 
 ### Method 2: Local Development Testing
 ```bash
-# If you have ArchGuard cloned locally
-cd archguard
-mcp-inspector uv run archguard server
+# If you have Symmetra cloned locally
+cd symmetra
+mcp-inspector uv run symmetra server
 
 # Or with absolute path
-mcp-inspector python /absolute/path/to/archguard/src/archguard/server.py
+mcp-inspector python /absolute/path/to/symmetra/src/symmetra/server.py
 ```
 
 ### Method 3: After Global Installation
 ```bash
-# If you've installed ArchGuard globally
-uvx install git+https://github.com/aic-holdings/archguard.git
-mcp-inspector archguard server
+# If you've installed Symmetra globally
+uvx install git+https://github.com/aic-holdings/symmetra.git
+mcp-inspector symmetra server
 ```
 
 ## 🧪 Interactive Testing Guide
 
-Once MCP Inspector launches, you'll see a web interface. Here's how to test ArchGuard:
+Once MCP Inspector launches, you'll see a web interface. Here's how to test Symmetra:
 
 ### 1. Verify Server Connection
 - ✅ **Server Status**: Should show "Connected" 
 - ✅ **Protocol**: Should show "Model Context Protocol"
-- ✅ **Server Info**: Should display "ArchGuard" as server name
+- ✅ **Server Info**: Should display "Symmetra" as server name
 
 ### 2. Explore Available Tools
 You should see **3 tools** in the left sidebar:
@@ -80,7 +80,7 @@ You should see **3 tools** in the left sidebar:
 - Complexity score: "high"
 - Multiple guidance points about JWT, bcrypt, etc.
 
-#### 📚 **get_archguard_help**  
+#### 📚 **get_symmetra_help**  
 **Purpose**: Usage guide for coding agents
 
 **Test it**:
@@ -113,7 +113,7 @@ You should see **3 tools** in the left sidebar:
 ### 3. Test Resources
 Click on **Resources** tab:
 
-#### 📋 **archguard://rules**
+#### 📋 **symmetra://rules**
 **Expected Content**:
 - 40 architectural governance rules
 - Organized by categories (Security, Performance, etc.)
@@ -137,23 +137,23 @@ Click on **Prompts** tab:
 
 ## ✅ Validation Checklist
 
-Use this checklist to ensure ArchGuard is working correctly:
+Use this checklist to ensure Symmetra is working correctly:
 
 ### 🔌 **Connection & Setup**
 - [ ] MCP Inspector connects successfully
 - [ ] No error messages in console
 - [ ] Server status shows "Connected"
-- [ ] ArchGuard identified as server name
+- [ ] Symmetra identified as server name
 
 ### 🛠️ **Tools Functionality**
 - [ ] **get_guidance** returns comprehensive recommendations
-- [ ] **get_archguard_help** provides detailed usage guide  
+- [ ] **get_symmetra_help** provides detailed usage guide  
 - [ ] **review_code** generates structured prompts
 - [ ] All tools have rich, detailed descriptions
 - [ ] Tools respond within reasonable time (< 5 seconds)
 
 ### 📋 **Resources & Content**
-- [ ] **archguard://rules** loads successfully
+- [ ] **symmetra://rules** loads successfully
 - [ ] Rules content is comprehensive (40+ rules)
 - [ ] Content is well-formatted and readable
 - [ ] Categories are properly organized
@@ -209,7 +209,7 @@ Use this checklist to ensure ArchGuard is working correctly:
 
 ### Response Time Expectations
 - **get_guidance**: < 3 seconds for typical requests
-- **get_archguard_help**: < 1 second (static content)
+- **get_symmetra_help**: < 1 second (static content)
 - **review_code**: < 2 seconds for prompts
 
 ### Memory Usage
@@ -223,15 +223,15 @@ Use this checklist to ensure ArchGuard is working correctly:
 
 #### **"Connection Failed" Error**
 ```bash
-# Check if ArchGuard starts independently
-uvx --from git+https://github.com/aic-holdings/archguard archguard server --help
+# Check if Symmetra starts independently
+uvx --from git+https://github.com/aic-holdings/symmetra symmetra server --help
 
 # Verify network connectivity
 ping github.com
 
 # Try alternative installation
-uvx install git+https://github.com/aic-holdings/archguard.git
-mcp-inspector archguard server
+uvx install git+https://github.com/aic-holdings/symmetra.git
+mcp-inspector symmetra server
 ```
 
 #### **"No Tools Found" Error**
@@ -254,10 +254,10 @@ mcp-inspector archguard server
 Create a test report:
 
 ```markdown
-## ArchGuard MCP Inspector Test Report
+## Symmetra MCP Inspector Test Report
 
 **Date**: [Current Date]
-**Version**: [ArchGuard Version]
+**Version**: [Symmetra Version]
 **Environment**: [OS, Python version, Node version]
 
 ### Connection Status
@@ -267,11 +267,11 @@ Create a test report:
 
 ### Tool Testing Results
 - [x] get_guidance: ✅ Working, comprehensive responses
-- [x] get_archguard_help: ✅ Working, detailed guide
+- [x] get_symmetra_help: ✅ Working, detailed guide
 - [x] review_code: ✅ Working, structured prompts
 
 ### Resource Testing
-- [x] archguard://rules: ✅ Accessible, 40+ rules loaded
+- [x] symmetra://rules: ✅ Accessible, 40+ rules loaded
 
 ### Performance
 - Average response time: [X seconds]

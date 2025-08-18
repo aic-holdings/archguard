@@ -1,7 +1,7 @@
-# ArchGuard Database Setup Information
+# Symmetra Database Setup Information
 
 ## Supabase Project Details
-- **Project Name**: archguard
+- **Project Name**: symmetra
 - **Project ID**: kkvkwxfirmeywhvndjaa  
 - **Region**: us-east-1
 - **URL**: https://kkvkwxfirmeywhvndjaa.supabase.co

@@ -1,8 +1,8 @@
-# Claude Code Development Tasks for ArchGuard
+# Claude Code Development Tasks for Symmetra
 
 ## Purpose
 
-These are the specific tasks Claude Code needs to complete to make ArchGuard production-ready. The focus is on getting a working system that provides architectural guidance, not enterprise planning.
+These are the specific tasks Claude Code needs to complete to make Symmetra production-ready. The focus is on getting a working system that provides architectural guidance, not enterprise planning.
 
 ---
 
@@ -23,7 +23,7 @@ These are the specific tasks Claude Code needs to complete to make ArchGuard pro
 
 ### MCP Server Integration
 **Must Complete:**
-- ✅ Ensure MCP server starts reliably via `archguard server`
+- ✅ Ensure MCP server starts reliably via `symmetra server`
 - ✅ Validate all MCP tools work correctly (get_guidance, search_rules, etc.)
 - ✅ Test Claude Code integration via uvx installation
 - ✅ Verify performance is acceptable for real-time use
@@ -45,7 +45,7 @@ These are the specific tasks Claude Code needs to complete to make ArchGuard pro
 
 ### Installation & Configuration
 **Must Complete:**
-- ✅ Ensure uvx installation works smoothly (`uvx --from git+https://github.com/aic-holdings/archguard archguard server`)
+- ✅ Ensure uvx installation works smoothly (`uvx --from git+https://github.com/aic-holdings/symmetra symmetra server`)
 - ✅ Validate configuration options work correctly
 - ✅ Create simple setup documentation for Claude Code users
 - ✅ Test on multiple platforms (macOS, Linux, Windows)
@@ -66,12 +66,12 @@ These are the specific tasks Claude Code needs to complete to make ArchGuard pro
 ## Success Criteria
 
 **When these tasks are complete:**
-1. Claude Code can install ArchGuard via uvx without issues
+1. Claude Code can install Symmetra via uvx without issues
 2. All tests pass reliably 
-3. ArchGuard provides helpful architectural guidance for real code
+3. Symmetra provides helpful architectural guidance for real code
 4. The system works smoothly in Claude Code conversations
 
-**Then ArchGuard is ready for production use with Claude Code.**
+**Then Symmetra is ready for production use with Claude Code.**
 
 ---
 

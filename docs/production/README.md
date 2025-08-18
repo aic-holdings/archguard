@@ -1,8 +1,8 @@
-# ArchGuard Production Implementation Guide
+# Symmetra Production Implementation Guide
 
 ## Overview
 
-This directory contains the complete documentation for taking ArchGuard from its current state to a production system that provides team-specific architectural guidance. The three documents here work together to tell the complete story of how ArchGuard transforms from a prototype with hardcoded responses into a sophisticated AI + vector database system that enforces your team's specific architectural standards.
+This directory contains the complete documentation for taking Symmetra from its current state to a production system that provides team-specific architectural guidance. The three documents here work together to tell the complete story of how Symmetra transforms from a prototype with hardcoded responses into a sophisticated AI + vector database system that enforces your team's specific architectural standards.
 
 ## How These Documents Work Together
 
@@ -31,17 +31,17 @@ This document builds on the architecture by detailing exactly what code needs to
 **Key Focus:** Adoption, onboarding, and iterative improvement  
 **Critical Insight:** Success depends on teams actually using the system, not technical sophistication
 
-This document assumes you understand both what we're building and how to build it, then focuses on the human and operational aspects of making it successful. It covers how teams populate their rule databases, how they integrate ArchGuard into their workflows, and how the system evolves based on real usage patterns.
+This document assumes you understand both what we're building and how to build it, then focuses on the human and operational aspects of making it successful. It covers how teams populate their rule databases, how they integrate Symmetra into their workflows, and how the system evolves based on real usage patterns.
 
 ## The Complete Production Story
 
-When read together, these documents tell the story of transforming ArchGuard from an interesting prototype into a system that genuinely improves how teams make architectural decisions. The narrative flow moves from problem identification through technical solution to real-world deployment.
+When read together, these documents tell the story of transforming Symmetra from an interesting prototype into a system that genuinely improves how teams make architectural decisions. The narrative flow moves from problem identification through technical solution to real-world deployment.
 
 The architecture document establishes that teams need guidance based on their specific standards, not generic best practices. It explains how vector search enables finding relevant team rules, and how AI synthesis applies those rules contextually. This creates the conceptual foundation for all subsequent work.
 
 The implementation document takes the architectural vision and breaks it down into concrete technical tasks. It shows how to modify the current `ai_guidance.py` to query the Supabase vector database instead of returning hardcoded responses. It details the authentication flow, vector search implementation, and AI synthesis logic needed to make the architecture real.
 
-The deployment document bridges from working code to successful adoption. It covers how teams populate their rule databases, how they integrate ArchGuard into their development workflows, and how the system improves over time based on usage patterns. This transforms a technical capability into genuine business value.
+The deployment document bridges from working code to successful adoption. It covers how teams populate their rule databases, how they integrate Symmetra into their development workflows, and how the system improves over time based on usage patterns. This transforms a technical capability into genuine business value.
 
 ## Current State vs. Production Vision
 
@@ -71,7 +71,7 @@ Technical success metrics include response time, search accuracy, and system rel
 
 These documents should be read in order, but implementation can proceed incrementally. The core vector search and AI synthesis functionality provides immediate value even before sophisticated rule management tools are built. Teams can start with bootstrap rules and basic customization while more advanced features are developed.
 
-The priority is to get the fundamental AI + vector database integration working first, then iterate based on user feedback. This approach allows teams to start benefiting from ArchGuard quickly while ensuring the system evolves to meet actual needs rather than theoretical requirements.
+The priority is to get the fundamental AI + vector database integration working first, then iterate based on user feedback. This approach allows teams to start benefiting from Symmetra quickly while ensuring the system evolves to meet actual needs rather than theoretical requirements.
 
 ## Future Evolution
 
@@ -83,4 +83,4 @@ The architectural foundation supports these enhancements without requiring funda
 
 For developers ready to implement the production system, start by reading the architecture document to understand the complete vision. Then work through the implementation plan to understand the technical roadmap. Finally, review the deployment strategy to understand how the system succeeds in practice.
 
-For teams ready to use ArchGuard, the deployment strategy provides the onboarding guidance and explains how to populate rule databases with your specific architectural standards. The system is designed to provide value immediately while becoming more useful as you customize it for your needs.
+For teams ready to use Symmetra, the deployment strategy provides the onboarding guidance and explains how to populate rule databases with your specific architectural standards. The system is designed to provide value immediately while becoming more useful as you customize it for your needs.

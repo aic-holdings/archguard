@@ -1,18 +1,18 @@
-# ArchGuard Documentation
+# Symmetra Documentation
 
-Welcome to the ArchGuard documentation! This guide will help you navigate our organized documentation structure.
+Welcome to the Symmetra documentation! This guide will help you navigate our organized documentation structure.
 
 ## 📁 Documentation Structure
 
 ### 🎯 [Strategy](strategy/)
-Strategic planning and vision documents that guide ArchGuard's development:
-- [`END_GOALS.md`](strategy/END_GOALS.md) - ArchGuard's ultimate vision and success metrics
+Strategic planning and vision documents that guide Symmetra's development:
+- [`END_GOALS.md`](strategy/END_GOALS.md) - Symmetra's ultimate vision and success metrics
 - [`NEXT_TO_LAST_GOALS.md`](strategy/NEXT_TO_LAST_GOALS.md) - 17 measurable conditions that must be met before achieving end goals
 - [`ROADMAP_TO_N_MINUS_1.md`](strategy/ROADMAP_TO_N_MINUS_1.md) - Tactical execution plan to reach the next-to-last state
 
 ### 👤 [User Documentation](user/)
-Documentation for developers using ArchGuard:
-- [`quickstart.md`](user/quickstart.md) - Get started with ArchGuard in 5 minutes
+Documentation for developers using Symmetra:
+- [`quickstart.md`](user/quickstart.md) - Get started with Symmetra in 5 minutes
 - [`installation.md`](user/installation.md) - Detailed installation instructions
 - [`usage.md`](user/usage.md) - Complete usage guide and examples
 - [`configuration.md`](user/configuration.md) - Configuration options and customization
@@ -85,4 +85,4 @@ When adding new documentation:
 
 ---
 
-*This documentation structure follows ArchGuard's organizational principles: clear separation of concerns, logical grouping, and easy navigation.*
+*This documentation structure follows Symmetra's organizational principles: clear separation of concerns, logical grouping, and easy navigation.*

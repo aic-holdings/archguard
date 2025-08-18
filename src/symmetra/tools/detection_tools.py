@@ -21,7 +21,7 @@ def detect_issues(code: str, file_path: str = "unknown.py", language: str = None
     """
     🔍 Detect specific code issues using hybrid analysis
     
-    This tool provides the second mode of ArchGuard - specific issue detection.
+    This tool provides the second mode of Symmetra - specific issue detection.
     Unlike get_guidance() which provides general architectural advice, this tool
     performs deep analysis to find concrete, actionable issues in your code.
     
@@ -248,11 +248,11 @@ def batch_analyze_issues(code: str, file_path: str = "unknown.py",
 
 def get_detection_info() -> dict:
     """
-    ℹ️ Get information about ArchGuard's detection capabilities
+    ℹ️ Get information about Symmetra's detection capabilities
     
     This tool provides details about the detection engine, available detectors,
     supported languages, and detection patterns. Use this to understand what
-    types of issues ArchGuard can detect and how the detection system works.
+    types of issues Symmetra can detect and how the detection system works.
     
     Returns:
         Comprehensive information about:

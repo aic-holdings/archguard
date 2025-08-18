@@ -1,5 +1,5 @@
 """
-Simplified ArchGuard MCP Server - AI-First Architecture
+Simplified Symmetra MCP Server - AI-First Architecture
 
 This is a much simpler implementation focused on providing excellent
 architectural guidance to Claude Code through AI analysis rather than
@@ -10,7 +10,7 @@ import asyncio
 import logging
 from typing import Any, Dict, List, Optional
 from fastmcp import FastMCP
-from archguard.ai_guidance import guidance_engine, secret_detector
+from symmetra.ai_guidance import guidance_engine, secret_detector
 
 
 # Configure logging
@@ -18,7 +18,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Create MCP server
-mcp = FastMCP("ArchGuard")
+mcp = FastMCP("Symmetra")
 
 
 @mcp.tool()
@@ -26,7 +26,7 @@ def get_guidance(action: str, code: str = "", context: str = "", project_id: str
     """
     🎯 Get comprehensive architectural guidance for coding actions
     
-    This is ArchGuard's primary tool for providing real-time architectural guidance.
+    This is Symmetra's primary tool for providing real-time architectural guidance.
     Use this tool whenever you're about to:
     - Create new files, functions, or components
     - Design APIs, databases, or system architecture  
@@ -119,9 +119,9 @@ def scan_secrets(code: str) -> Dict[str, Any]:
 @mcp.tool()
 def search_rules(query: str, max_results: int = 5) -> Dict[str, Any]:
     """
-    🔍 Search ArchGuard rules by query text
+    🔍 Search Symmetra rules by query text
     
-    This tool allows you to search through ArchGuard's knowledge base to find
+    This tool allows you to search through Symmetra's knowledge base to find
     specific guidance on architectural patterns, best practices, and design decisions.
     
     Args:
@@ -200,7 +200,7 @@ def list_rule_categories() -> Dict[str, Any]:
     """
     📚 List all available rule categories
     
-    Returns all rule categories available in ArchGuard's knowledge base,
+    Returns all rule categories available in Symmetra's knowledge base,
     helping you understand what types of guidance are available.
     """
     categories = [
@@ -365,22 +365,22 @@ def analyze_codebase(action: str, context: str = "", project_id: str = None) -> 
 
 
 @mcp.tool()
-def get_archguard_help() -> Dict[str, Any]:
+def get_symmetra_help() -> Dict[str, Any]:
     """
-    📚 Get comprehensive help on using ArchGuard effectively
+    📚 Get comprehensive help on using Symmetra effectively
     
     This tool provides coding agents with detailed instructions on how to best
-    utilize ArchGuard's capabilities. Use this tool when you want to understand:
+    utilize Symmetra's capabilities. Use this tool when you want to understand:
     - How to phrase requests to get the most helpful guidance
-    - What types of architectural questions ArchGuard can answer
-    - Best practices for integrating ArchGuard into your development workflow
-    - Examples of effective ArchGuard interactions
+    - What types of architectural questions Symmetra can answer
+    - Best practices for integrating Symmetra into your development workflow
+    - Examples of effective Symmetra interactions
     
     Returns:
-        Complete guide on ArchGuard usage, capabilities, and best practices
+        Complete guide on Symmetra usage, capabilities, and best practices
     """
     help_content = {
-        "overview": "ArchGuard provides AI-powered architectural guidance for software development",
+        "overview": "Symmetra provides AI-powered architectural guidance for software development",
         
         "primary_tool": {
             "name": "get_guidance",
@@ -399,7 +399,7 @@ def get_archguard_help() -> Dict[str, Any]:
             "Provide relevant code context when asking for guidance",
             "Include information about your project type and constraints",
             "Ask for guidance early in the development process",
-            "Use ArchGuard for both new development and refactoring"
+            "Use Symmetra for both new development and refactoring"
         ],
         
         "example_requests": [
@@ -422,11 +422,11 @@ def get_archguard_help() -> Dict[str, Any]:
 
 
 # Resources for Claude Code integration
-@mcp.resource("archguard://rules")
+@mcp.resource("symmetra://rules")
 def get_rules_resource() -> str:
     """Architectural rules and guidelines resource"""
     return """
-# ArchGuard Architectural Rules and Guidelines
+# Symmetra Architectural Rules and Guidelines
 
 ## Security Best Practices
 - Use established authentication libraries (OAuth, JWT)
@@ -465,11 +465,11 @@ def get_rules_resource() -> str:
 """
 
 
-@mcp.resource("archguard://patterns")
+@mcp.resource("symmetra://patterns")
 def get_patterns_resource() -> str:
     """Design pattern recommendations resource"""
     return """
-# ArchGuard Design Pattern Recommendations
+# Symmetra Design Pattern Recommendations
 
 ## Authentication Patterns
 - JWT Token Pattern: Stateless authentication
@@ -498,11 +498,11 @@ def get_patterns_resource() -> str:
 """
 
 
-@mcp.resource("archguard://checklist")
+@mcp.resource("symmetra://checklist")
 def get_checklist_resource() -> str:
     """Code review checklist resource"""
     return """
-# ArchGuard Code Review Checklist
+# Symmetra Code Review Checklist
 
 ## Security Review
 - [ ] No hardcoded secrets or credentials
@@ -535,8 +535,8 @@ def get_checklist_resource() -> str:
 
 
 def run_server():
-    """Run the simplified ArchGuard MCP server"""
-    logger.info("Starting ArchGuard Simple MCP Server")
+    """Run the simplified Symmetra MCP server"""
+    logger.info("Starting Symmetra Simple MCP Server")
     mcp.run()
 
 

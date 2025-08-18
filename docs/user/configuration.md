@@ -1,12 +1,12 @@
-# ArchGuard Configuration Guide
+# Symmetra Configuration Guide
 
-ArchGuard supports layered configuration with multiple override levels for maximum flexibility.
+Symmetra supports layered configuration with multiple override levels for maximum flexibility.
 
 ## Configuration Hierarchy
 
 1. **Global Defaults** (built-in)
 2. **Environment Variables** (`.env` file or system)
-3. **Project Configuration** (`.archguard.toml`)
+3. **Project Configuration** (`.symmetra.toml`)
 4. **Runtime Parameters** (CLI arguments)
 
 Higher levels override lower levels.
@@ -59,9 +59,9 @@ ARCHGUARD_VECTOR_ENDPOINT=http://localhost:8000/embed
 ARCHGUARD_RULES_ENDPOINT=http://localhost:8001/rules
 ```
 
-## Project Configuration (.archguard.toml)
+## Project Configuration (.symmetra.toml)
 
-Create a `.archguard.toml` file in your project root for project-specific settings:
+Create a `.symmetra.toml` file in your project root for project-specific settings:
 
 ```toml
 [project]
@@ -109,7 +109,7 @@ sonar_integration = false
 
 [custom_rules]
 # Path to custom rules directory
-rules_path = "./archguard-rules"
+rules_path = "./symmetra-rules"
 auto_reload = true
 ```
 
@@ -122,9 +122,9 @@ Add to your MCP configuration file (`.claude/mcp.json`):
 ```json
 {
   "mcpServers": {
-    "archguard": {
+    "symmetra": {
       "command": "uvx",
-      "args": ["--from", "git+https://github.com/aic-holdings/archguard", "archguard"],
+      "args": ["--from", "git+https://github.com/aic-holdings/symmetra", "symmetra"],
       "env": {
         "ARCHGUARD_ENGINE_TYPE": "vector",
         "ARCHGUARD_PROJECT_ID": "https://github.com/username/repo",
@@ -144,10 +144,10 @@ Add to your MCP configuration:
 {
   "mcp": {
     "servers": {
-      "archguard": {
+      "symmetra": {
         "command": "python",
-        "args": ["-m", "archguard.server"],
-        "cwd": "/path/to/archguard",
+        "args": ["-m", "symmetra.server"],
+        "cwd": "/path/to/symmetra",
         "env": {
           "ARCHGUARD_ENGINE_TYPE": "vector",
           "ARCHGUARD_PROJECT_ID": "https://github.com/username/repo"
@@ -160,12 +160,12 @@ Add to your MCP configuration:
 
 ## Configuration Loading Order
 
-ArchGuard loads configuration in this order:
+Symmetra loads configuration in this order:
 
 1. **Built-in defaults**
 2. **System environment variables**
 3. **`.env` file** (if present)
-4. **`.archguard.toml`** (if present)
+4. **`.symmetra.toml`** (if present)
 5. **Runtime parameters** (--context, --project flags)
 
 ## Environment File Template
@@ -183,7 +183,7 @@ vim .env
 Example `.env` content:
 
 ```bash
-# ArchGuard Configuration
+# Symmetra Configuration
 ARCHGUARD_ENGINE_TYPE=vector
 ARCHGUARD_DEFAULT_CONTEXT=ide-assistant
 
@@ -193,8 +193,8 @@ ARCHGUARD_SUPABASE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ARCHGUARD_SUPABASE_PROJECT_ID=kkvkwxfirmeywhvndjaa
 
 # Project Context
-ARCHGUARD_PROJECT_ID=https://github.com/aic-holdings/archguard
-ARCHGUARD_PROJECT_NAME=ArchGuard
+ARCHGUARD_PROJECT_ID=https://github.com/aic-holdings/symmetra
+ARCHGUARD_PROJECT_NAME=Symmetra
 
 # Vector Search
 ARCHGUARD_EMBEDDING_MODEL=all-MiniLM-L6-v2
@@ -206,10 +206,10 @@ ARCHGUARD_LOG_LEVEL=INFO
 
 ## Dynamic Configuration
 
-ArchGuard supports runtime configuration updates:
+Symmetra supports runtime configuration updates:
 
 ```python
-from archguard.config import update_config
+from symmetra.config import update_config
 
 # Update configuration at runtime
 update_config({
@@ -221,7 +221,7 @@ update_config({
 
 ## Validation
 
-ArchGuard validates configuration on startup:
+Symmetra validates configuration on startup:
 
 - **Required fields**: Ensures critical configuration is present
 - **Type checking**: Validates data types and formats
@@ -246,8 +246,8 @@ ArchGuard validates configuration on startup:
 
 3. **Project file not found**
    ```bash
-   Warning: .archguard.toml not found, using defaults
-   Solution: Create .archguard.toml or verify file path
+   Warning: .symmetra.toml not found, using defaults
+   Solution: Create .symmetra.toml or verify file path
    ```
 
 ### Debug Configuration
@@ -255,7 +255,7 @@ ArchGuard validates configuration on startup:
 Enable debug mode to see configuration loading:
 
 ```bash
-ARCHGUARD_DEBUG=true python -m archguard.server
+ARCHGUARD_DEBUG=true python -m symmetra.server
 ```
 
 This will show:
@@ -267,10 +267,10 @@ This will show:
 ## Best Practices
 
 1. **Use .env for local development**
-2. **Use .archguard.toml for project-specific settings**
+2. **Use .symmetra.toml for project-specific settings**
 3. **Use environment variables for production deployment**
 4. **Keep sensitive data in environment variables, not files**
-5. **Version control .archguard.toml, ignore .env**
+5. **Version control .symmetra.toml, ignore .env**
 6. **Document project-specific configuration in README**
 
 ## Security Considerations

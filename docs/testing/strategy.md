@@ -1,7 +1,7 @@
-# ArchGuard Comprehensive Testing Strategy
+# Symmetra Comprehensive Testing Strategy
 
 ## Overview
-This document outlines the testing strategy for ArchGuard's hybrid detection system, ensuring comprehensive coverage across all layers and components.
+This document outlines the testing strategy for Symmetra's hybrid detection system, ensuring comprehensive coverage across all layers and components.
 
 ## Testing Architecture
 
@@ -141,13 +141,13 @@ JSON files with expected detection results for each test case.
 ### **Continuous Integration**
 ```bash
 # Fast unit tests (< 30 seconds)
-pytest tests/unit/ -v --cov=src/archguard --cov-report=term-missing
+pytest tests/unit/ -v --cov=src/symmetra --cov-report=term-missing
 
 # Integration tests (< 2 minutes)  
 pytest tests/integration/ -v
 
 # Full test suite (< 5 minutes)
-pytest tests/ -v --cov=src/archguard --cov-report=html
+pytest tests/ -v --cov=src/symmetra --cov-report=html
 ```
 
 ### **Performance Benchmarks**

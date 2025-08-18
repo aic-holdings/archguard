@@ -1,10 +1,10 @@
-# ArchGuard Query Processing Data Flow
+# Symmetra Query Processing Data Flow
 
-This document shows the complete data flow when a user submits an architectural guidance query to ArchGuard.
+This document shows the complete data flow when a user submits an architectural guidance query to Symmetra.
 
 ## System Overview
 
-ArchGuard uses AI-first architecture with vector search to provide team-specific architectural guidance. Instead of hardcoded rules, it retrieves relevant rules from a vector database and synthesizes them into contextual advice.
+Symmetra uses AI-first architecture with vector search to provide team-specific architectural guidance. Instead of hardcoded rules, it retrieves relevant rules from a vector database and synthesizes them into contextual advice.
 
 ## Complete Data Flow Diagram
 
@@ -14,7 +14,7 @@ graph TD
     User[👤 Developer] -->|"create user authentication system"| ClaudeCode[🤖 Claude Code]
     
     %% MCP Layer
-    ClaudeCode -->|MCP Tool Call| MCPServer[📡 ArchGuard MCP Server<br/>simple_server.py]
+    ClaudeCode -->|MCP Tool Call| MCPServer[📡 Symmetra MCP Server<br/>simple_server.py]
     MCPServer -->|get_guidance()| GuidanceEngine[🧠 AI Guidance Engine<br/>ai_guidance.py]
     
     %% Decision Point

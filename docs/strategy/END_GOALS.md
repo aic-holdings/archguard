@@ -1,8 +1,8 @@
-# ArchGuard End Goals
+# Symmetra End Goals
 
 ## The Ultimate Vision
 
-**ArchGuard exists to make Claude Code an expert architectural consultant by providing instant access to architectural best practices, patterns, and guidance during every coding conversation.**
+**Symmetra exists to make Claude Code an expert architectural consultant by providing instant access to architectural best practices, patterns, and guidance during every coding conversation.**
 
 ## Primary End Goal
 
@@ -14,7 +14,7 @@ When a developer asks Claude Code:
 - "How do I structure this microservice?"
 - "What caching strategy should I use?"
 
-Claude Code should automatically consult ArchGuard to provide:
+Claude Code should automatically consult Symmetra to provide:
 - ✅ **Consistent architectural guidance** based on proven patterns
 - ✅ **Context-aware recommendations** adapted to the specific project
 - ✅ **Best practice enforcement** preventing common architectural mistakes
@@ -23,7 +23,7 @@ Claude Code should automatically consult ArchGuard to provide:
 ## Success Metrics for End Goal Achievement
 
 ### Developer Experience Success
-- **Seamless Integration**: Developers don't need to know ArchGuard exists - Claude just gives better architectural advice
+- **Seamless Integration**: Developers don't need to know Symmetra exists - Claude just gives better architectural advice
 - **Consistency**: Same architectural question gets same high-quality answer every time
 - **Context Awareness**: Guidance adapts to project type, tech stack, and environment
 - **Speed**: Architectural guidance provided in <100ms without breaking conversation flow
@@ -46,7 +46,7 @@ Claude Code should automatically consult ArchGuard to provide:
 Every feature, API, and design decision must optimize for Claude Code's ability to consume and apply the guidance. If it doesn't make Claude Code better at architecture, it's not aligned with the end goal.
 
 ### 2. **Invisible Excellence**
-ArchGuard should be completely invisible to end users. They should only notice that Claude Code has become remarkably good at architectural guidance. The best success is when users don't know ArchGuard exists.
+Symmetra should be completely invisible to end users. They should only notice that Claude Code has become remarkably good at architectural guidance. The best success is when users don't know Symmetra exists.
 
 ### 3. **Expertise Automation**
 Codify the knowledge and decision-making patterns of senior architects into rules and guidance that Claude Code can apply consistently. Replace inconsistent human architectural review with systematic excellence.
@@ -60,9 +60,9 @@ The system must grow smarter over time, learning from successful architectural p
 ## How We Get There
 
 ### Step 1: Make It Work (Current Priority)
-- 🔧 **Fix All Tests**: Ensure ArchGuard works reliably (129 tests need to pass)
+- 🔧 **Fix All Tests**: Ensure Symmetra works reliably (129 tests need to pass)
 - 🔧 **uvx Installation**: Make installation via Claude Code seamless
-- 🔧 **MCP Integration**: Ensure Claude Code can use ArchGuard tools
+- 🔧 **MCP Integration**: Ensure Claude Code can use Symmetra tools
 - 🔧 **Basic Guidance**: Provide helpful architectural recommendations
 
 ### Step 2: Make It Good
@@ -80,12 +80,12 @@ The system must grow smarter over time, learning from successful architectural p
 
 ### Right Now Success
 - All tests pass
-- Claude Code can install and use ArchGuard via uvx
-- ArchGuard provides helpful guidance for basic architectural questions
+- Claude Code can install and use Symmetra via uvx
+- Symmetra provides helpful guidance for basic architectural questions
 - Installation works on macOS, Linux, and Windows
 
 ### Near-term Success
-- Claude Code consistently provides better architectural advice when ArchGuard is available
+- Claude Code consistently provides better architectural advice when Symmetra is available
 - Developers notice Claude Code gives more thoughtful architectural guidance
 - Common architectural questions get good, consistent answers
 - System works reliably without manual intervention
@@ -93,11 +93,11 @@ The system must grow smarter over time, learning from successful architectural p
 ### Long-term Success
 - Claude Code becomes known for excellent architectural guidance
 - Developers using Claude Code write better-architected code
-- ArchGuard becomes the standard for AI architectural assistance
+- Symmetra becomes the standard for AI architectural assistance
 
 ## Decision Framework
 
-When evaluating any new feature, improvement, or architectural decision for ArchGuard, ask:
+When evaluating any new feature, improvement, or architectural decision for Symmetra, ask:
 
 1. **Does this make Claude Code better at providing architectural guidance?**
 2. **Does this help achieve the end goal of invisible architectural expertise?**
@@ -107,9 +107,9 @@ When evaluating any new feature, improvement, or architectural decision for Arch
 
 If the answer to any of these is "no" or "unclear," the feature should be reconsidered or redesigned.
 
-## Non-Goals (What ArchGuard Is NOT)
+## Non-Goals (What Symmetra Is NOT)
 
-- ❌ **Not a standalone development tool** - ArchGuard exists to enhance Claude Code, not replace it
+- ❌ **Not a standalone development tool** - Symmetra exists to enhance Claude Code, not replace it
 - ❌ **Not a comprehensive static analysis tool** - Detection capabilities exist only to support guidance
 - ❌ **Not a human-facing application** - All interfaces optimized for AI consumption
 - ❌ **Not a general-purpose rule engine** - Laser-focused on architectural guidance only
@@ -119,8 +119,8 @@ If the answer to any of these is "no" or "unclear," the feature should be recons
 
 **In 2-3 years, when a developer works with Claude Code, they should receive architectural guidance that rivals the best senior architects in the industry. This guidance should be so seamless and natural that developers assume Claude Code has always been this architecturally sophisticated.**
 
-ArchGuard's success will be measured not by its own adoption, but by Claude Code's reputation as the most architecturally-informed AI coding assistant available.
+Symmetra's success will be measured not by its own adoption, but by Claude Code's reputation as the most architecturally-informed AI coding assistant available.
 
 ---
 
-*This document serves as the definitive reference for ArchGuard's purpose and strategic direction. All development decisions should align with these end goals.*
+*This document serves as the definitive reference for Symmetra's purpose and strategic direction. All development decisions should align with these end goals.*

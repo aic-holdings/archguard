@@ -1,6 +1,6 @@
-# Repository Hygiene Rules for ArchGuard
+# Repository Hygiene Rules for Symmetra
 
-These rules help maintain clean, professional, and contributor-friendly repositories. Perfect for self-bootstrapping ArchGuard's own excellence!
+These rules help maintain clean, professional, and contributor-friendly repositories. Perfect for self-bootstrapping Symmetra's own excellence!
 
 ## Core Repository Structure Rules
 

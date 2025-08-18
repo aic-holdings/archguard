@@ -1,5 +1,5 @@
--- Bootstrap ArchGuard with initial rule set
--- These are global rules that help build ArchGuard itself
+-- Bootstrap Symmetra with initial rule set
+-- These are global rules that help build Symmetra itself
 
 INSERT INTO rules (rule_id, title, guidance, rationale, category, priority, contexts, tech_stacks, keywords, project_id)
 VALUES 
@@ -53,21 +53,21 @@ VALUES
         NULL
     ),
     (
-        'archguard-project-structure',
-        'ArchGuard Project Organization',
-        '📁 Organize ArchGuard modules: rules_engine (core logic), server (MCP interface), cli (user interface), config (settings)',
-        'Clear separation of concerns makes ArchGuard easier to extend and maintain. Each module has a single responsibility.',
+        'symmetra-project-structure',
+        'Symmetra Project Organization',
+        '📁 Organize Symmetra modules: rules_engine (core logic), server (MCP interface), cli (user interface), config (settings)',
+        'Clear separation of concerns makes Symmetra easier to extend and maintain. Each module has a single responsibility.',
         'architecture',
         'medium',
         ARRAY['ide-assistant'],
         ARRAY['python', 'project-structure'],
-        ARRAY['project', 'structure', 'organization', 'modules', 'separation', 'concerns', 'archguard'],
+        ARRAY['project', 'structure', 'organization', 'modules', 'separation', 'concerns', 'symmetra'],
         NULL
     ),
     (
         'config-layered-approach',
         'Layered Configuration System',
-        '⚙️ Use layered config: global defaults → project .archguard.toml → runtime parameters. Higher layers override lower ones',
+        '⚙️ Use layered config: global defaults → project .symmetra.toml → runtime parameters. Higher layers override lower ones',
         'Layered configuration provides flexibility while maintaining sensible defaults. Users can customize at the appropriate level without breaking the system.',
         'architecture',
         'medium',
@@ -79,7 +79,7 @@ VALUES
     (
         'testing-multiple-transports',
         'Multi-Transport Testing Strategy',
-        '🧪 Test ArchGuard across all transports: in-memory (fast iteration), stdio (Claude Code), HTTP (production)',
+        '🧪 Test Symmetra across all transports: in-memory (fast iteration), stdio (Claude Code), HTTP (production)',
         'Different transports have different failure modes. Comprehensive testing ensures reliable operation across all deployment scenarios.',
         'testing',
         'high',

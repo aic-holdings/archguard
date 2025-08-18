@@ -1,10 +1,10 @@
 # Integration Testing with MCP Clients
 
-This guide covers testing ArchGuard with actual MCP clients like Claude Code, Claude Desktop, and other coding assistants to ensure real-world functionality.
+This guide covers testing Symmetra with actual MCP clients like Claude Code, Claude Desktop, and other coding assistants to ensure real-world functionality.
 
 ## 🎯 Testing Overview
 
-Integration testing validates that ArchGuard works correctly when integrated with:
+Integration testing validates that Symmetra works correctly when integrated with:
 - Claude Code (VS Code extension)
 - Claude Desktop (standalone application)
 - Other MCP-compatible coding assistants
@@ -13,14 +13,14 @@ Integration testing validates that ArchGuard works correctly when integrated wit
 ## 🔧 Prerequisites
 
 Before starting integration tests:
-- ArchGuard passes all [manual validation tests](manual-validation.md)
+- Symmetra passes all [manual validation tests](manual-validation.md)
 - Target MCP client is installed and working
 - Network connectivity for GitHub access
 - Basic familiarity with your chosen MCP client
 
 ## 🧪 Claude Code Integration Testing
 
-### Setup Claude Code with ArchGuard
+### Setup Claude Code with Symmetra
 
 #### Step 1: Install Claude Code
 ```bash
@@ -34,9 +34,9 @@ Add to your Claude Code MCP configuration:
 ```json
 {
   "mcpServers": {
-    "archguard": {
+    "symmetra": {
       "command": "uvx",
-      "args": ["--from", "git+https://github.com/aic-holdings/archguard", "archguard", "server"],
+      "args": ["--from", "git+https://github.com/aic-holdings/symmetra", "symmetra", "server"],
       "env": {
         "ARCHGUARD_LOG_LEVEL": "INFO"
       }
@@ -53,11 +53,11 @@ Close and reopen VS Code to load the new MCP server configuration.
 #### Test 3.1: Server Discovery
 1. Open VS Code with Claude Code extension
 2. Open the Claude Code panel
-3. Look for ArchGuard in available tools/servers
+3. Look for Symmetra in available tools/servers
 4. Check that no error messages appear in the output
 
 **✅ Pass Criteria:**
-- ArchGuard appears in Claude's available tools
+- Symmetra appears in Claude's available tools
 - No connection errors in Claude Code output
 - Server status shows as connected
 
@@ -65,11 +65,11 @@ Close and reopen VS Code to load the new MCP server configuration.
 In Claude Code chat, test these interactions:
 
 ```
-"Use ArchGuard to get guidance for implementing user authentication"
+"Use Symmetra to get guidance for implementing user authentication"
 ```
 
 **✅ Pass Criteria:**
-- Claude successfully calls ArchGuard's get_guidance tool
+- Claude successfully calls Symmetra's get_guidance tool
 - Returns comprehensive security recommendations
 - No error messages or failures
 
@@ -77,7 +77,7 @@ In Claude Code chat, test these interactions:
 Share code with Claude and ask:
 
 ```
-"Use ArchGuard to review this authentication function for security issues:
+"Use Symmetra to review this authentication function for security issues:
 
 function authenticateUser(username, password) {
     if (username === 'admin' && password === 'password123') {
@@ -89,7 +89,7 @@ function authenticateUser(username, password) {
 ```
 
 **✅ Pass Criteria:**
-- Claude uses ArchGuard's review_code prompt
+- Claude uses Symmetra's review_code prompt
 - Identifies security issues (hardcoded credentials, weak token)
 - Provides specific architectural recommendations
 
@@ -97,11 +97,11 @@ function authenticateUser(username, password) {
 Ask Claude:
 
 ```
-"Show me how to use ArchGuard effectively"
+"Show me how to use Symmetra effectively"
 ```
 
 **✅ Pass Criteria:**
-- Claude calls get_archguard_help tool
+- Claude calls get_symmetra_help tool
 - Displays comprehensive usage guide
 - Shows examples and best practices
 
@@ -109,11 +109,11 @@ Ask Claude:
 Ask Claude:
 
 ```
-"What are ArchGuard's architectural governance rules?"
+"What are Symmetra's architectural governance rules?"
 ```
 
 **✅ Pass Criteria:**
-- Claude accesses archguard://rules resource
+- Claude accesses symmetra://rules resource
 - Displays the 40 governance rules
 - Content is well-formatted and complete
 
@@ -138,7 +138,7 @@ Test multiple rapid requests:
 
 ## 🖥️ Claude Desktop Integration Testing
 
-### Setup Claude Desktop with ArchGuard
+### Setup Claude Desktop with Symmetra
 
 #### Step 1: Configure Claude Desktop
 Edit your `claude_desktop_config.json`:
@@ -146,9 +146,9 @@ Edit your `claude_desktop_config.json`:
 ```json
 {
   "mcpServers": {
-    "archguard": {
+    "symmetra": {
       "command": "uvx",
-      "args": ["--from", "git+https://github.com/aic-holdings/archguard", "archguard", "server"]
+      "args": ["--from", "git+https://github.com/aic-holdings/symmetra", "symmetra", "server"]
     }
   }
 }
@@ -162,22 +162,22 @@ Fully quit and restart Claude Desktop application.
 #### Test 4.1: Tool Availability
 1. Start new conversation in Claude Desktop
 2. Look for tool indicators (hammer icons)
-3. Verify ArchGuard tools are available
+3. Verify Symmetra tools are available
 
 **✅ Pass Criteria:**
 - Tools show up in Claude Desktop interface
 - No error messages in conversation
-- All 3 ArchGuard tools are discoverable
+- All 3 Symmetra tools are discoverable
 
 #### Test 4.2: Architectural Guidance
 Test comprehensive architectural requests:
 
 ```
-"I need to design a microservices architecture for an e-commerce platform that can handle 100K daily users. Use ArchGuard to provide comprehensive guidance."
+"I need to design a microservices architecture for an e-commerce platform that can handle 100K daily users. Use Symmetra to provide comprehensive guidance."
 ```
 
 **✅ Pass Criteria:**
-- Claude uses ArchGuard's get_guidance tool
+- Claude uses Symmetra's get_guidance tool
 - Provides microservices-specific recommendations
 - Includes scalability and performance guidance
 
@@ -185,7 +185,7 @@ Test comprehensive architectural requests:
 Share a large code snippet and request analysis:
 
 ```
-"Use ArchGuard to analyze this 150-line React component and suggest architectural improvements."
+"Use Symmetra to analyze this 150-line React component and suggest architectural improvements."
 ```
 
 **✅ Pass Criteria:**
@@ -199,30 +199,30 @@ Share a large code snippet and request analysis:
 
 #### Test with Codex CLI
 ```bash
-# Configure Codex with ArchGuard
-echo '[mcp_servers.archguard]
+# Configure Codex with Symmetra
+echo '[mcp_servers.symmetra]
 command = "uvx"
-args = ["--from", "git+https://github.com/aic-holdings/archguard", "archguard", "server"]' >> ~/.codex/config.toml
+args = ["--from", "git+https://github.com/aic-holdings/symmetra", "symmetra", "server"]' >> ~/.codex/config.toml
 
 # Test in Codex session
 codex
-# In Codex: "Use ArchGuard to get guidance for implementing JWT authentication"
+# In Codex: "Use Symmetra to get guidance for implementing JWT authentication"
 ```
 
 #### Test with Gemini CLI
-Configure and test ArchGuard with Gemini CLI if available.
+Configure and test Symmetra with Gemini CLI if available.
 
 ### IDE Extensions
 
 #### Test with Cursor
 If using Cursor IDE:
-1. Configure ArchGuard as MCP server
+1. Configure Symmetra as MCP server
 2. Test architectural guidance integration
 3. Verify code review functionality
 
 #### Test with Windsurf
 If using Windsurf:
-1. Add ArchGuard to MCP configuration
+1. Add Symmetra to MCP configuration
 2. Test semantic analysis capabilities
 3. Validate architectural recommendations
 
@@ -239,11 +239,11 @@ If using Windsurf:
 ## 🐛 Common Integration Issues
 
 ### Issue: "MCP Server Not Found"
-**Symptoms**: ArchGuard doesn't appear in tool list
+**Symptoms**: Symmetra doesn't appear in tool list
 **Solutions**:
 ```bash
 # Verify uvx works independently
-uvx --from git+https://github.com/aic-holdings/archguard archguard --help
+uvx --from git+https://github.com/aic-holdings/symmetra symmetra --help
 
 # Check MCP client configuration format
 # Ensure proper JSON formatting and paths
@@ -253,8 +253,8 @@ uvx --from git+https://github.com/aic-holdings/archguard archguard --help
 **Symptoms**: Tools discovered but fail when called
 **Solutions**:
 ```bash
-# Test ArchGuard server manually
-echo '{"jsonrpc": "2.0", "id": 1, "method": "tools/list"}' | uvx --from git+https://github.com/aic-holdings/archguard archguard server
+# Test Symmetra server manually
+echo '{"jsonrpc": "2.0", "id": 1, "method": "tools/list"}' | uvx --from git+https://github.com/aic-holdings/symmetra symmetra server
 
 # Check for import errors or dependency issues
 ```
@@ -263,31 +263,31 @@ echo '{"jsonrpc": "2.0", "id": 1, "method": "tools/list"}' | uvx --from git+http
 **Symptoms**: Tools work but respond very slowly
 **Solutions**:
 - Check internet connection speed
-- Try installing ArchGuard locally for testing
+- Try installing Symmetra locally for testing
 - Monitor system resource usage
 
 ### Issue: "Incomplete Responses"
 **Symptoms**: Tools return partial or empty responses
 **Solutions**:
 - Check for timeout settings in MCP client
-- Verify ArchGuard server logs
+- Verify Symmetra server logs
 - Test with simpler requests first
 
 ## 🔍 Advanced Integration Testing
 
 ### Test 5.1: Multi-Project Configuration
-Test ArchGuard with project-specific configurations:
+Test Symmetra with project-specific configurations:
 
 ```json
 {
   "mcpServers": {
-    "archguard-project1": {
+    "symmetra-project1": {
       "command": "uvx",
-      "args": ["--from", "git+https://github.com/aic-holdings/archguard", "archguard", "server", "--project", "/path/to/project1"]
+      "args": ["--from", "git+https://github.com/aic-holdings/symmetra", "symmetra", "server", "--project", "/path/to/project1"]
     },
-    "archguard-project2": {
+    "symmetra-project2": {
       "command": "uvx", 
-      "args": ["--from", "git+https://github.com/aic-holdings/archguard", "archguard", "server", "--project", "/path/to/project2"]
+      "args": ["--from", "git+https://github.com/aic-holdings/symmetra", "symmetra", "server", "--project", "/path/to/project2"]
     }
   }
 }
@@ -299,9 +299,9 @@ Test different environment configurations:
 ```json
 {
   "mcpServers": {
-    "archguard-dev": {
+    "symmetra-dev": {
       "command": "uvx",
-      "args": ["--from", "git+https://github.com/aic-holdings/archguard", "archguard", "server"],
+      "args": ["--from", "git+https://github.com/aic-holdings/symmetra", "symmetra", "server"],
       "env": {
         "ARCHGUARD_LOG_LEVEL": "DEBUG",
         "ARCHGUARD_CONTEXT": "development"
@@ -313,7 +313,7 @@ Test different environment configurations:
 
 ### Test 5.3: Load Testing
 Simulate heavy usage:
-1. Open multiple conversations with ArchGuard
+1. Open multiple conversations with Symmetra
 2. Make concurrent requests for guidance
 3. Test with large code snippets
 4. Monitor resource usage and response times
@@ -321,7 +321,7 @@ Simulate heavy usage:
 ## 📝 Integration Test Report Template
 
 ```markdown
-# ArchGuard Integration Test Report
+# Symmetra Integration Test Report
 
 **Date**: [Date]
 **Tester**: [Name]
@@ -370,12 +370,12 @@ Simulate heavy usage:
 
 ## 🚀 Production Readiness Checklist
 
-Before deploying ArchGuard in production:
+Before deploying Symmetra in production:
 
 - [ ] All integration tests pass with primary MCP client
 - [ ] Performance meets requirements (< 5 second responses)
 - [ ] No critical issues identified
-- [ ] Team training completed on ArchGuard usage
+- [ ] Team training completed on Symmetra usage
 - [ ] Monitoring and alerting configured
 - [ ] Rollback plan prepared
 
@@ -389,15 +389,15 @@ cat > test_integration.sh << 'EOF'
 #!/bin/bash
 set -e
 
-echo "🧪 Running ArchGuard Integration Tests"
+echo "🧪 Running Symmetra Integration Tests"
 
 # Test 1: Server startup
 echo "Testing server startup..."
-timeout 10 uvx --from git+https://github.com/aic-holdings/archguard archguard server --help
+timeout 10 uvx --from git+https://github.com/aic-holdings/symmetra symmetra server --help
 
 # Test 2: MCP protocol
 echo "Testing MCP protocol..."
-echo '{"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {"protocolVersion": "2024-11-05", "capabilities": {}, "clientInfo": {"name": "test", "version": "1.0"}}}' | timeout 10 uvx --from git+https://github.com/aic-holdings/archguard archguard server
+echo '{"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {"protocolVersion": "2024-11-05", "capabilities": {}, "clientInfo": {"name": "test", "version": "1.0"}}}' | timeout 10 uvx --from git+https://github.com/aic-holdings/symmetra symmetra server
 
 # Test 3: Configuration validation
 echo "Testing configuration..."
@@ -416,9 +416,9 @@ After successful integration testing:
 
 1. **[Troubleshooting Guide](troubleshooting.md)** - Address any remaining issues
 2. **Production Deployment** - Roll out to team
-3. **User Training** - Educate team on ArchGuard usage
+3. **User Training** - Educate team on Symmetra usage
 4. **Monitoring Setup** - Track usage and performance
 
 ---
 
-**Important**: Integration testing should be repeated whenever ArchGuard is updated or when MCP client configurations change.
+**Important**: Integration testing should be repeated whenever Symmetra is updated or when MCP client configurations change.
