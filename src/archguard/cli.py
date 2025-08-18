@@ -12,6 +12,7 @@ from typing import List, Optional
 # Use absolute imports to avoid issues with direct module execution
 try:
     from archguard.server import main as server_main
+    from archguard.simple_server import run_server as simple_server_main
     from archguard.http_server import main as http_server_main
     from archguard.config import ArchGuardConfig
 except ImportError:
@@ -20,6 +21,7 @@ except ImportError:
     import os
     sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     from archguard.server import main as server_main
+    from archguard.simple_server import run_server as simple_server_main
     from archguard.http_server import main as http_server_main
     from archguard.config import ArchGuardConfig
 
@@ -229,6 +231,10 @@ For uvx usage:
     
     # Server command
     server_parser = subparsers.add_parser("server", help="Start MCP server (stdio)")
+    server_parser.add_argument("--mode", 
+                              choices=["simple", "complex"], 
+                              default="simple",
+                              help="Server mode: 'simple' (AI-first) or 'complex' (full detectors) (default: simple)")
     server_parser.add_argument("--context", 
                               choices=["desktop-app", "agent", "ide-assistant"], 
                               default="desktop-app",
@@ -258,8 +264,14 @@ For uvx usage:
             sys.exit(1)
         config_command(args)
     elif args.command == "server":
-        server_main(context=getattr(args, 'context', 'desktop-app'), 
-                   project=getattr(args, 'project', None))
+        mode = getattr(args, 'mode', 'simple')
+        if mode == "simple":
+            print("🚀 Starting ArchGuard Simple Server (AI-first mode)")
+            simple_server_main()
+        else:
+            print("🔧 Starting ArchGuard Complex Server (full detectors mode)")
+            server_main(context=getattr(args, 'context', 'desktop-app'), 
+                       project=getattr(args, 'project', None))
     elif args.command == "http":
         # Import and run HTTP server with args
         from .http_server import main as http_main

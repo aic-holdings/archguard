@@ -36,6 +36,11 @@ dependencies = [
     "python-multipart>=0.0.6",
     "httpx>=0.28.0",
     "toml>=0.10.0",
+    # Vector search dependencies
+    "supabase>=2.3.0",
+    "sentence-transformers>=2.2.0",
+    "numpy>=1.24.0",
+    "python-dotenv>=1.0.0",
 ]
 
 [project.optional-dependencies]

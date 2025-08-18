@@ -58,7 +58,7 @@ class UvxInstallationTester:
             # Test git clone to verify repo access
             result = subprocess.run([
                 "git", "ls-remote", "--heads", 
-                "https://github.com/dshanklinbv/archguard.git"
+                "https://github.com/aic-holdings/archguard.git"
             ], capture_output=True, text=True, timeout=15)
             
             if result.returncode == 0:
@@ -79,7 +79,7 @@ class UvxInstallationTester:
             # Install from GitHub using uvx
             result = subprocess.run([
                 "uvx", "install", 
-                "git+https://github.com/dshanklinbv/archguard.git"
+                "git+https://github.com/aic-holdings/archguard.git"
             ], capture_output=True, text=True, timeout=120)
             
             if result.returncode == 0:

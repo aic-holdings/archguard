@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "archguard-test": {
+      "command": "uvx",
+      "args": ["--from", ".", "archguard", "server", "--mode", "simple"],
+      "cwd": "/Users/dshanklinbv/repos/archguard",
+      "env": {
+        "ARCHGUARD_LOG_LEVEL": "INFO"
+      }
+    }
+  }
+}

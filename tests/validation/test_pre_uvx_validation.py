@@ -368,7 +368,7 @@ class PreUvxValidator:
             print("\n🎉 ALL VALIDATIONS PASSED!")
             print("\n✅ ArchGuard is ready for uvx installation")
             print("\n📋 Next Steps:")
-            print("1. Install via uvx: uvx install git+https://github.com/dshanklinbv/archguard.git")
+            print("1. Install via uvx: uvx install git+https://github.com/aic-holdings/archguard.git")
             print("2. Configure Claude Code MCP server:")
             print("   {")
             print('     "mcpServers": {')

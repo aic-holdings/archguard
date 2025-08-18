@@ -9,6 +9,7 @@ both keyword-based matching (for immediate use) and vector-based semantic search
 from abc import ABC, abstractmethod
 from typing import List, Dict, Any, Optional
 import json
+import os
 
 
 class RuleEngine(ABC):
@@ -287,13 +288,23 @@ class KeywordRuleEngine(RuleEngine):
 
 
 class VectorRuleEngine(RuleEngine):
-    """Vector-based rule engine for semantic search (future implementation)"""
+    """Vector-based rule engine for semantic search using Supabase + pgvector"""
     
-    def __init__(self, vector_db_path: str, embedding_model: str = "all-MiniLM-L6-v2"):
-        self.vector_db_path = vector_db_path
+    def __init__(self, supabase_url: str = None, supabase_key: str = None, 
+                 embedding_model: str = "all-MiniLM-L6-v2"):
+        # Load from environment variables if not provided
+        self.supabase_url = supabase_url or os.getenv("ARCHGUARD_SUPABASE_URL")
+        self.supabase_key = supabase_key or os.getenv("ARCHGUARD_SUPABASE_KEY")
         self.embedding_model = embedding_model
-        # TODO: Initialize ChromaDB/Weaviate connection
-        # TODO: Load pre-computed rule embeddings
+        
+        if not self.supabase_url or not self.supabase_key:
+            raise ValueError(
+                "Supabase credentials required. Set ARCHGUARD_SUPABASE_URL and "
+                "ARCHGUARD_SUPABASE_KEY environment variables or pass as parameters."
+            )
+        
+        # TODO: Initialize Supabase client
+        # TODO: Load pre-computed rule embeddings from pgvector
         # TODO: Initialize sentence transformer model
         raise NotImplementedError("Vector rule engine not yet implemented - use KeywordRuleEngine")
     
@@ -324,11 +335,15 @@ class VectorRuleEngine(RuleEngine):
 
 
 # Factory function for easy engine creation
-def create_rule_engine(engine_type: str = "keyword", **kwargs) -> RuleEngine:
+def create_rule_engine(engine_type: str = None, **kwargs) -> RuleEngine:
     """Create a rule engine of the specified type"""
+    # Auto-detect engine type based on environment variables
+    if engine_type is None:
+        engine_type = os.getenv("ARCHGUARD_ENGINE_TYPE", "keyword")
+    
     if engine_type == "keyword":
         return KeywordRuleEngine()
     elif engine_type == "vector":
         return VectorRuleEngine(**kwargs)
     else:
-        raise ValueError(f"Unknown engine type: {engine_type}")
+        raise ValueError(f"Unknown engine type: {engine_type}. Use 'keyword' or 'vector'.")

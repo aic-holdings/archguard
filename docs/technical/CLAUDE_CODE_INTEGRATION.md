@@ -4,13 +4,29 @@ This guide shows you how to integrate ArchGuard with Claude Code for intelligent
 
 ## 🎯 What ArchGuard Provides
 
-Unlike Serena's semantic code retrieval, **ArchGuard specializes in architectural guidance**:
+**ArchGuard specializes in AI-powered architectural guidance**:
 
+- **AI-First Analysis**: Uses intelligent reasoning rather than rigid rules for contextual guidance
 - **Architectural Patterns**: Suggests appropriate design patterns and architectural decisions
 - **Security Guidance**: Provides comprehensive security recommendations for any codebase
 - **Code Review**: Generates structured architectural review prompts 
-- **Governance Rules**: Access to 40+ professional architectural standards
 - **Context-Aware**: Understands project context to provide relevant guidance
+
+## 🔄 Server Modes
+
+ArchGuard offers two modes to match different needs:
+
+### Simple Mode (Recommended - Default)
+- **AI-powered guidance** for architectural decisions
+- **Essential security scanning** for hardcoded secrets
+- **Focused and fast** - optimized for real-time use with Claude Code
+- **Intelligent recommendations** based on context and best practices
+
+### Complex Mode (Advanced Use)
+- **Full detector suite** with comprehensive rule engines
+- **Detailed static analysis** with complex pattern matching
+- **Extensive coverage** of code quality metrics
+- **More thorough but slower** analysis
 
 ## Installation
 
@@ -55,13 +71,28 @@ Add ArchGuard to your Claude Code MCP servers configuration:
 
 **Location**: Claude Code settings → MCP Servers
 
-#### Option A: Direct uvx execution (Serena style - Recommended)
+#### Option A: Direct uvx execution (Simple AI-first mode - Recommended)
 ```json
 {
   "mcpServers": {
     "archguard": {
       "command": "uvx",
-      "args": ["--from", "git+https://github.com/aic-holdings/archguard", "archguard", "server"],
+      "args": ["--from", "git+https://github.com/aic-holdings/archguard", "archguard", "server", "--mode", "simple"],
+      "env": {
+        "ARCHGUARD_LOG_LEVEL": "INFO"
+      }
+    }
+  }
+}
+```
+
+#### Option A-Alt: Complex mode (Full detectors - for advanced use)
+```json
+{
+  "mcpServers": {
+    "archguard": {
+      "command": "uvx",
+      "args": ["--from", "git+https://github.com/aic-holdings/archguard", "archguard", "server", "--mode", "complex"],
       "env": {
         "ARCHGUARD_LOG_LEVEL": "INFO"
       }
@@ -317,7 +348,7 @@ jobs:
       with:
         python-version: '3.9'
     - name: Install ArchGuard
-      run: uvx install git+https://github.com/dshanklinbv/archguard.git
+      run: uvx --from git+https://github.com/aic-holdings/archguard archguard
     - name: Run Analysis
       run: archguard check --output-format json > analysis.json
 ```
@@ -335,9 +366,9 @@ While Serena is a broader coding agent toolkit, ArchGuard specializes in archite
 
 ## Getting Help
 
-- **Documentation**: [ArchGuard Docs](https://github.com/dshanklinbv/archguard/docs)
-- **Issues**: [GitHub Issues](https://github.com/dshanklinbv/archguard/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/dshanklinbv/archguard/discussions)
+- **Documentation**: [ArchGuard Docs](https://github.com/aic-holdings/archguard/docs)
+- **Issues**: [GitHub Issues](https://github.com/aic-holdings/archguard/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/aic-holdings/archguard/discussions)
 
 ## Contributing
 
