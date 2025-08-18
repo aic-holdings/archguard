@@ -1,0 +1,28 @@
+{
+  "mcpServers": {
+    "archguard": {
+      "command": "uvx",
+      "args": [
+        "--from", 
+        "git+https://github.com/aic-holdings/archguard", 
+        "archguard", 
+        "server", 
+        "--context", 
+        "ide-assistant",
+        "--project", 
+        "/Users/dshanklinbv/repos/archguard"
+      ],
+      "env": {
+        "ARCHGUARD_ENGINE_TYPE": "keyword",
+        "ARCHGUARD_SUPABASE_URL": "https://kkvkwxfirmeywhvndjaa.supabase.co",
+        "ARCHGUARD_SUPABASE_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtrdmt3eGZpcm1leXdodm5kamFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU0NTM3MDAsImV4cCI6MjA3MTAyOTcwMH0.6hJ9e9nIVFKVc3QHJfCU7x1YZI1C5uL2nV8gG8gKDiM",
+        "ARCHGUARD_SUPABASE_PROJECT_ID": "kkvkwxfirmeywhvndjaa",
+        "ARCHGUARD_DEFAULT_CONTEXT": "ide-assistant",
+        "ARCHGUARD_PROJECT_ID": "https://github.com/dshanklinbv/archguard",
+        "ARCHGUARD_EMBEDDING_MODEL": "all-MiniLM-L6-v2",
+        "ARCHGUARD_DEBUG": "false",
+        "ARCHGUARD_LOG_LEVEL": "INFO"
+      }
+    }
+  }
+}

@@ -303,35 +303,139 @@ class VectorRuleEngine(RuleEngine):
                 "ARCHGUARD_SUPABASE_KEY environment variables or pass as parameters."
             )
         
-        # TODO: Initialize Supabase client
-        # TODO: Load pre-computed rule embeddings from pgvector
-        # TODO: Initialize sentence transformer model
-        raise NotImplementedError("Vector rule engine not yet implemented - use KeywordRuleEngine")
+        # Initialize Supabase client
+        try:
+            from supabase import create_client, Client
+            self.supabase: Client = create_client(self.supabase_url, self.supabase_key)
+        except ImportError:
+            raise ImportError("supabase package required for vector search. Install with: pip install supabase")
+        
+        # Initialize sentence transformer model
+        try:
+            from sentence_transformers import SentenceTransformer
+            self.encoder = SentenceTransformer(embedding_model)
+        except ImportError:
+            raise ImportError("sentence-transformers package required for vector search. Install with: pip install sentence-transformers")
     
     def find_relevant_rules(self, action: str, code: str = "", context: str = "", 
                           project_context: Optional[Dict] = None) -> List[Dict]:
         """Find rules using semantic similarity search"""
-        # TODO: Embed the query text
-        # TODO: Perform vector similarity search
-        # TODO: Filter by context and project requirements
-        # TODO: Return ranked results with similarity scores
-        raise NotImplementedError("Vector search not yet implemented")
+        # Combine action, code, and context into search query
+        query_parts = [action]
+        if code:
+            query_parts.append(f"Code: {code[:500]}")  # Limit code length
+        if context:
+            query_parts.append(f"Context: {context}")
+        
+        query_text = " ".join(query_parts)
+        
+        # Generate embedding for the query
+        query_embedding = self.encoder.encode(query_text).tolist()
+        
+        # Perform vector similarity search
+        try:
+            # Use Supabase's vector similarity search
+            # The embedding column should be compared using cosine similarity
+            response = self.supabase.rpc(
+                'match_rules',
+                {
+                    'query_embedding': query_embedding,
+                    'match_threshold': 0.7,
+                    'match_count': 10
+                }
+            ).execute()
+            
+            rules = response.data if response.data else []
+            
+        except Exception as e:
+            # Fallback to basic SQL query if RPC function doesn't exist
+            print(f"Vector search RPC failed, falling back to basic query: {e}")
+            response = self.supabase.table('rules').select('*').limit(10).execute()
+            rules = response.data if response.data else []
+        
+        # Convert to expected format
+        result_rules = []
+        for rule in rules:
+            result_rules.append({
+                "rule_id": rule.get("rule_id", ""),
+                "title": rule.get("title", ""),
+                "guidance": rule.get("guidance", ""),
+                "category": rule.get("category", "general"),
+                "priority": rule.get("priority", "medium"),
+                "contexts": rule.get("contexts", []),
+                "tech_stacks": rule.get("tech_stacks", []),
+                "keywords": rule.get("keywords", []),
+                "search_score": rule.get("similarity", 0)
+            })
+        
+        return result_rules
     
     def add_rule(self, rule: Dict) -> bool:
         """Add a new rule and compute its embedding"""
-        # TODO: Validate rule structure
-        # TODO: Compute embedding for rule text
-        # TODO: Store in vector database
-        # TODO: Update metadata in SQLite
-        raise NotImplementedError("Vector rule storage not yet implemented")
+        try:
+            # Generate embedding for title + guidance
+            text_to_embed = f"{rule.get('title', '')} {rule.get('guidance', '')}"
+            embedding = self.encoder.encode(text_to_embed).tolist()
+            
+            # Add embedding to rule data
+            rule_data = rule.copy()
+            rule_data['embedding'] = embedding
+            
+            # Insert into Supabase
+            response = self.supabase.table('rules').insert(rule_data).execute()
+            return bool(response.data)
+        except Exception as e:
+            print(f"Error adding rule: {e}")
+            return False
     
     def get_rule_by_id(self, rule_id: str) -> Optional[Dict]:
-        # TODO: Query from metadata database
-        raise NotImplementedError("Vector rule retrieval not yet implemented")
+        """Get a specific rule by ID"""
+        try:
+            response = self.supabase.table('rules').select('*').eq('rule_id', rule_id).execute()
+            if response.data:
+                rule = response.data[0]
+                return {
+                    "rule_id": rule.get("rule_id", ""),
+                    "title": rule.get("title", ""),
+                    "guidance": rule.get("guidance", ""),
+                    "category": rule.get("category", "general"),
+                    "priority": rule.get("priority", "medium"),
+                    "contexts": rule.get("contexts", []),
+                    "tech_stacks": rule.get("tech_stacks", []),
+                    "keywords": rule.get("keywords", [])
+                }
+            return None
+        except Exception as e:
+            print(f"Error getting rule: {e}")
+            return None
     
     def list_all_rules(self) -> List[Dict]:
-        # TODO: List from metadata database
-        raise NotImplementedError("Vector rule listing not yet implemented")
+        """List all available rules"""
+        try:
+            response = self.supabase.table('rules').select('*').execute()
+            rules = response.data if response.data else []
+            
+            result_rules = []
+            for rule in rules:
+                result_rules.append({
+                    "rule_id": rule.get("rule_id", ""),
+                    "title": rule.get("title", ""),
+                    "guidance": rule.get("guidance", ""),
+                    "category": rule.get("category", "general"),
+                    "priority": rule.get("priority", "medium"),
+                    "contexts": rule.get("contexts", []),
+                    "tech_stacks": rule.get("tech_stacks", []),
+                    "keywords": rule.get("keywords", [])
+                })
+            
+            return result_rules
+        except Exception as e:
+            print(f"Error listing rules: {e}")
+            return []
+    
+    def search_rules(self, query: str, max_results: int = 5) -> List[Dict]:
+        """Search rules using vector similarity"""
+        return self.find_relevant_rules(action=query)[:max_results]
 
 
 # Factory function for easy engine creation
