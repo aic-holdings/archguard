@@ -8,8 +8,8 @@ general architectural guidance, best practices, and design recommendations.
 from typing import Dict, Any
 from ..rules_engine import create_rule_engine
 
-# Initialize rule engine
-rule_engine = create_rule_engine("keyword")
+# Initialize rule engine (use vector search for comprehensive guides)
+rule_engine = create_rule_engine("vector")
 
 def get_guidance(action: str, code: str = "", context: str = "", 
                 server_context: str = None, server_project: str = None) -> dict:
