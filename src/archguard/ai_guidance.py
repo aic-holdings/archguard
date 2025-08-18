@@ -26,9 +26,10 @@ class GuidanceResponse:
     patterns: List[str] = None  # Suggested architectural patterns
     rules_applied: List[str] = None  # Which rules were used
     code_analysis: Dict[str, Any] = None  # Code analysis metadata
+    external_resources: List[Dict[str, str]] = None  # External URLs for fresh documentation
     
     def to_dict(self) -> Dict[str, Any]:
-        return {
+        result = {
             "guidance": self.guidance,
             "status": self.status,
             "action": self.action,
@@ -41,6 +42,12 @@ class GuidanceResponse:
                 "rules_matched": len(self.rules_applied) if self.rules_applied else 0
             }
         }
+        
+        # Add external resources if available
+        if self.external_resources:
+            result["external_resources"] = self.external_resources
+            
+        return result
 
 
 class AIGuidanceEngine:
@@ -81,11 +88,22 @@ class AIGuidanceEngine:
             
             # Collect metadata for response
             rules_applied = []
+            external_resources = []
             if vector_search_engine.is_available() and guidance != self._analyze_action(action, code, context):
-                # We used vector search, extract rule names
+                # We used vector search, extract rule names and external URLs
                 try:
                     relevant_rules = vector_search_engine.search_rules(f"{action} {context}".strip(), project_id=project_id, limit=3)
                     rules_applied = [rule['title'] for rule in relevant_rules]
+                    
+                    # Collect external resources from all relevant rules
+                    for rule in relevant_rules:
+                        if rule.get('external_urls'):
+                            for key, url in rule['external_urls'].items():
+                                external_resources.append({
+                                    "title": key.replace("_", " ").title(),
+                                    "url": url,
+                                    "why": f"For latest {key.replace('_', ' ')}"
+                                })
                 except:
                     pass
             
@@ -96,6 +114,7 @@ class AIGuidanceEngine:
                 complexity_score=complexity,
                 patterns=patterns,
                 rules_applied=rules_applied,
+                external_resources=external_resources if external_resources else None,
                 code_analysis={
                     "lines_analyzed": len(code.split('\n')) if code else 0,
                     "context_provided": bool(context),
