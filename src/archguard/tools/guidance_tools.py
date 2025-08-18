@@ -6,7 +6,7 @@ general architectural guidance, best practices, and design recommendations.
 """
 
 from typing import Dict, Any
-from ..rules_engine import create_rule_engine
+from archguard.rules_engine import create_rule_engine
 
 # Initialize rule engine (use vector search for comprehensive guides)
 rule_engine = create_rule_engine("vector")

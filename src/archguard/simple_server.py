@@ -10,7 +10,7 @@ import asyncio
 import logging
 from typing import Any, Dict, List, Optional
 from fastmcp import FastMCP
-from .ai_guidance import guidance_engine, secret_detector
+from archguard.ai_guidance import guidance_engine, secret_detector
 
 
 # Configure logging

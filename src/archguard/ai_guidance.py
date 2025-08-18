@@ -11,7 +11,7 @@ from dataclasses import dataclass
 import logging
 
 # Import vector search engine
-from .vector_search import vector_search_engine
+from archguard.vector_search import vector_search_engine
 
 logger = logging.getLogger(__name__)
 

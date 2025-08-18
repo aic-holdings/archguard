@@ -283,7 +283,7 @@ For uvx usage:
 
 def server_main_cli() -> None:
     """Direct entry point for archguard-server command."""
-    server_main()
+    simple_server_main()
 
 
 def http_main_cli() -> None:
