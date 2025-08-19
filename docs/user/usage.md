@@ -127,7 +127,7 @@ Symmetra adapts its responses based on your context:
 **Optimized for**: Quick, actionable advice during coding
 
 ```bash
-export ARCHGUARD_DEFAULT_CONTEXT=ide-assistant
+export SYMMETRA_DEFAULT_CONTEXT=ide-assistant
 ```
 
 **Characteristics**:
@@ -146,7 +146,7 @@ Output: "🚨 Add try/catch with specific exception types, log errors with conte
 **Optimized for**: Automated processing and detailed analysis
 
 ```bash
-export ARCHGUARD_DEFAULT_CONTEXT=agent
+export SYMMETRA_DEFAULT_CONTEXT=agent
 ```
 
 **Characteristics**:
@@ -170,7 +170,7 @@ export ARCHGUARD_DEFAULT_CONTEXT=agent
 **Optimized for**: Learning and discussion
 
 ```bash
-export ARCHGUARD_DEFAULT_CONTEXT=desktop-app
+export SYMMETRA_DEFAULT_CONTEXT=desktop-app
 ```
 
 **Characteristics**:
@@ -352,15 +352,15 @@ auto_reload = true
 
 ```bash
 # Development
-export ARCHGUARD_ENGINE_TYPE=keyword
-export ARCHGUARD_LOG_LEVEL=DEBUG
-export ARCHGUARD_MAX_RULES=5
+export SYMMETRA_ENGINE_TYPE=keyword
+export SYMMETRA_LOG_LEVEL=DEBUG
+export SYMMETRA_MAX_RULES=5
 
 # Production
-export ARCHGUARD_ENGINE_TYPE=vector
-export ARCHGUARD_LOG_LEVEL=INFO
-export ARCHGUARD_MAX_RULES=10
-export ARCHGUARD_CACHE_TTL=3600
+export SYMMETRA_ENGINE_TYPE=vector
+export SYMMETRA_LOG_LEVEL=INFO
+export SYMMETRA_MAX_RULES=10
+export SYMMETRA_CACHE_TTL=3600
 ```
 
 ### Batch Operations
@@ -431,12 +431,12 @@ def on_file_save(file_content, file_path):
 
 ```bash
 # Fast keyword search
-export ARCHGUARD_ENGINE_TYPE=keyword
+export SYMMETRA_ENGINE_TYPE=keyword
 # ~25ms response time
 
 # Semantic vector search with caching
-export ARCHGUARD_ENGINE_TYPE=vector
-export ARCHGUARD_CACHE_TTL=3600
+export SYMMETRA_ENGINE_TYPE=vector
+export SYMMETRA_CACHE_TTL=3600
 # ~50ms with cache, ~200ms without
 ```
 
@@ -444,10 +444,10 @@ export ARCHGUARD_CACHE_TTL=3600
 
 ```bash
 # Limit rule set size
-export ARCHGUARD_MAX_RULES=10
+export SYMMETRA_MAX_RULES=10
 
 # Use smaller embedding model
-export ARCHGUARD_EMBEDDING_MODEL=all-minilm  # 384D instead of 768D
+export SYMMETRA_EMBEDDING_MODEL=all-minilm  # 384D instead of 768D
 ```
 
 ### Concurrent Processing
@@ -481,7 +481,7 @@ curl -s http://localhost:11434/api/version
 python scripts/embedding_worker.py --monitor-only
 
 # Use faster model
-export ARCHGUARD_EMBEDDING_MODEL=all-minilm
+export SYMMETRA_EMBEDDING_MODEL=all-minilm
 ```
 
 #### "MCP connection failed"
@@ -490,7 +490,7 @@ export ARCHGUARD_EMBEDDING_MODEL=all-minilm
 python -m symmetra.server
 
 # Check environment variables
-env | grep ARCHGUARD
+env | grep SYMMETRA
 
 # Verify database connection
 python -c "from mcp__supabase__execute_sql import execute_sql; print('✅ Connected')"

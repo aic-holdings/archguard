@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Simple embedding generation script for ArchGuard MVP testing
+Simple embedding generation script for Symmetra MVP testing
 """
 
 import os

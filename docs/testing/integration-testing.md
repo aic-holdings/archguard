@@ -38,7 +38,7 @@ Add to your Claude Code MCP configuration:
       "command": "uvx",
       "args": ["--from", "git+https://github.com/aic-holdings/symmetra", "symmetra", "server"],
       "env": {
-        "ARCHGUARD_LOG_LEVEL": "INFO"
+        "SYMMETRA_LOG_LEVEL": "INFO"
       }
     }
   }
@@ -303,8 +303,8 @@ Test different environment configurations:
       "command": "uvx",
       "args": ["--from", "git+https://github.com/aic-holdings/symmetra", "symmetra", "server"],
       "env": {
-        "ARCHGUARD_LOG_LEVEL": "DEBUG",
-        "ARCHGUARD_CONTEXT": "development"
+        "SYMMETRA_LOG_LEVEL": "DEBUG",
+        "SYMMETRA_CONTEXT": "development"
       }
     }
   }

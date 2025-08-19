@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-ArchGuard Test Runner - Self-Documenting Test Execution
+Symmetra Test Runner - Self-Documenting Test Execution
 
-This script runs the comprehensive ArchGuard test suite and provides
+This script runs the comprehensive Symmetra test suite and provides
 detailed reporting on system functionality and compliance.
 
 Usage:
@@ -46,7 +46,7 @@ def run_command(cmd, description):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="ArchGuard Test Runner")
+    parser = argparse.ArgumentParser(description="Symmetra Test Runner")
     parser.add_argument("--integration", action="store_true", help="Run integration tests only")
     parser.add_argument("--unit", action="store_true", help="Run unit tests only")
     parser.add_argument("--mcp", action="store_true", help="Run MCP protocol tests only")
@@ -62,7 +62,7 @@ def main():
     project_root = Path(__file__).parent
     subprocess.run(f"cd {project_root}", shell=True)
     
-    print("🧪 ArchGuard Test Suite")
+    print("🧪 Symmetra Test Suite")
     print("=" * 60)
     print(f"Project root: {project_root}")
     print(f"Python version: {sys.version}")
@@ -90,7 +90,7 @@ def main():
         test_cmd_parts.append("-vv")
     
     if args.coverage:
-        test_cmd_parts.extend(["--cov=archguard", "--cov-report=html", "--cov-report=term"])
+        test_cmd_parts.extend(["--cov=symmetra", "--cov-report=html", "--cov-report=term"])
     
     # Select test categories
     if args.integration:
@@ -110,7 +110,7 @@ def main():
     test_cmd = " ".join(test_cmd_parts)
     
     # Run tests
-    success = run_command(test_cmd, "Running ArchGuard test suite")
+    success = run_command(test_cmd, "Running Symmetra test suite")
     
     if args.documentation:
         print("\n📚 Generating test documentation...")
@@ -131,11 +131,11 @@ def main():
     if success:
         print("✅ All tests passed!")
         print("\n🎯 System Status:")
-        print("   • Core ArchGuard functionality: ✅ Working")
+        print("   • Core Symmetra functionality: ✅ Working")
         print("   • MCP protocol compliance: ✅ Verified")
         print("   • Embedding system: ✅ Functional")
         print("   • Integration patterns: ✅ Documented")
-        print("\n🚀 ArchGuard is ready for production use!")
+        print("\n🚀 Symmetra is ready for production use!")
         return 0
     else:
         print("❌ Some tests failed!")

@@ -6,8 +6,8 @@ Tests the coordination of multiple detectors and result prioritization.
 
 import pytest
 from unittest.mock import Mock, MagicMock
-from src.archguard.detectors.engine import DetectionEngine
-from src.archguard.detectors.base import Detector, DetectedIssue, Severity, IssueType
+from src.symmetra.detectors.engine import DetectionEngine
+from src.symmetra.detectors.base import Detector, DetectedIssue, Severity, IssueType
 
 
 class MockDetector(Detector):

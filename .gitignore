@@ -62,10 +62,10 @@ logs/
 ehthumbs.db
 Thumbs.db
 
-# ArchGuard Specific
+# Symmetra Specific
 # Configuration files with secrets
 config.local.toml
-.archguard.local.toml
+.symmetra.local.toml
 
 # Runtime data
 temp/

@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "symmetra": {
+      "command": "symmetra",
+      "args": ["server"],
+      "env": {
+        "OPENAI_API_KEY": "YOUR_OPENAI_API_KEY_HERE"
+      }
+    }
+  }
+}

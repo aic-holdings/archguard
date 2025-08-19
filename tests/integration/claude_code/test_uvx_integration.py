@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-ArchGuard uvx Integration Tests
+Symmetra uvx Integration Tests
 
-Tests that validate ArchGuard works correctly when installed via uvx
+Tests that validate Symmetra works correctly when installed via uvx
 and integrates properly with Claude Code as an MCP server.
 """
 
@@ -26,7 +26,7 @@ class UvxInstallationTester:
         
     def setup_test_environment(self):
         """Create isolated test environment"""
-        self.test_dir = tempfile.mkdtemp(prefix="archguard_uvx_test_")
+        self.test_dir = tempfile.mkdtemp(prefix="symmetra_uvx_test_")
         os.chdir(self.test_dir)
         print(f"🏗️  Test environment: {self.test_dir}")
         
@@ -58,7 +58,7 @@ class UvxInstallationTester:
             # Test git clone to verify repo access
             result = subprocess.run([
                 "git", "ls-remote", "--heads", 
-                "https://github.com/aic-holdings/archguard.git"
+                "https://github.com/aic-holdings/symmetra.git"
             ], capture_output=True, text=True, timeout=15)
             
             if result.returncode == 0:
@@ -72,14 +72,14 @@ class UvxInstallationTester:
             return False
             
     def test_uvx_install_from_github(self) -> bool:
-        """Test installing ArchGuard via uvx from GitHub"""
+        """Test installing Symmetra via uvx from GitHub"""
         try:
             print("🔄 Testing uvx install from GitHub...")
             
             # Install from GitHub using uvx
             result = subprocess.run([
                 "uvx", "install", 
-                "git+https://github.com/aic-holdings/archguard.git"
+                "git+https://github.com/aic-holdings/symmetra.git"
             ], capture_output=True, text=True, timeout=120)
             
             if result.returncode == 0:
@@ -97,13 +97,13 @@ class UvxInstallationTester:
             print(f"❌ uvx install error: {e}")
             return False
             
-    def test_archguard_commands_available(self) -> bool:
-        """Test that ArchGuard CLI commands work after uvx install"""
+    def test_symmetra_commands_available(self) -> bool:
+        """Test that Symmetra CLI commands work after uvx install"""
         commands_to_test = [
-            (["archguard", "--help"], "Main CLI help"),
-            (["archguard", "server", "--help"], "Server command help"),
-            (["archguard", "http", "--help"], "HTTP command help"),
-            (["archguard", "init", "--help"], "Init command help"),
+            (["symmetra", "--help"], "Main CLI help"),
+            (["symmetra", "server", "--help"], "Server command help"),
+            (["symmetra", "http", "--help"], "HTTP command help"),
+            (["symmetra", "init", "--help"], "Init command help"),
         ]
         
         all_passed = True
@@ -129,7 +129,7 @@ class UvxInstallationTester:
             
             # Start the MCP server
             proc = subprocess.Popen(
-                ["archguard", "server"],
+                ["symmetra", "server"],
                 stdin=subprocess.PIPE,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
@@ -186,7 +186,7 @@ class UvxInstallationTester:
             
             # Start HTTP server on a test port
             proc = subprocess.Popen(
-                ["archguard", "http", "--port", "8899"],
+                ["symmetra", "http", "--port", "8899"],
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 text=True
@@ -230,7 +230,7 @@ class UvxInstallationTester:
 
 def test_uvx_installation_full_workflow():
     """Complete uvx installation test workflow"""
-    print("🛡️  ArchGuard uvx Installation Test Suite")
+    print("🛡️  Symmetra uvx Installation Test Suite")
     print("=" * 60)
     
     tester = UvxInstallationTester()
@@ -243,7 +243,7 @@ def test_uvx_installation_full_workflow():
             ("uvx availability", tester.test_uvx_available),
             ("GitHub repository access", tester.test_github_repo_accessible),
             ("uvx install from GitHub", tester.test_uvx_install_from_github),
-            ("CLI commands availability", tester.test_archguard_commands_available),
+            ("CLI commands availability", tester.test_symmetra_commands_available),
             ("MCP server startup", tester.test_mcp_server_startup),
             ("HTTP server startup", tester.test_http_server_startup),
         ]
@@ -278,7 +278,7 @@ def test_uvx_installation_full_workflow():
         
         if passed == total:
             print("🎉 All uvx installation tests PASSED!")
-            print("✅ ArchGuard is ready for uvx installation and Claude Code integration")
+            print("✅ Symmetra is ready for uvx installation and Claude Code integration")
             return True
         else:
             print("❌ Some tests FAILED. Review the output above.")

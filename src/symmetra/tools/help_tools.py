@@ -21,9 +21,9 @@ def get_symmetra_help() -> dict:
     """
     return {
         "guide": """
-🛡️ ARCHGUARD USAGE GUIDE FOR CODING AGENTS
+🛡️ SYMMETRA USAGE GUIDE FOR CODING AGENTS
 
-🎯 WHAT ARCHGUARD IS BEST FOR:
+🎯 WHAT SYMMETRA IS BEST FOR:
 Symmetra is your architectural co-pilot that provides dual-mode assistance:
 
 📋 GUIDANCE MODE (get_guidance):
@@ -229,7 +229,7 @@ def get_review_code_prompt(code: str) -> str:
     Returns:
         Structured review prompt for comprehensive architectural analysis
     """
-    return f"""🛡️ ARCHGUARD ARCHITECTURAL CODE REVIEW
+    return f"""🛡️ SYMMETRA ARCHITECTURAL CODE REVIEW
 
 Please perform a comprehensive architectural review of this code:
 

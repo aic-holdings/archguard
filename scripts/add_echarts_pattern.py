@@ -3,7 +3,7 @@
 Add ECharts Pattern with External URLs Test
 
 This script adds an Apache ECharts chart implementation pattern to test
-the new external URL routing functionality in ArchGuard.
+the new external URL routing functionality in Symmetra.
 """
 
 import os
@@ -18,7 +18,7 @@ from dotenv import load_dotenv
 import sys
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
-from archguard.vector_search import vector_search_engine
+from symmetra.vector_search import vector_search_engine
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
@@ -679,7 +679,7 @@ async def main():
     # Test AI guidance integration with external URLs
     logger.info("\n🤖 Testing AI guidance with external URLs...")
     
-    from archguard.ai_guidance import guidance_engine
+    from symmetra.ai_guidance import guidance_engine
     
     try:
         response = guidance_engine.get_guidance(

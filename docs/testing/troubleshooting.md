@@ -88,7 +88,7 @@ pyenv global 3.11.0
 **Diagnosis**:
 ```bash
 # Test with detailed output
-ARCHGUARD_LOG_LEVEL=DEBUG uvx --from git+https://github.com/aic-holdings/symmetra symmetra server --help
+SYMMETRA_LOG_LEVEL=DEBUG uvx --from git+https://github.com/aic-holdings/symmetra symmetra server --help
 
 # Check for import errors
 python -c "
@@ -337,7 +337,7 @@ python -m pytest test/test_specific.py::test_name -v
 ### Enable Debug Logging
 ```bash
 # Enable detailed logging
-export ARCHGUARD_LOG_LEVEL=DEBUG
+export SYMMETRA_LOG_LEVEL=DEBUG
 
 # Run with debug output
 uvx --from git+https://github.com/aic-holdings/symmetra symmetra server 2>&1 | tee debug.log
@@ -371,7 +371,7 @@ When reporting issues, include this information:
 ### Error Details
 - [ ] Exact error message
 - [ ] Command that triggered the error
-- [ ] Debug logs (with ARCHGUARD_LOG_LEVEL=DEBUG)
+- [ ] Debug logs (with SYMMETRA_LOG_LEVEL=DEBUG)
 - [ ] Steps to reproduce
 
 ### Configuration

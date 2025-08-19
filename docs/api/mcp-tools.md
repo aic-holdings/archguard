@@ -217,7 +217,7 @@ All tools return structured error information:
 
 ### Rate Limits
 - **Default**: 100 requests per minute
-- **Configurable**: Via `ARCHGUARD_RATE_LIMIT` environment variable
+- **Configurable**: Via `SYMMETRA_RATE_LIMIT` environment variable
 
 ### Caching
 - **Rule cache**: 1 hour TTL

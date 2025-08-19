@@ -2,7 +2,7 @@
 """
 Pre-uvx Installation Validation Suite
 
-Comprehensive testing to ensure ArchGuard is ready for uvx installation
+Comprehensive testing to ensure Symmetra is ready for uvx installation
 and will work correctly with Claude Code as an MCP server.
 """
 
@@ -42,10 +42,10 @@ class PreUvxValidator:
         """Validate package structure for uvx compatibility"""
         required_files = [
             "pyproject.toml",
-            "src/archguard/__init__.py",
-            "src/archguard/cli.py",
-            "src/archguard/server.py",
-            "src/archguard/config.py",
+            "src/symmetra/__init__.py",
+            "src/symmetra/cli.py",
+            "src/symmetra/server.py",
+            "src/symmetra/config.py",
             "README.md"
         ]
         
@@ -74,7 +74,7 @@ class PreUvxValidator:
             # Check entry points
             if "project" in config and "scripts" in config["project"]:
                 scripts = config["project"]["scripts"]
-                required_scripts = ["archguard", "archguard-server", "archguard-http"]
+                required_scripts = ["symmetra", "symmetra-server", "symmetra-http"]
                 missing_scripts = [s for s in required_scripts if s not in scripts]
                 if missing_scripts:
                     return False, f"Missing entry points: {missing_scripts}"
@@ -98,7 +98,7 @@ class PreUvxValidator:
                 # Test imports by running the file in a subprocess
                 result = subprocess.run([
                     sys.executable, "-c", f"import sys; sys.path.insert(0, '{self.project_root}/src'); import {py_file.stem}"
-                ], capture_output=True, text=True, cwd=self.project_root / "src" / "archguard")
+                ], capture_output=True, text=True, cwd=self.project_root / "src" / "symmetra")
                 
                 if result.returncode != 0:
                     return False, f"Import error in {py_file}: {result.stderr}"
@@ -117,10 +117,10 @@ class PreUvxValidator:
         env["PYTHONPATH"] = str(self.project_root / "src")
         
         commands_to_test = [
-            (["python", "-m", "archguard.cli", "--help"], "Main CLI help"),
-            (["python", "-m", "archguard.cli", "server", "--help"], "Server help"),
-            (["python", "-m", "archguard.cli", "http", "--help"], "HTTP help"),
-            (["python", "-m", "archguard.cli", "init", "--help"], "Init help"),
+            (["python", "-m", "symmetra.cli", "--help"], "Main CLI help"),
+            (["python", "-m", "symmetra.cli", "server", "--help"], "Server help"),
+            (["python", "-m", "symmetra.cli", "http", "--help"], "HTTP help"),
+            (["python", "-m", "symmetra.cli", "init", "--help"], "Init help"),
         ]
         
         for cmd, description in commands_to_test:
@@ -152,7 +152,7 @@ class PreUvxValidator:
         try:
             # Start MCP server
             proc = subprocess.Popen(
-                ["python", "-m", "archguard.cli", "server"],
+                ["python", "-m", "symmetra.cli", "server"],
                 stdin=subprocess.PIPE,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
@@ -292,7 +292,7 @@ class PreUvxValidator:
             env["PYTHONPATH"] = str(self.project_root / "src")
             
             proc = subprocess.Popen(
-                ["python", "-m", "archguard.cli", "server"],
+                ["python", "-m", "symmetra.cli", "server"],
                 stdin=subprocess.PIPE,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
@@ -366,20 +366,20 @@ class PreUvxValidator:
                 
         if passed == total:
             print("\n🎉 ALL VALIDATIONS PASSED!")
-            print("\n✅ ArchGuard is ready for uvx installation")
+            print("\n✅ Symmetra is ready for uvx installation")
             print("\n📋 Next Steps:")
-            print("1. Install via uvx: uvx install git+https://github.com/aic-holdings/archguard.git")
+            print("1. Install via uvx: uvx install git+https://github.com/aic-holdings/symmetra.git")
             print("2. Configure Claude Code MCP server:")
             print("   {")
             print('     "mcpServers": {')
-            print('       "archguard": {')
-            print('         "command": "archguard",')
+            print('       "symmetra": {')
+            print('         "command": "symmetra",')
             print('         "args": ["server"]')
             print('       }')
             print('     }')
             print("   }")
             print("3. Restart Claude Code")
-            print("4. ArchGuard will be available for semantic code analysis")
+            print("4. Symmetra will be available for semantic code analysis")
             
         else:
             print("\n❌ VALIDATION FAILURES DETECTED")
@@ -389,7 +389,7 @@ class PreUvxValidator:
 
 def main():
     """Run complete pre-uvx validation suite"""
-    print("🛡️  ArchGuard Pre-uvx Installation Validation")
+    print("🛡️  Symmetra Pre-uvx Installation Validation")
     print("=" * 80)
     print("Comprehensive testing to ensure uvx installation success...")
     

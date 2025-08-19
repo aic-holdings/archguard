@@ -259,7 +259,7 @@ cat > claude_config_test.json << 'EOF'
       "command": "uvx",
       "args": ["--from", "git+https://github.com/aic-holdings/symmetra", "symmetra", "server"],
       "env": {
-        "ARCHGUARD_LOG_LEVEL": "INFO"
+        "SYMMETRA_LOG_LEVEL": "INFO"
       }
     }
   }
@@ -278,10 +278,10 @@ python -m json.tool claude_config_test.json
 ### Test 6.2: Environment Variable Testing
 ```bash
 # Test with different log levels
-ARCHGUARD_LOG_LEVEL=DEBUG uvx --from git+https://github.com/aic-holdings/symmetra symmetra server --help
+SYMMETRA_LOG_LEVEL=DEBUG uvx --from git+https://github.com/aic-holdings/symmetra symmetra server --help
 
 # Test with custom config path
-ARCHGUARD_CONFIG_PATH=/tmp/test-config.toml uvx --from git+https://github.com/aic-holdings/symmetra symmetra server --help
+SYMMETRA_CONFIG_PATH=/tmp/test-config.toml uvx --from git+https://github.com/aic-holdings/symmetra symmetra server --help
 ```
 
 **✅ Pass Criteria:**

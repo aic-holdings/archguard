@@ -85,7 +85,7 @@ Add to `.claude/mcp.json`:
       "command": "uvx",
       "args": ["--from", "git+https://github.com/aic-holdings/symmetra", "symmetra"],
       "env": {
-        "ARCHGUARD_ENGINE_TYPE": "keyword"
+        "SYMMETRA_ENGINE_TYPE": "keyword"
       }
     }
   }
@@ -150,18 +150,18 @@ python scripts/setup_ollama_embeddings.py
 Edit `.env` file:
 ```bash
 # Database Configuration
-ARCHGUARD_SUPABASE_URL=https://your-project.supabase.co
-ARCHGUARD_SUPABASE_KEY=your-anon-key
-ARCHGUARD_SUPABASE_PROJECT_ID=your-project-id
+SYMMETRA_SUPABASE_URL=https://your-project.supabase.co
+SYMMETRA_SUPABASE_KEY=your-anon-key
+SYMMETRA_SUPABASE_PROJECT_ID=your-project-id
 
 # Embedding Configuration
-ARCHGUARD_ENGINE_TYPE=vector
-ARCHGUARD_EMBEDDING_PROVIDER=ollama
-ARCHGUARD_EMBEDDING_MODEL=nomic-embed-text
+SYMMETRA_ENGINE_TYPE=vector
+SYMMETRA_EMBEDDING_PROVIDER=ollama
+SYMMETRA_EMBEDDING_MODEL=nomic-embed-text
 
 # Optional: Project Context
-ARCHGUARD_PROJECT_ID=https://github.com/username/repo
-ARCHGUARD_DEFAULT_CONTEXT=ide-assistant
+SYMMETRA_PROJECT_ID=https://github.com/username/repo
+SYMMETRA_DEFAULT_CONTEXT=ide-assistant
 ```
 
 ### Step 3: Generate Initial Embeddings
@@ -188,10 +188,10 @@ Add to `.claude/mcp.json`:
       "args": ["-m", "symmetra.server"],
       "cwd": "/path/to/symmetra",
       "env": {
-        "ARCHGUARD_ENGINE_TYPE": "vector",
-        "ARCHGUARD_SUPABASE_URL": "https://your-project.supabase.co",
-        "ARCHGUARD_SUPABASE_KEY": "your-anon-key",
-        "ARCHGUARD_PROJECT_ID": "https://github.com/username/repo"
+        "SYMMETRA_ENGINE_TYPE": "vector",
+        "SYMMETRA_SUPABASE_URL": "https://your-project.supabase.co",
+        "SYMMETRA_SUPABASE_KEY": "your-anon-key",
+        "SYMMETRA_PROJECT_ID": "https://github.com/username/repo"
       }
     }
   }
@@ -210,7 +210,7 @@ Add to your Cursor MCP settings:
         "args": ["-m", "symmetra.server"],
         "cwd": "/path/to/symmetra",
         "env": {
-          "ARCHGUARD_ENGINE_TYPE": "vector"
+          "SYMMETRA_ENGINE_TYPE": "vector"
         }
       }
     }
@@ -228,7 +228,7 @@ For distribution without local installation:
       "command": "uvx",
       "args": ["--from", "git+https://github.com/aic-holdings/symmetra", "symmetra"],
       "env": {
-        "ARCHGUARD_ENGINE_TYPE": "keyword"
+        "SYMMETRA_ENGINE_TYPE": "keyword"
       }
     }
   }
@@ -288,8 +288,8 @@ python -c "
 import os
 from supabase import create_client
 client = create_client(
-    os.getenv('ARCHGUARD_SUPABASE_URL'),
-    os.getenv('ARCHGUARD_SUPABASE_KEY')
+    os.getenv('SYMMETRA_SUPABASE_URL'),
+    os.getenv('SYMMETRA_SUPABASE_KEY')
 )
 print('✅ Database connection successful')
 "
@@ -304,7 +304,7 @@ python -m symmetra.server
 tail -f ~/.claude/logs/mcp.log
 
 # Verify environment variables
-env | grep ARCHGUARD
+env | grep SYMMETRA
 ```
 
 ## Performance Optimization
@@ -312,17 +312,17 @@ env | grep ARCHGUARD
 ### For Development
 ```bash
 # Use keyword engine for faster startup
-export ARCHGUARD_ENGINE_TYPE=keyword
+export SYMMETRA_ENGINE_TYPE=keyword
 
 # Reduce log verbosity
-export ARCHGUARD_LOG_LEVEL=WARNING
+export SYMMETRA_LOG_LEVEL=WARNING
 ```
 
 ### For Production
 ```bash
 # Use vector engine with caching
-export ARCHGUARD_ENGINE_TYPE=vector
-export ARCHGUARD_CACHE_TTL=3600
+export SYMMETRA_ENGINE_TYPE=vector
+export SYMMETRA_CACHE_TTL=3600
 
 # Run multiple embedding workers
 python scripts/embedding_worker.py --project-id your-project-id --worker-id worker-01 &

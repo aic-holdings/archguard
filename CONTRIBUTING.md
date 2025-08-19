@@ -92,7 +92,7 @@ uv run symmetra server
 uv run symmetra http --port 8080
 
 # Run with debug logging
-ARCHGUARD_LOG_LEVEL=DEBUG uv run symmetra server
+SYMMETRA_LOG_LEVEL=DEBUG uv run symmetra server
 ```
 
 ## Testing
@@ -183,7 +183,7 @@ class SymmetraConfig:
     @classmethod
     def get_new_option(cls) -> str:
         """Get new configuration option"""
-        return os.getenv("ARCHGUARD_NEW_OPTION", "default_value")
+        return os.getenv("SYMMETRA_NEW_OPTION", "default_value")
 ```
 
 ## Documentation

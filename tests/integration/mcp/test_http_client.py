@@ -1,6 +1,6 @@
 """
-ArchGuard HTTP Client Test
-Tests the HTTP version of ArchGuard server.
+Symmetra HTTP Client Test
+Tests the HTTP version of Symmetra server.
 """
 
 import asyncio
@@ -22,7 +22,7 @@ async def test_http_connection():
             print(f"✅ HTTP endpoint responding: {response.status_code}")
     except Exception as e:
         print(f"❌ HTTP endpoint not available: {e}")
-        print("💡 Start HTTP server first: archguard http --port 8003")
+        print("💡 Start HTTP server first: symmetra http --port 8003")
         return False
     
     # Test MCP over HTTP
@@ -76,14 +76,14 @@ async def test_production_readiness():
 
 async def main():
     """Run HTTP testing suite"""
-    print("🛡️ ArchGuard HTTP Testing Suite")
+    print("🛡️ Symmetra HTTP Testing Suite")
     print("=" * 50)
     
     # Test HTTP connectivity
     http_ok = await test_http_connection()
     if not http_ok:
         print("\n💡 To start HTTP server:")
-        print("   archguard http --port 8003")
+        print("   symmetra http --port 8003")
         print("   Then run this test again.")
         return
     

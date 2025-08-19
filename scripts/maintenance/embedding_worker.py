@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-ArchGuard Embedding Worker
+Symmetra Embedding Worker
 
 Processes embedding jobs from the job queue using Ollama.
 Designed for scalable, reliable embedding generation.
@@ -333,7 +333,7 @@ async def monitor_job_queue(project_id: str, execute_sql_func):
         logger.error(f"Error monitoring job queue: {e}")
 
 def main():
-    parser = argparse.ArgumentParser(description="ArchGuard Embedding Worker")
+    parser = argparse.ArgumentParser(description="Symmetra Embedding Worker")
     parser.add_argument("--project-id", required=True, help="Supabase project ID")
     parser.add_argument("--worker-id", default=None, help="Worker ID (auto-generated if not provided)")
     parser.add_argument("--model", default="nomic-embed-text", help="Ollama embedding model")

@@ -17,46 +17,46 @@ Higher levels override lower levels.
 
 ```bash
 # Rule Engine Type
-ARCHGUARD_ENGINE_TYPE=keyword  # Options: keyword, vector
-ARCHGUARD_DEFAULT_CONTEXT=ide-assistant  # Options: ide-assistant, agent, desktop-app
+SYMMETRA_ENGINE_TYPE=keyword  # Options: keyword, vector
+SYMMETRA_DEFAULT_CONTEXT=ide-assistant  # Options: ide-assistant, agent, desktop-app
 
 # Project Context
-ARCHGUARD_PROJECT_ID=https://github.com/username/repo
-ARCHGUARD_PROJECT_NAME=MyProject
+SYMMETRA_PROJECT_ID=https://github.com/username/repo
+SYMMETRA_PROJECT_NAME=MyProject
 ```
 
 ### Supabase Integration
 
 ```bash
 # Database Configuration
-ARCHGUARD_SUPABASE_URL=https://your-project.supabase.co
-ARCHGUARD_SUPABASE_KEY=your-anon-key
-ARCHGUARD_SUPABASE_PROJECT_ID=your-project-id
+SYMMETRA_SUPABASE_URL=https://your-project.supabase.co
+SYMMETRA_SUPABASE_KEY=your-anon-key
+SYMMETRA_SUPABASE_PROJECT_ID=your-project-id
 
 # Vector Search Configuration
-ARCHGUARD_EMBEDDING_MODEL=all-MiniLM-L6-v2  # Options: all-MiniLM-L6-v2, all-mpnet-base-v2
+SYMMETRA_EMBEDDING_MODEL=all-MiniLM-L6-v2  # Options: all-MiniLM-L6-v2, all-mpnet-base-v2
 ```
 
 ### Debug and Logging
 
 ```bash
 # Development Configuration
-ARCHGUARD_DEBUG=false
-ARCHGUARD_LOG_LEVEL=INFO  # Options: DEBUG, INFO, WARNING, ERROR
-ARCHGUARD_VERBOSE=false
+SYMMETRA_DEBUG=false
+SYMMETRA_LOG_LEVEL=INFO  # Options: DEBUG, INFO, WARNING, ERROR
+SYMMETRA_VERBOSE=false
 ```
 
 ### Advanced Options
 
 ```bash
 # Performance Tuning
-ARCHGUARD_MAX_RULES=10
-ARCHGUARD_CACHE_TTL=3600
-ARCHGUARD_TIMEOUT=30
+SYMMETRA_MAX_RULES=10
+SYMMETRA_CACHE_TTL=3600
+SYMMETRA_TIMEOUT=30
 
 # Custom Endpoints
-ARCHGUARD_VECTOR_ENDPOINT=http://localhost:8000/embed
-ARCHGUARD_RULES_ENDPOINT=http://localhost:8001/rules
+SYMMETRA_VECTOR_ENDPOINT=http://localhost:8000/embed
+SYMMETRA_RULES_ENDPOINT=http://localhost:8001/rules
 ```
 
 ## Project Configuration (.symmetra.toml)
@@ -126,10 +126,10 @@ Add to your MCP configuration file (`.claude/mcp.json`):
       "command": "uvx",
       "args": ["--from", "git+https://github.com/aic-holdings/symmetra", "symmetra"],
       "env": {
-        "ARCHGUARD_ENGINE_TYPE": "vector",
-        "ARCHGUARD_PROJECT_ID": "https://github.com/username/repo",
-        "ARCHGUARD_SUPABASE_URL": "https://your-project.supabase.co",
-        "ARCHGUARD_SUPABASE_KEY": "your-anon-key"
+        "SYMMETRA_ENGINE_TYPE": "vector",
+        "SYMMETRA_PROJECT_ID": "https://github.com/username/repo",
+        "SYMMETRA_SUPABASE_URL": "https://your-project.supabase.co",
+        "SYMMETRA_SUPABASE_KEY": "your-anon-key"
       }
     }
   }
@@ -149,8 +149,8 @@ Add to your MCP configuration:
         "args": ["-m", "symmetra.server"],
         "cwd": "/path/to/symmetra",
         "env": {
-          "ARCHGUARD_ENGINE_TYPE": "vector",
-          "ARCHGUARD_PROJECT_ID": "https://github.com/username/repo"
+          "SYMMETRA_ENGINE_TYPE": "vector",
+          "SYMMETRA_PROJECT_ID": "https://github.com/username/repo"
         }
       }
     }
@@ -184,24 +184,24 @@ Example `.env` content:
 
 ```bash
 # Symmetra Configuration
-ARCHGUARD_ENGINE_TYPE=vector
-ARCHGUARD_DEFAULT_CONTEXT=ide-assistant
+SYMMETRA_ENGINE_TYPE=vector
+SYMMETRA_DEFAULT_CONTEXT=ide-assistant
 
 # Supabase Integration
-ARCHGUARD_SUPABASE_URL=https://kkvkwxfirmeywhvndjaa.supabase.co
-ARCHGUARD_SUPABASE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-ARCHGUARD_SUPABASE_PROJECT_ID=kkvkwxfirmeywhvndjaa
+SYMMETRA_SUPABASE_URL=https://kkvkwxfirmeywhvndjaa.supabase.co
+SYMMETRA_SUPABASE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+SYMMETRA_SUPABASE_PROJECT_ID=kkvkwxfirmeywhvndjaa
 
 # Project Context
-ARCHGUARD_PROJECT_ID=https://github.com/aic-holdings/symmetra
-ARCHGUARD_PROJECT_NAME=Symmetra
+SYMMETRA_PROJECT_ID=https://github.com/aic-holdings/symmetra
+SYMMETRA_PROJECT_NAME=Symmetra
 
 # Vector Search
-ARCHGUARD_EMBEDDING_MODEL=all-MiniLM-L6-v2
+SYMMETRA_EMBEDDING_MODEL=all-MiniLM-L6-v2
 
 # Development
-ARCHGUARD_DEBUG=false
-ARCHGUARD_LOG_LEVEL=INFO
+SYMMETRA_DEBUG=false
+SYMMETRA_LOG_LEVEL=INFO
 ```
 
 ## Dynamic Configuration
@@ -234,7 +234,7 @@ Symmetra validates configuration on startup:
 
 1. **Missing Supabase credentials**
    ```bash
-   Error: ARCHGUARD_SUPABASE_URL not set
+   Error: SYMMETRA_SUPABASE_URL not set
    Solution: Set environment variable or add to .env file
    ```
 
@@ -255,7 +255,7 @@ Symmetra validates configuration on startup:
 Enable debug mode to see configuration loading:
 
 ```bash
-ARCHGUARD_DEBUG=true python -m symmetra.server
+SYMMETRA_DEBUG=true python -m symmetra.server
 ```
 
 This will show:

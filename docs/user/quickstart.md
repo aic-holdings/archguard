@@ -24,7 +24,7 @@ Add to your `.claude/mcp.json`:
       "args": ["-m", "symmetra.server"],
       "cwd": "/path/to/symmetra",
       "env": {
-        "ARCHGUARD_ENGINE_TYPE": "keyword"
+        "SYMMETRA_ENGINE_TYPE": "keyword"
       }
     }
   }
@@ -104,25 +104,25 @@ ollama pull nomic-embed-text
 ### Context-Aware Guidance
 ```bash
 # For real-time coding assistance
-export ARCHGUARD_DEFAULT_CONTEXT=ide-assistant
+export SYMMETRA_DEFAULT_CONTEXT=ide-assistant
 
 # For automated processing  
-export ARCHGUARD_DEFAULT_CONTEXT=agent
+export SYMMETRA_DEFAULT_CONTEXT=agent
 
 # For learning and discussion
-export ARCHGUARD_DEFAULT_CONTEXT=desktop-app
+export SYMMETRA_DEFAULT_CONTEXT=desktop-app
 ```
 
 ### Performance Tuning
 ```bash
 # Fast keyword search (default)
-export ARCHGUARD_ENGINE_TYPE=keyword
+export SYMMETRA_ENGINE_TYPE=keyword
 
 # Intelligent semantic search
-export ARCHGUARD_ENGINE_TYPE=vector
+export SYMMETRA_ENGINE_TYPE=vector
 
 # Limit results for speed
-export ARCHGUARD_MAX_RULES=5
+export SYMMETRA_MAX_RULES=5
 ```
 
 ## 🎨 Advanced Features
@@ -152,8 +152,8 @@ python scripts/generate_embeddings_ollama.py --project-id your-project-id
 ### Project Context
 Configure for your specific project:
 ```bash
-export ARCHGUARD_PROJECT_ID=https://github.com/yourteam/yourproject
-export ARCHGUARD_TECH_STACK=python,fastapi,postgresql
+export SYMMETRA_PROJECT_ID=https://github.com/yourteam/yourproject
+export SYMMETRA_TECH_STACK=python,fastapi,postgresql
 ```
 
 ## 🐛 Quick Troubleshooting
@@ -178,10 +178,10 @@ pip install -e .
 ### Slow responses?
 ```bash
 # Use keyword engine for speed
-export ARCHGUARD_ENGINE_TYPE=keyword
+export SYMMETRA_ENGINE_TYPE=keyword
 
 # Reduce result count
-export ARCHGUARD_MAX_RULES=3
+export SYMMETRA_MAX_RULES=3
 ```
 
 ### Want more details?

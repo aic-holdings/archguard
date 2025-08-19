@@ -2,7 +2,7 @@
 """
 Claude Code MCP Integration Tests
 
-Tests that validate ArchGuard works correctly as an MCP server
+Tests that validate Symmetra works correctly as an MCP server
 with Claude Code and provides semantic code analysis capabilities.
 """
 
@@ -28,11 +28,11 @@ class ClaudeCodeIntegrationTester:
             # Create test MCP configuration
             claude_code_config = {
                 "mcpServers": {
-                    "archguard": {
-                        "command": "archguard",
+                    "symmetra": {
+                        "command": "symmetra",
                         "args": ["server"],
                         "env": {
-                            "ARCHGUARD_TEST_MODE": "true"
+                            "SYMMETRA_TEST_MODE": "true"
                         }
                     }
                 }
@@ -59,7 +59,7 @@ class ClaudeCodeIntegrationTester:
             
             # Start MCP server process
             proc = subprocess.Popen(
-                ["archguard", "server"],
+                ["symmetra", "server"],
                 stdin=subprocess.PIPE,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
@@ -126,7 +126,7 @@ class ClaudeCodeIntegrationTester:
             return False
             
     def test_semantic_analysis_capabilities(self) -> bool:
-        """Test ArchGuard's semantic analysis capabilities"""
+        """Test Symmetra's semantic analysis capabilities"""
         try:
             print("🧠 Testing semantic analysis capabilities...")
             
@@ -153,7 +153,7 @@ def poorly_designed_function(data, flag, mode, options):
             
             # Start MCP server
             proc = subprocess.Popen(
-                ["archguard", "server"],
+                ["symmetra", "server"],
                 stdin=subprocess.PIPE,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
@@ -229,7 +229,7 @@ def poorly_designed_function(data, flag, mode, options):
             
             # Start MCP server
             proc = subprocess.Popen(
-                ["archguard", "server"],
+                ["symmetra", "server"],
                 stdin=subprocess.PIPE,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
@@ -280,7 +280,7 @@ def poorly_designed_function(data, flag, mode, options):
             return False
             
     def create_sample_project_for_analysis(self) -> Path:
-        """Create a sample project that ArchGuard can analyze"""
+        """Create a sample project that Symmetra can analyze"""
         project_dir = Path(self.test_dir) / "sample_project"
         project_dir.mkdir(exist_ok=True)
         
@@ -345,7 +345,7 @@ class Config:
 
 def test_claude_code_integration_workflow():
     """Complete Claude Code integration test"""
-    print("🧠 ArchGuard Claude Code Integration Test Suite")
+    print("🧠 Symmetra Claude Code Integration Test Suite")
     print("=" * 60)
     
     tester = ClaudeCodeIntegrationTester()
@@ -390,17 +390,17 @@ def test_claude_code_integration_workflow():
         if passed == total:
             print("🎉 All Claude Code integration tests PASSED!")
             print("\n📋 Claude Code Setup Instructions:")
-            print("1. Add ArchGuard to Claude Code MCP servers:")
+            print("1. Add Symmetra to Claude Code MCP servers:")
             print("   {")
             print('     "mcpServers": {')
-            print('       "archguard": {')
-            print('         "command": "archguard",')
+            print('       "symmetra": {')
+            print('         "command": "symmetra",')
             print('         "args": ["server"]')
             print('       }')
             print('     }')
             print("   }")
             print("2. Restart Claude Code")
-            print("3. ArchGuard will be available for semantic code analysis")
+            print("3. Symmetra will be available for semantic code analysis")
             return True
         else:
             print("❌ Some tests FAILED. Review the output above.")

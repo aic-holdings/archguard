@@ -81,7 +81,7 @@ symmetra server --mode complex
       "command": "uvx",
       "args": ["--from", "git+https://github.com/aic-holdings/symmetra", "symmetra", "server", "--mode", "simple"],
       "env": {
-        "ARCHGUARD_LOG_LEVEL": "INFO"
+        "SYMMETRA_LOG_LEVEL": "INFO"
       }
     }
   }

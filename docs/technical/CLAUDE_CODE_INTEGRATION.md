@@ -79,7 +79,7 @@ Add Symmetra to your Claude Code MCP servers configuration:
       "command": "uvx",
       "args": ["--from", "git+https://github.com/aic-holdings/symmetra", "symmetra", "server", "--mode", "simple"],
       "env": {
-        "ARCHGUARD_LOG_LEVEL": "INFO"
+        "SYMMETRA_LOG_LEVEL": "INFO"
       }
     }
   }
@@ -94,7 +94,7 @@ Add Symmetra to your Claude Code MCP servers configuration:
       "command": "uvx",
       "args": ["--from", "git+https://github.com/aic-holdings/symmetra", "symmetra", "server", "--mode", "complex"],
       "env": {
-        "ARCHGUARD_LOG_LEVEL": "INFO"
+        "SYMMETRA_LOG_LEVEL": "INFO"
       }
     }
   }
@@ -109,7 +109,7 @@ Add Symmetra to your Claude Code MCP servers configuration:
       "command": "symmetra",
       "args": ["server"],
       "env": {
-        "ARCHGUARD_LOG_LEVEL": "INFO"
+        "SYMMETRA_LOG_LEVEL": "INFO"
       }
     }
   }
@@ -129,7 +129,7 @@ For development or custom installations:
       "cwd": "/path/to/symmetra",
       "env": {
         "PYTHONPATH": "/path/to/symmetra/src",
-        "ARCHGUARD_LOG_LEVEL": "DEBUG"
+        "SYMMETRA_LOG_LEVEL": "DEBUG"
       }
     }
   }
@@ -222,13 +222,13 @@ Configure Symmetra behavior through environment variables:
 
 ```bash
 # Logging level
-ARCHGUARD_LOG_LEVEL=DEBUG
+SYMMETRA_LOG_LEVEL=DEBUG
 
 # Custom configuration file
-ARCHGUARD_CONFIG_PATH=/path/to/config.toml
+SYMMETRA_CONFIG_PATH=/path/to/config.toml
 
 # Test mode (for development)
-ARCHGUARD_TEST_MODE=true
+SYMMETRA_TEST_MODE=true
 ```
 
 ### Project-Level Configuration
@@ -273,7 +273,7 @@ enforce_https = true
    ```json
    {
      "env": {
-       "ARCHGUARD_LOG_LEVEL": "DEBUG"
+       "SYMMETRA_LOG_LEVEL": "DEBUG"
      }
    }
    ```
@@ -303,7 +303,7 @@ enforce_https = true
    ```json
    {
      "env": {
-       "ARCHGUARD_TIMEOUT": "30"
+       "SYMMETRA_TIMEOUT": "30"
      }
    }
    ```

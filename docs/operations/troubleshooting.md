@@ -26,7 +26,7 @@ python -c "import symmetra; print('✅ Symmetra imported successfully')" 2>/dev/
 
 # Check environment variables
 echo -e "\n🔧 Environment Configuration:"
-env | grep ARCHGUARD | while read line; do
+env | grep SYMMETRA | while read line; do
     key=$(echo $line | cut -d= -f1)
     value=$(echo $line | cut -d= -f2-)
     if [[ $key == *"KEY"* ]] || [[ $key == *"SECRET"* ]]; then
@@ -182,9 +182,9 @@ python -m symmetra.server
       "args": ["-m", "symmetra.server"],
       "cwd": "/absolute/path/to/symmetra",
       "env": {
-        "ARCHGUARD_ENGINE_TYPE": "keyword",
-        "ARCHGUARD_SUPABASE_URL": "https://your-project.supabase.co",
-        "ARCHGUARD_SUPABASE_KEY": "your-anon-key"
+        "SYMMETRA_ENGINE_TYPE": "keyword",
+        "SYMMETRA_SUPABASE_URL": "https://your-project.supabase.co",
+        "SYMMETRA_SUPABASE_KEY": "your-anon-key"
       }
     }
   }
@@ -264,7 +264,7 @@ pip show fastmcp
         "args": ["-m", "symmetra.server"],
         "cwd": "/path/to/symmetra",
         "env": {
-          "ARCHGUARD_ENGINE_TYPE": "vector"
+          "SYMMETRA_ENGINE_TYPE": "vector"
         }
       }
     }
@@ -303,8 +303,8 @@ curl -X POST https://your-project.supabase.co/rest/v1/rules \
 
 1. **Check environment variables:**
 ```bash
-echo $ARCHGUARD_SUPABASE_URL
-echo $ARCHGUARD_SUPABASE_KEY
+echo $SYMMETRA_SUPABASE_URL
+echo $SYMMETRA_SUPABASE_KEY
 # Should not be empty
 ```
 
@@ -319,8 +319,8 @@ echo $ARCHGUARD_SUPABASE_KEY
 import os
 from supabase import create_client
 
-url = os.getenv('ARCHGUARD_SUPABASE_URL')
-key = os.getenv('ARCHGUARD_SUPABASE_KEY')
+url = os.getenv('SYMMETRA_SUPABASE_URL')
+key = os.getenv('SYMMETRA_SUPABASE_KEY')
 
 client = create_client(url, key)
 result = client.table('rules').select('*').limit(1).execute()
@@ -384,7 +384,7 @@ SELECT * FROM pg_policies WHERE tablename IN ('rules', 'embedding_jobs');
 3. **Use service role for admin operations:**
 ```bash
 # Use service_role key instead of anon key for admin operations
-export ARCHGUARD_SUPABASE_KEY="your-service-role-key"
+export SYMMETRA_SUPABASE_KEY="your-service-role-key"
 ```
 
 ## Embedding System Issues
@@ -458,7 +458,7 @@ df -h  # Check available disk space
 ```bash
 # Try smaller model if space is limited
 ollama pull all-minilm
-export ARCHGUARD_EMBEDDING_MODEL=all-minilm
+export SYMMETRA_EMBEDDING_MODEL=all-minilm
 ```
 
 ### Embedding Generation Issues
@@ -538,13 +538,13 @@ print(result)
    **Timeout errors:**
    ```bash
    # Increase timeout in worker
-   export ARCHGUARD_EMBEDDING_TIMEOUT=120  # 2 minutes
+   export SYMMETRA_EMBEDDING_TIMEOUT=120  # 2 minutes
    ```
 
    **Memory errors:**
    ```bash
    # Reduce batch size
-   export ARCHGUARD_BATCH_SIZE=10
+   export SYMMETRA_BATCH_SIZE=10
    ```
 
    **Model errors:**
@@ -582,17 +582,17 @@ time python -c "from symmetra.server import get_guidance; get_guidance(action='t
 
 1. **Use keyword engine for speed:**
 ```bash
-export ARCHGUARD_ENGINE_TYPE=keyword
+export SYMMETRA_ENGINE_TYPE=keyword
 ```
 
 2. **Reduce rule set size:**
 ```bash
-export ARCHGUARD_MAX_RULES=10
+export SYMMETRA_MAX_RULES=10
 ```
 
 3. **Enable caching:**
 ```bash
-export ARCHGUARD_CACHE_TTL=3600  # 1 hour
+export SYMMETRA_CACHE_TTL=3600  # 1 hour
 ```
 
 #### Issue: Vector search very slow
@@ -622,7 +622,7 @@ ON rules USING hnsw (embedding vector_cosine_ops);
 
 3. **Use smaller embedding model:**
 ```bash
-export ARCHGUARD_EMBEDDING_MODEL=all-minilm  # 384D instead of 768D
+export SYMMETRA_EMBEDDING_MODEL=all-minilm  # 384D instead of 768D
 ```
 
 ### Memory Usage Issues
@@ -645,7 +645,7 @@ python scripts/embedding_worker.py --project-id your-project-id
 
 2. **Reduce batch sizes:**
 ```bash
-export ARCHGUARD_BATCH_SIZE=10  # Smaller batches
+export SYMMETRA_BATCH_SIZE=10  # Smaller batches
 ```
 
 3. **Monitor memory usage:**
@@ -671,10 +671,10 @@ done
 **Diagnosis:**
 ```bash
 # Check which variables are set
-env | grep ARCHGUARD | sort
+env | grep SYMMETRA | sort
 
 # Test variable access
-python -c "import os; print('ENGINE_TYPE:', os.getenv('ARCHGUARD_ENGINE_TYPE', 'NOT_SET'))"
+python -c "import os; print('ENGINE_TYPE:', os.getenv('SYMMETRA_ENGINE_TYPE', 'NOT_SET'))"
 ```
 
 **Solutions:**
@@ -683,19 +683,19 @@ python -c "import os; print('ENGINE_TYPE:', os.getenv('ARCHGUARD_ENGINE_TYPE', '
 ```bash
 # Make sure .env is sourced
 source .env
-env | grep ARCHGUARD
+env | grep SYMMETRA
 ```
 
 2. **Check variable names:**
 ```bash
 # Correct variable names
-export ARCHGUARD_ENGINE_TYPE=vector     # Not ARCHGUARD_ENGINE
-export ARCHGUARD_SUPABASE_URL=...       # Not SUPABASE_URL
+export SYMMETRA_ENGINE_TYPE=vector     # Not SYMMETRA_ENGINE
+export SYMMETRA_SUPABASE_URL=...       # Not SUPABASE_URL
 ```
 
 3. **Use absolute paths:**
 ```bash
-export ARCHGUARD_CONFIG_PATH=/absolute/path/to/config
+export SYMMETRA_CONFIG_PATH=/absolute/path/to/config
 ```
 
 ### Logging Issues
@@ -711,9 +711,9 @@ export ARCHGUARD_CONFIG_PATH=/absolute/path/to/config
 
 1. **Set appropriate log level:**
 ```bash
-export ARCHGUARD_LOG_LEVEL=DEBUG    # For troubleshooting
-export ARCHGUARD_LOG_LEVEL=INFO     # For normal operation
-export ARCHGUARD_LOG_LEVEL=WARNING  # For production
+export SYMMETRA_LOG_LEVEL=DEBUG    # For troubleshooting
+export SYMMETRA_LOG_LEVEL=INFO     # For normal operation
+export SYMMETRA_LOG_LEVEL=WARNING  # For production
 ```
 
 2. **Check log output:**
@@ -785,16 +785,16 @@ dig your-project.supabase.co
 2. **Use correct key type:**
 ```bash
 # Use anon key for general access
-export ARCHGUARD_SUPABASE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+export SYMMETRA_SUPABASE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
 
 # Use service_role key for admin operations (be careful!)
-export ARCHGUARD_SUPABASE_SERVICE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+export SYMMETRA_SUPABASE_SERVICE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
 ```
 
 3. **Check key format:**
 ```bash
 # Keys should start with "eyJ"
-echo $ARCHGUARD_SUPABASE_KEY | head -c 10
+echo $SYMMETRA_SUPABASE_KEY | head -c 10
 # Should output: eyJhbGciOi
 ```
 
@@ -865,7 +865,7 @@ System Information:
 - Symmetra: $(python -c "import symmetra; print(symmetra.__version__)" 2>/dev/null || echo "Not installed")
 
 Environment Variables:
-$(env | grep ARCHGUARD | sed 's/\(KEY.*=\).*/\1***masked***/')
+$(env | grep SYMMETRA | sed 's/\(KEY.*=\).*/\1***masked***/')
 
 MCP Configuration:
 $(cat ~/.claude/mcp.json 2>/dev/null | jq .mcpServers.symmetra 2>/dev/null || echo "Not found")

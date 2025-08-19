@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """
-Simple test script for the AI-first ArchGuard server
+Simple test script for the AI-first Symmetra server
 """
 
 import sys
 import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
 
-from archguard.ai_guidance import guidance_engine, secret_detector
+from symmetra.ai_guidance import guidance_engine, secret_detector
 
 
 def test_ai_guidance():
@@ -61,7 +61,7 @@ def test_simple_server_imports():
     print("=" * 50)
     
     try:
-        from archguard.simple_server import mcp, get_guidance, scan_secrets
+        from symmetra.simple_server import mcp, get_guidance, scan_secrets
         print("✅ Simple server imports successful")
         
         # Test tool registration
@@ -87,12 +87,12 @@ def test_cli_integration():
     print("=" * 50)
     
     try:
-        from archguard.cli import main
+        from symmetra.cli import main
         print("✅ CLI imports successful")
         
         # Test argument parsing (without actually running server)
         import argparse
-        from archguard.cli import main
+        from symmetra.cli import main
         
         # This would normally be tested with subprocess, but for simplicity:
         print("✅ CLI integration appears functional")
@@ -104,7 +104,7 @@ def test_cli_integration():
 
 def main():
     """Run all tests"""
-    print("🚀 ArchGuard Simple Server Test Suite")
+    print("🚀 Symmetra Simple Server Test Suite")
     print("=" * 60)
     
     test_ai_guidance()
@@ -121,7 +121,7 @@ def main():
     print("\n🚀 Simple server is ready for Claude Code integration!")
     
     print("\n📋 Next Steps:")
-    print("1. Test with uvx: uvx --from . archguard server --mode simple")
+    print("1. Test with uvx: uvx --from . symmetra server --mode simple")
     print("2. Configure Claude Code MCP integration")
     print("3. Test architectural guidance in real conversations")
 

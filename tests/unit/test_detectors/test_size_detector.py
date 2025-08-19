@@ -6,8 +6,8 @@ large functions, and complexity analysis.
 """
 
 import pytest
-from src.archguard.detectors.size import SizeDetector
-from src.archguard.detectors.base import Severity, IssueType
+from src.symmetra.detectors.size import SizeDetector
+from src.symmetra.detectors.base import Severity, IssueType
 
 
 class TestSizeDetector:

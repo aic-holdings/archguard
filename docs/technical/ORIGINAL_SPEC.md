@@ -197,12 +197,12 @@ Get summary of rule violations.
 
 ### Database Connection
 - **SQLite** (default): `sqlite:///symmetra_constitution.db`
-- **PostgreSQL**: Configurable via `ARCHGUARD_DATABASE_URL`
+- **PostgreSQL**: Configurable via `SYMMETRA_DATABASE_URL`
 
 ### Environment Variables
-- `ARCHGUARD_DATABASE_URL`: Database connection string
-- `ARCHGUARD_LOG_LEVEL`: Logging level (DEBUG, INFO, WARNING, ERROR)
-- `ARCHGUARD_SESSION_TIMEOUT`: Session timeout in minutes (default: 60)
+- `SYMMETRA_DATABASE_URL`: Database connection string
+- `SYMMETRA_LOG_LEVEL`: Logging level (DEBUG, INFO, WARNING, ERROR)
+- `SYMMETRA_SESSION_TIMEOUT`: Session timeout in minutes (default: 60)
 
 ## Usage Patterns
 

@@ -10,15 +10,15 @@
         "--context", 
         "ide-assistant",
         "--project", 
-        "/Users/dshanklinbv/repos/archguard"
+        "/Users/dshanklinbv/repos/symmetra"
       ],
       "env": {
-        "SYMMETRA_ENGINE_TYPE": "keyword",
-        "SYMMETRA_SUPABASE_URL": "https://kkvkwxfirmeywhvndjaa.supabase.co",
-        "SYMMETRA_SUPABASE_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtrdmt3eGZpcm1leXdodm5kamFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU0NTM3MDAsImV4cCI6MjA3MTAyOTcwMH0.6hJ9e9nIVFKVc3QHJfCU7x1YZI1C5uL2nV8gG8gKDiM",
-        "SYMMETRA_SUPABASE_PROJECT_ID": "kkvkwxfirmeywhvndjaa",
+        "SYMMETRA_ENGINE_TYPE": "vector",
+        "SYMMETRA_SUPABASE_URL": "https://trzfyaopymlgxehhdfqf.supabase.co",
+        "SYMMETRA_SUPABASE_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRyemZ5YW9weW1sZ3hlaGhkZnFmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU1NTM1NzAsImV4cCI6MjA3MTEyOTU3MH0.oUlbRO6r7P3Cgkrz4Kfj5phLwYTXU9SfC4Zc1oKmhIo",
+        "SYMMETRA_SUPABASE_PROJECT_ID": "trzfyaopymlgxehhdfqf",
         "SYMMETRA_DEFAULT_CONTEXT": "ide-assistant",
-        "SYMMETRA_PROJECT_ID": "https://github.com/dshanklinbv/symmetra",
+        "SYMMETRA_PROJECT_ID": "https://github.com/aic-holdings/symmetra",
         "SYMMETRA_EMBEDDING_MODEL": "all-MiniLM-L6-v2",
         "SYMMETRA_DEBUG": "false",
         "SYMMETRA_LOG_LEVEL": "INFO"
