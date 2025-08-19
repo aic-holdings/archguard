@@ -1,8 +1,8 @@
-# ArchGuard MVP Implementation Checklist
+# Symmetra MVP Implementation Checklist
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                        ArchGuard MVP Implementation                         │
+│                        Symmetra MVP Implementation                         │
 │                          Minimal Viable Product                            │
 └─────────────────────────────────────────────────────────────────────────────┘
 
@@ -57,7 +57,7 @@ Estimated Timeline: 1-2 weeks of focused development
 │                                                                             │
 │ □ 2.2 Test Claude Code Integration                                         │
 │   └─ □ Deploy server with uvx for testing                                  │
-│   └─ □ Configure Claude Code to use updated ArchGuard                      │
+│   └─ □ Configure Claude Code to use updated Symmetra                      │
 │   └─ □ Test end-to-end guidance requests                                   │
 │                                                                             │
 │ □ 2.3 Basic Team Rules Support                                             │
@@ -114,7 +114,7 @@ MVP SUCCESS CRITERIA
 □ Vector search finds relevant rules in under 500ms
 □ AI synthesis creates useful guidance from retrieved rules
 □ One test team successfully creates and uses custom rules
-□ Team reports ArchGuard guidance is more relevant than generic advice
+□ Team reports Symmetra guidance is more relevant than generic advice
 
 MVP SCOPE LIMITATIONS
 =====================

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Generate embeddings for ArchGuard rules
+Generate embeddings for Symmetra rules
 
 This script generates vector embeddings for all rules that don't have them yet.
 Can use either Supabase CLI or MCP integration.
@@ -137,7 +137,7 @@ def test_vector_search(project_id: str) -> bool:
         return False
 
 def main():
-    parser = argparse.ArgumentParser(description="Generate embeddings for ArchGuard rules")
+    parser = argparse.ArgumentParser(description="Generate embeddings for Symmetra rules")
     parser.add_argument("--project-id", required=True, 
                        help="Supabase project ID")
     parser.add_argument("--model", default="all-MiniLM-L6-v2",
@@ -169,9 +169,9 @@ def main():
     print("")
     print("Next steps:")
     print("1. Update your environment to use vector search:")
-    print("   export ARCHGUARD_ENGINE_TYPE=vector")
-    print("2. Test ArchGuard with vector search:")
-    print("   python -c \"from archguard.server import get_guidance; print(get_guidance('database design'))\"")
+    print("   export SYMMETRA_ENGINE_TYPE=vector")
+    print("2. Test Symmetra with vector search:")
+    print("   python -c \"from symmetra.server import get_guidance; print(get_guidance('database design'))\"")
 
 if __name__ == "__main__":
     main()

@@ -1,6 +1,6 @@
 # Essential Python Project Rules
 
-Start small with these core rules that will make ArchGuard an exemplary Python project.
+Start small with these core rules that will make Symmetra an exemplary Python project.
 
 ## Core Python Project Structure
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-ArchGuard Test Runner
+Symmetra Test Runner
 Runs all tests in sequence with proper cleanup.
 """
 
@@ -63,7 +63,7 @@ async def run_http_tests():
         parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         # Use the CLI command instead of direct file execution
         server_proc = subprocess.Popen(
-            [sys.executable, "-m", "archguard.cli", "http", "--port", "8003"],
+            [sys.executable, "-m", "symmetra.cli", "http", "--port", "8003"],
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             cwd=parent_dir,
@@ -171,7 +171,7 @@ async def run_context_project_tests():
 
 async def main():
     """Run all tests in sequence"""
-    print("🛡️ ArchGuard Test Suite")
+    print("🛡️ Symmetra Test Suite")
     print("Running comprehensive tests for all transport modes...")
     
     # Change to tests directory
@@ -195,7 +195,7 @@ async def main():
         print(f"🎯 Tests Passed: {passed}/{total}")
         
         if passed == total:
-            print("🎉 All tests passed! ArchGuard is ready for production.")
+            print("🎉 All tests passed! Symmetra is ready for production.")
             return 0
         else:
             print("❌ Some tests failed. Check the output above for details.")

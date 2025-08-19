@@ -25,7 +25,7 @@ from dotenv import load_dotenv
 import sys
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
-from archguard.vector_search import vector_search_engine
+from symmetra.vector_search import vector_search_engine
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
@@ -2154,8 +2154,8 @@ async def main():
     if not vector_search_engine.is_available():
         logger.error("❌ Vector search engine not available. Check Supabase configuration.")
         logger.error("Required environment variables:")
-        logger.error("- ARCHGUARD_SUPABASE_URL")
-        logger.error("- ARCHGUARD_SUPABASE_KEY")
+        logger.error("- SYMMETRA_SUPABASE_URL")
+        logger.error("- SYMMETRA_SUPABASE_KEY")
         return
     
     # Get clients
@@ -2239,7 +2239,7 @@ async def main():
     # Step 3: Test AI guidance integration
     logger.info("\n🤖 STEP 3: Testing AI guidance integration...")
     
-    from archguard.ai_guidance import guidance_engine
+    from symmetra.ai_guidance import guidance_engine
     
     try:
         response = guidance_engine.get_guidance(

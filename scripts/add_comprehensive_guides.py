@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Add comprehensive implementation guides to ArchGuard vector database
+Add comprehensive implementation guides to Symmetra vector database
 
 This script adds detailed, web-scrape-quality implementation guides
 to the Supabase vector database instead of hardcoding them in the application.
@@ -16,7 +16,7 @@ from dotenv import load_dotenv
 import sys
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
-from archguard.vector_search import vector_search_engine
+from symmetra.vector_search import vector_search_engine
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

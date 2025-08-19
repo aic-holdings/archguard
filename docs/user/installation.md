@@ -1,6 +1,6 @@
-# ArchGuard Installation Guide
+# Symmetra Installation Guide
 
-Complete installation guide for ArchGuard MCP server with local embeddings.
+Complete installation guide for Symmetra MCP server with local embeddings.
 
 ## Prerequisites
 
@@ -40,8 +40,8 @@ git --version
 
 #### Step 1: Clone Repository
 ```bash
-git clone https://github.com/aic-holdings/archguard.git
-cd archguard
+git clone https://github.com/aic-holdings/symmetra.git
+cd symmetra
 ```
 
 #### Step 2: Install Dependencies
@@ -51,7 +51,7 @@ python -m venv .venv
 source .venv/bin/activate  # Linux/macOS
 # .venv\Scripts\activate     # Windows
 
-# Install ArchGuard
+# Install Symmetra
 pip install -e .
 
 # Install development dependencies (optional)
@@ -72,7 +72,7 @@ vim .env
 #### For Claude Code Users
 ```bash
 # Install directly from GitHub
-uvx --from git+https://github.com/aic-holdings/archguard archguard --help
+uvx --from git+https://github.com/aic-holdings/symmetra symmetra --help
 
 # Or add to Claude Code MCP config
 ```
@@ -81,11 +81,11 @@ Add to `.claude/mcp.json`:
 ```json
 {
   "mcpServers": {
-    "archguard": {
+    "symmetra": {
       "command": "uvx",
-      "args": ["--from", "git+https://github.com/aic-holdings/archguard", "archguard"],
+      "args": ["--from", "git+https://github.com/aic-holdings/symmetra", "symmetra"],
       "env": {
-        "ARCHGUARD_ENGINE_TYPE": "keyword"
+        "SYMMETRA_ENGINE_TYPE": "keyword"
       }
     }
   }
@@ -118,8 +118,8 @@ python scripts/setup_database.py --project-id your-project-id
 
 ### Option 2: Create New Supabase Project
 
-#### Using ArchGuard's MCP Integration
-If you have Claude Code with Supabase MCP configured, ArchGuard can create the project for you:
+#### Using Symmetra's MCP Integration
+If you have Claude Code with Supabase MCP configured, Symmetra can create the project for you:
 
 ```bash
 # Will prompt for organization and handle project creation
@@ -150,18 +150,18 @@ python scripts/setup_ollama_embeddings.py
 Edit `.env` file:
 ```bash
 # Database Configuration
-ARCHGUARD_SUPABASE_URL=https://your-project.supabase.co
-ARCHGUARD_SUPABASE_KEY=your-anon-key
-ARCHGUARD_SUPABASE_PROJECT_ID=your-project-id
+SYMMETRA_SUPABASE_URL=https://your-project.supabase.co
+SYMMETRA_SUPABASE_KEY=your-anon-key
+SYMMETRA_SUPABASE_PROJECT_ID=your-project-id
 
 # Embedding Configuration
-ARCHGUARD_ENGINE_TYPE=vector
-ARCHGUARD_EMBEDDING_PROVIDER=ollama
-ARCHGUARD_EMBEDDING_MODEL=nomic-embed-text
+SYMMETRA_ENGINE_TYPE=vector
+SYMMETRA_EMBEDDING_PROVIDER=ollama
+SYMMETRA_EMBEDDING_MODEL=nomic-embed-text
 
 # Optional: Project Context
-ARCHGUARD_PROJECT_ID=https://github.com/username/repo
-ARCHGUARD_DEFAULT_CONTEXT=ide-assistant
+SYMMETRA_PROJECT_ID=https://github.com/username/repo
+SYMMETRA_DEFAULT_CONTEXT=ide-assistant
 ```
 
 ### Step 3: Generate Initial Embeddings
@@ -183,15 +183,15 @@ Add to `.claude/mcp.json`:
 ```json
 {
   "mcpServers": {
-    "archguard": {
+    "symmetra": {
       "command": "python",
-      "args": ["-m", "archguard.server"],
-      "cwd": "/path/to/archguard",
+      "args": ["-m", "symmetra.server"],
+      "cwd": "/path/to/symmetra",
       "env": {
-        "ARCHGUARD_ENGINE_TYPE": "vector",
-        "ARCHGUARD_SUPABASE_URL": "https://your-project.supabase.co",
-        "ARCHGUARD_SUPABASE_KEY": "your-anon-key",
-        "ARCHGUARD_PROJECT_ID": "https://github.com/username/repo"
+        "SYMMETRA_ENGINE_TYPE": "vector",
+        "SYMMETRA_SUPABASE_URL": "https://your-project.supabase.co",
+        "SYMMETRA_SUPABASE_KEY": "your-anon-key",
+        "SYMMETRA_PROJECT_ID": "https://github.com/username/repo"
       }
     }
   }
@@ -205,12 +205,12 @@ Add to your Cursor MCP settings:
 {
   "mcp": {
     "servers": {
-      "archguard": {
+      "symmetra": {
         "command": "python",
-        "args": ["-m", "archguard.server"],
-        "cwd": "/path/to/archguard",
+        "args": ["-m", "symmetra.server"],
+        "cwd": "/path/to/symmetra",
         "env": {
-          "ARCHGUARD_ENGINE_TYPE": "vector"
+          "SYMMETRA_ENGINE_TYPE": "vector"
         }
       }
     }
@@ -224,11 +224,11 @@ For distribution without local installation:
 ```json
 {
   "mcpServers": {
-    "archguard": {
+    "symmetra": {
       "command": "uvx",
-      "args": ["--from", "git+https://github.com/aic-holdings/archguard", "archguard"],
+      "args": ["--from", "git+https://github.com/aic-holdings/symmetra", "symmetra"],
       "env": {
-        "ARCHGUARD_ENGINE_TYPE": "keyword"
+        "SYMMETRA_ENGINE_TYPE": "keyword"
       }
     }
   }
@@ -240,10 +240,10 @@ For distribution without local installation:
 ### Test Installation
 ```bash
 # Test basic functionality
-python -c "from archguard.server import get_guidance; print('✅ ArchGuard installed')"
+python -c "from symmetra.server import get_guidance; print('✅ Symmetra installed')"
 
 # Test MCP tools
-python -c "from archguard.server import search_rules; print(search_rules('python'))"
+python -c "from symmetra.server import search_rules; print(search_rules('python'))"
 
 # Test embedding system
 python scripts/embedding_worker.py --project-id your-project-id --monitor-only
@@ -256,7 +256,7 @@ Ask your AI assistant:
 Can you get guidance for "implementing user authentication in Python"?
 ```
 
-Expected response should include ArchGuard architectural guidance.
+Expected response should include Symmetra architectural guidance.
 
 ## Common Installation Issues
 
@@ -288,8 +288,8 @@ python -c "
 import os
 from supabase import create_client
 client = create_client(
-    os.getenv('ARCHGUARD_SUPABASE_URL'),
-    os.getenv('ARCHGUARD_SUPABASE_KEY')
+    os.getenv('SYMMETRA_SUPABASE_URL'),
+    os.getenv('SYMMETRA_SUPABASE_KEY')
 )
 print('✅ Database connection successful')
 "
@@ -298,13 +298,13 @@ print('✅ Database connection successful')
 ### MCP Integration Issues
 ```bash
 # Test MCP server directly
-python -m archguard.server
+python -m symmetra.server
 
 # Check Claude Code logs
 tail -f ~/.claude/logs/mcp.log
 
 # Verify environment variables
-env | grep ARCHGUARD
+env | grep SYMMETRA
 ```
 
 ## Performance Optimization
@@ -312,17 +312,17 @@ env | grep ARCHGUARD
 ### For Development
 ```bash
 # Use keyword engine for faster startup
-export ARCHGUARD_ENGINE_TYPE=keyword
+export SYMMETRA_ENGINE_TYPE=keyword
 
 # Reduce log verbosity
-export ARCHGUARD_LOG_LEVEL=WARNING
+export SYMMETRA_LOG_LEVEL=WARNING
 ```
 
 ### For Production
 ```bash
 # Use vector engine with caching
-export ARCHGUARD_ENGINE_TYPE=vector
-export ARCHGUARD_CACHE_TTL=3600
+export SYMMETRA_ENGINE_TYPE=vector
+export SYMMETRA_CACHE_TTL=3600
 
 # Run multiple embedding workers
 python scripts/embedding_worker.py --project-id your-project-id --worker-id worker-01 &
@@ -332,16 +332,16 @@ python scripts/embedding_worker.py --project-id your-project-id --worker-id work
 ## Next Steps
 
 After installation:
-1. **Read the [Usage Guide](usage.md)** - Learn how to use ArchGuard effectively
+1. **Read the [Usage Guide](usage.md)** - Learn how to use Symmetra effectively
 2. **Check [Examples](examples/)** - See real-world usage patterns
-3. **Add Custom Rules** - Extend ArchGuard for your specific needs
+3. **Add Custom Rules** - Extend Symmetra for your specific needs
 4. **Join the Community** - Contribute rules and improvements
 
 ## Getting Help
 
-- **Issues**: [GitHub Issues](https://github.com/aic-holdings/archguard/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/aic-holdings/archguard/discussions)
-- **Documentation**: [docs/](https://github.com/aic-holdings/archguard/tree/main/docs)
+- **Issues**: [GitHub Issues](https://github.com/aic-holdings/symmetra/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/aic-holdings/symmetra/discussions)
+- **Documentation**: [docs/](https://github.com/aic-holdings/symmetra/tree/main/docs)
 
 ## Uninstallation
 
@@ -356,5 +356,5 @@ rm .env
 ollama rm nomic-embed-text
 
 # Remove repository
-cd .. && rm -rf archguard
+cd .. && rm -rf symmetra
 ```

@@ -1,5 +1,5 @@
 """
-ArchGuard v0 - AI Governance MCP Server
+Symmetra v0 - AI Governance MCP Server
 Provides real-time coding guidance for AI agents.
 """
 
@@ -8,8 +8,8 @@ from .rules_engine import create_rule_engine
 from .detectors import create_detection_engine
 from .analyzers import LLMAnalyzer, ReportGenerator, ContextExtractor
 
-# Create the ArchGuard MCP server
-mcp = FastMCP("ArchGuard")
+# Create the Symmetra MCP server
+mcp = FastMCP("Symmetra")
 
 # Initialize rule engine (will switch to vector engine later)
 rule_engine = create_rule_engine("keyword")
@@ -27,7 +27,7 @@ def get_guidance(action: str, code: str = "", context: str = "") -> dict:
     """
     🏗️ Get comprehensive architectural guidance for coding actions
     
-    This is ArchGuard's primary tool for providing real-time architectural guidance.
+    This is Symmetra's primary tool for providing real-time architectural guidance.
     Use this tool whenever you're about to:
     - Create new files, functions, or components
     - Design APIs, databases, or system architecture  
@@ -115,7 +115,7 @@ def get_guidance(action: str, code: str = "", context: str = "") -> dict:
     # Add project-specific guidance if project directory is available
     if _server_project:
         guidance.append(f"📁 Project Context: Working in {_server_project}")
-        # TODO: Add project-specific configuration loading from .archguard.toml
+        # TODO: Add project-specific configuration loading from .symmetra.toml
     
     # Provide default guidance if no rules matched
     if not guidance:
@@ -152,9 +152,9 @@ def get_guidance(action: str, code: str = "", context: str = "") -> dict:
 @mcp.tool
 def search_rules(query: str, max_results: int = 5) -> dict:
     """
-    🔍 Search ArchGuard rules by query text
+    🔍 Search Symmetra rules by query text
     
-    This tool allows you to search through ArchGuard's rule database to find
+    This tool allows you to search through Symmetra's rule database to find
     specific guidance on architectural patterns, best practices, and design decisions.
     
     Args:
@@ -188,7 +188,7 @@ def list_rule_categories() -> dict:
     """
     📋 List all available rule categories
     
-    Returns all rule categories available in ArchGuard's rule engine,
+    Returns all rule categories available in Symmetra's rule engine,
     helping you understand what types of guidance are available.
     """
     all_rules = rule_engine.list_all_rules()
@@ -215,21 +215,21 @@ def list_rule_categories() -> dict:
         "categories": categories
     }
 
-@mcp.resource("archguard://rules")
+@mcp.resource("symmetra://rules")
 def get_rules() -> str:
     """
-    📋 Access ArchGuard's comprehensive architectural governance rules
+    📋 Access Symmetra's comprehensive architectural governance rules
     
     This resource provides the complete set of architectural standards and 
-    best practices that ArchGuard uses to evaluate code and provide guidance.
-    Use this when you need to understand ArchGuard's recommendations or 
+    best practices that Symmetra uses to evaluate code and provide guidance.
+    Use this when you need to understand Symmetra's recommendations or 
     when establishing coding standards for a project.
     
     Contains rules for: security, performance, maintainability, scalability,
     documentation, testing, and general architectural principles.
     """
     return """
-🛡️ ArchGuard Architectural Governance Rules v1.0
+🛡️ Symmetra Architectural Governance Rules v1.0
 
 📏 CODE ORGANIZATION & STRUCTURE
 1. File Size: Keep files under 300 lines for maintainability
@@ -288,7 +288,7 @@ def get_rules() -> str:
 40. Monitoring: Add health checks and observability
 
 These rules are advisory and should be adapted to your specific project needs.
-ArchGuard provides guidance based on these principles but never blocks development.
+Symmetra provides guidance based on these principles but never blocks development.
 """
 
 @mcp.prompt  
@@ -298,7 +298,7 @@ def review_code(code: str) -> str:
     
     This prompt template guides thorough code review with focus on architectural
     principles, security, performance, and maintainability. Use this when you
-    want to perform a detailed review of code against ArchGuard's standards.
+    want to perform a detailed review of code against Symmetra's standards.
     
     The generated prompt will analyze:
     - Architectural patterns and design principles
@@ -313,7 +313,7 @@ def review_code(code: str) -> str:
     Returns:
         Structured review prompt for comprehensive architectural analysis
     """
-    return f"""🛡️ ARCHGUARD ARCHITECTURAL CODE REVIEW
+    return f"""🛡️ SYMMETRA ARCHITECTURAL CODE REVIEW
 
 Please perform a comprehensive architectural review of this code:
 
@@ -369,7 +369,7 @@ def detect_issues(code: str, file_path: str = "unknown.py", language: str = None
     """
     🔍 Detect specific code issues using hybrid analysis
     
-    This tool provides the second mode of ArchGuard - specific issue detection.
+    This tool provides the second mode of Symmetra - specific issue detection.
     Unlike get_guidance() which provides general architectural advice, this tool
     performs deep analysis to find concrete, actionable issues in your code.
     
@@ -594,11 +594,11 @@ def batch_analyze_issues(code: str, file_path: str = "unknown.py",
 @mcp.tool
 def get_detection_info() -> dict:
     """
-    ℹ️ Get information about ArchGuard's detection capabilities
+    ℹ️ Get information about Symmetra's detection capabilities
     
     This tool provides details about the detection engine, available detectors,
     supported languages, and detection patterns. Use this to understand what
-    types of issues ArchGuard can detect and how the detection system works.
+    types of issues Symmetra can detect and how the detection system works.
     
     Returns:
         Comprehensive information about:
@@ -645,26 +645,26 @@ def get_detection_info() -> dict:
     }
 
 @mcp.tool
-def get_archguard_help() -> dict:
+def get_symmetra_help() -> dict:
     """
-    📚 Get comprehensive help on using ArchGuard effectively
+    📚 Get comprehensive help on using Symmetra effectively
     
     This tool provides coding agents with detailed instructions on how to best
-    utilize ArchGuard's capabilities. Use this tool when you want to understand:
+    utilize Symmetra's capabilities. Use this tool when you want to understand:
     - How to phrase requests to get the most helpful guidance
-    - What types of architectural questions ArchGuard can answer
-    - Best practices for integrating ArchGuard into your development workflow
-    - Examples of effective ArchGuard interactions
+    - What types of architectural questions Symmetra can answer
+    - Best practices for integrating Symmetra into your development workflow
+    - Examples of effective Symmetra interactions
     
     Returns:
-        Complete guide on ArchGuard usage, capabilities, and best practices
+        Complete guide on Symmetra usage, capabilities, and best practices
     """
     return {
         "guide": """
-🛡️ ARCHGUARD USAGE GUIDE FOR CODING AGENTS
+🛡️ SYMMETRA USAGE GUIDE FOR CODING AGENTS
 
-🎯 WHAT ARCHGUARD IS BEST FOR:
-ArchGuard is your architectural co-pilot that provides dual-mode assistance:
+🎯 WHAT SYMMETRA IS BEST FOR:
+Symmetra is your architectural co-pilot that provides dual-mode assistance:
 
 📋 GUIDANCE MODE (get_guidance):
 - Designing secure, scalable systems and APIs
@@ -722,11 +722,11 @@ ArchGuard is your architectural co-pilot that provides dual-mode assistance:
 - analyze_code_context() - Code structure and context analysis
 - batch_analyze_issues() - Comprehensive analysis with LLM enhancement
 - get_detection_info() - Information about detection capabilities
-- get_archguard_help() - This help guide
+- get_symmetra_help() - This help guide
 - review_code() - Structured code review prompts
 
 📋 Resources:
-- archguard://rules - Complete architectural governance rules
+- symmetra://rules - Complete architectural governance rules
 
 🎨 Prompts:
 - review_code() - Comprehensive architectural review template
@@ -756,12 +756,12 @@ RESULT: Indexing suggestions, query optimization, scaling considerations
 INPUT: "How should I structure a microservices API gateway?"
 RESULT: Architectural patterns, security considerations, scaling strategies
 
-Remember: ArchGuard is advisory, not blocking. Use the guidance to make informed
+Remember: Symmetra is advisory, not blocking. Use the guidance to make informed
 architectural decisions while maintaining full control over your development process.
 """,
         "quick_reference": {
             "primary_tool": "get_guidance(action, code, context)",
-            "resources": ["archguard://rules"],
+            "resources": ["symmetra://rules"],
             "prompts": ["review_code(code)"],
             "best_for": ["architecture", "security", "performance", "scalability"],
             "not_for": ["syntax errors", "debugging runtime issues", "package management"]
@@ -777,7 +777,7 @@ def main(context: str = "desktop-app", project: str = None):
     import sys
     global _server_context, _server_project
     
-    print(f"🛡️ Starting ArchGuard MCP Server...", file=sys.stderr)
+    print(f"🛡️ Starting Symmetra MCP Server...", file=sys.stderr)
     print(f"🎯 Context: {context}", file=sys.stderr)
     if project:
         print(f"📁 Project: {project}", file=sys.stderr)

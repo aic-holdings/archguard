@@ -1,21 +1,21 @@
-# ArchGuard Usage Guide
+# Symmetra Usage Guide
 
-Complete guide to using ArchGuard for architectural guidance in your development workflow.
+Complete guide to using Symmetra for architectural guidance in your development workflow.
 
 ## Quick Start
 
 ### Basic Usage with AI Assistant
 
-Once ArchGuard is installed and configured, you can start getting architectural guidance immediately:
+Once Symmetra is installed and configured, you can start getting architectural guidance immediately:
 
 ```
 👤 You: "I need to implement user authentication in my Python API"
 
 🤖 AI: Let me get architectural guidance for that.
 
-[AI calls ArchGuard get_guidance tool]
+[AI calls Symmetra get_guidance tool]
 
-🏗️ ArchGuard provides:
+🏗️ Symmetra provides:
 - Use bcrypt for password hashing, never store plaintext
 - Implement JWT tokens with short expiration times
 - Add rate limiting for login endpoints
@@ -27,11 +27,11 @@ Once ArchGuard is installed and configured, you can start getting architectural 
 ```
 👤 You: "What are the best practices for Python project structure?"
 
-🤖 AI: Let me search ArchGuard's rules for Python project guidance.
+🤖 AI: Let me search Symmetra's rules for Python project guidance.
 
 [AI calls search_rules tool]
 
-🔍 ArchGuard returns:
+🔍 Symmetra returns:
 - python-project-structure: Use src/ layout with pyproject.toml
 - python-dependency-management: Pin versions with ranges
 - python-code-quality: Use black, ruff, mypy, pytest
@@ -121,13 +121,13 @@ search_rules("error handling")
 
 ## Context-Aware Guidance
 
-ArchGuard adapts its responses based on your context:
+Symmetra adapts its responses based on your context:
 
 ### IDE Assistant Mode
 **Optimized for**: Quick, actionable advice during coding
 
 ```bash
-export ARCHGUARD_DEFAULT_CONTEXT=ide-assistant
+export SYMMETRA_DEFAULT_CONTEXT=ide-assistant
 ```
 
 **Characteristics**:
@@ -146,7 +146,7 @@ Output: "🚨 Add try/catch with specific exception types, log errors with conte
 **Optimized for**: Automated processing and detailed analysis
 
 ```bash
-export ARCHGUARD_DEFAULT_CONTEXT=agent
+export SYMMETRA_DEFAULT_CONTEXT=agent
 ```
 
 **Characteristics**:
@@ -170,7 +170,7 @@ export ARCHGUARD_DEFAULT_CONTEXT=agent
 **Optimized for**: Learning and discussion
 
 ```bash
-export ARCHGUARD_DEFAULT_CONTEXT=desktop-app
+export SYMMETRA_DEFAULT_CONTEXT=desktop-app
 ```
 
 **Characteristics**:
@@ -283,7 +283,7 @@ VALUES (
 
 #### Option 2: Python Script
 ```python
-from archguard.rules_engine import create_rule_engine
+from symmetra.rules_engine import create_rule_engine
 
 engine = create_rule_engine("keyword")
 engine.add_rule({
@@ -327,7 +327,7 @@ engine.add_rule({
 
 ### Project-Specific Configuration
 
-Create `.archguard.toml` in your project root:
+Create `.symmetra.toml` in your project root:
 
 ```toml
 [project]
@@ -352,15 +352,15 @@ auto_reload = true
 
 ```bash
 # Development
-export ARCHGUARD_ENGINE_TYPE=keyword
-export ARCHGUARD_LOG_LEVEL=DEBUG
-export ARCHGUARD_MAX_RULES=5
+export SYMMETRA_ENGINE_TYPE=keyword
+export SYMMETRA_LOG_LEVEL=DEBUG
+export SYMMETRA_MAX_RULES=5
 
 # Production
-export ARCHGUARD_ENGINE_TYPE=vector
-export ARCHGUARD_LOG_LEVEL=INFO
-export ARCHGUARD_MAX_RULES=10
-export ARCHGUARD_CACHE_TTL=3600
+export SYMMETRA_ENGINE_TYPE=vector
+export SYMMETRA_LOG_LEVEL=INFO
+export SYMMETRA_MAX_RULES=10
+export SYMMETRA_CACHE_TTL=3600
 ```
 
 ### Batch Operations
@@ -403,7 +403,7 @@ guidance = get_guidance(
 # Add to your CI pipeline
 - name: Architecture Review
   run: |
-    python -m archguard.cli review \
+    python -m symmetra.cli review \
       --files "src/**/*.py" \
       --context agent \
       --format json \
@@ -414,7 +414,7 @@ guidance = get_guidance(
 
 ```python
 # VS Code extension integration
-from archguard.server import get_guidance
+from symmetra.server import get_guidance
 
 def on_file_save(file_content, file_path):
     guidance = get_guidance(
@@ -431,12 +431,12 @@ def on_file_save(file_content, file_path):
 
 ```bash
 # Fast keyword search
-export ARCHGUARD_ENGINE_TYPE=keyword
+export SYMMETRA_ENGINE_TYPE=keyword
 # ~25ms response time
 
 # Semantic vector search with caching
-export ARCHGUARD_ENGINE_TYPE=vector
-export ARCHGUARD_CACHE_TTL=3600
+export SYMMETRA_ENGINE_TYPE=vector
+export SYMMETRA_CACHE_TTL=3600
 # ~50ms with cache, ~200ms without
 ```
 
@@ -444,10 +444,10 @@ export ARCHGUARD_CACHE_TTL=3600
 
 ```bash
 # Limit rule set size
-export ARCHGUARD_MAX_RULES=10
+export SYMMETRA_MAX_RULES=10
 
 # Use smaller embedding model
-export ARCHGUARD_EMBEDDING_MODEL=all-minilm  # 384D instead of 768D
+export SYMMETRA_EMBEDDING_MODEL=all-minilm  # 384D instead of 768D
 ```
 
 ### Concurrent Processing
@@ -466,7 +466,7 @@ python scripts/embedding_worker.py --worker-id worker-03 &
 #### "No rules found"
 ```bash
 # Check if rules are loaded
-python -c "from archguard.server import list_rule_categories; print(list_rule_categories())"
+python -c "from symmetra.server import list_rule_categories; print(list_rule_categories())"
 
 # Re-insert bootstrap rules
 python scripts/generate_embeddings_ollama.py --insert-python-rules
@@ -481,16 +481,16 @@ curl -s http://localhost:11434/api/version
 python scripts/embedding_worker.py --monitor-only
 
 # Use faster model
-export ARCHGUARD_EMBEDDING_MODEL=all-minilm
+export SYMMETRA_EMBEDDING_MODEL=all-minilm
 ```
 
 #### "MCP connection failed"
 ```bash
 # Test MCP server directly
-python -m archguard.server
+python -m symmetra.server
 
 # Check environment variables
-env | grep ARCHGUARD
+env | grep SYMMETRA
 
 # Verify database connection
 python -c "from mcp__supabase__execute_sql import execute_sql; print('✅ Connected')"

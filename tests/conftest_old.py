@@ -1,5 +1,5 @@
 """
-Pytest configuration and fixtures for ArchGuard tests.
+Pytest configuration and fixtures for Symmetra tests.
 """
 
 import pytest
@@ -61,7 +61,7 @@ def sample_project_structure(temp_dir: Path) -> Path:
 @pytest.fixture
 async def mcp_server():
     """Start an MCP server instance for testing."""
-    from archguard.server import mcp
+    from symmetra.server import mcp
     
     # Return the MCP server instance directly
     yield mcp
@@ -73,13 +73,13 @@ async def mcp_server():
 def client():
     """Create a test client for HTTP server testing."""
     from fastapi.testclient import TestClient
-    from archguard.http_server import app
+    from symmetra.http_server import app
     
     if app is not None:
         return TestClient(app)
     else:
         # Fallback: create app manually if needed
-        from archguard.server import mcp
+        from symmetra.server import mcp
         if hasattr(mcp, 'create_app'):
             return TestClient(mcp.create_app())
         else:
@@ -93,8 +93,8 @@ def setup_test_env():
     # Store original values
     original_env = {}
     test_vars = {
-        "ARCHGUARD_TEST_MODE": "true",
-        "ARCHGUARD_LOG_LEVEL": "DEBUG",
+        "SYMMETRA_TEST_MODE": "true",
+        "SYMMETRA_LOG_LEVEL": "DEBUG",
     }
     
     for key, value in test_vars.items():

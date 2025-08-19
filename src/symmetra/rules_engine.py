@@ -1,5 +1,5 @@
 """
-ArchGuard Rules Engine - Semantic rule retrieval system
+Symmetra Rules Engine - Semantic rule retrieval system
 
 This module provides an abstraction for rule storage and retrieval that supports
 both keyword-based matching (for immediate use) and vector-based semantic search
@@ -44,7 +44,7 @@ class KeywordRuleEngine(RuleEngine):
         self.rules = self._load_bootstrap_rules()
     
     def _load_bootstrap_rules(self) -> List[Dict]:
-        """Load initial set of ArchGuard bootstrap rules"""
+        """Load initial set of Symmetra bootstrap rules"""
         return [
             # Vector Database Architecture Rules
             {
@@ -112,11 +112,11 @@ class KeywordRuleEngine(RuleEngine):
                 ]
             },
             {
-                "rule_id": "archguard-project-structure",
-                "title": "ArchGuard Project Organization",
-                "guidance": "📁 Organize ArchGuard modules: rules_engine (core logic), server (MCP interface), cli (user interface), config (settings)",
-                "rationale": "Clear separation of concerns makes ArchGuard easier to extend and maintain. Each module has a single responsibility.",
-                "keywords": ["project", "structure", "organization", "modules", "separation", "concerns", "archguard"],
+                "rule_id": "symmetra-project-structure",
+                "title": "Symmetra Project Organization",
+                "guidance": "📁 Organize Symmetra modules: rules_engine (core logic), server (MCP interface), cli (user interface), config (settings)",
+                "rationale": "Clear separation of concerns makes Symmetra easier to extend and maintain. Each module has a single responsibility.",
+                "keywords": ["project", "structure", "organization", "modules", "separation", "concerns", "symmetra"],
                 "contexts": ["ide-assistant"],
                 "tech_stacks": ["python", "project-structure"],
                 "priority": "medium",
@@ -131,7 +131,7 @@ class KeywordRuleEngine(RuleEngine):
             {
                 "rule_id": "config-layered-approach",
                 "title": "Layered Configuration System",
-                "guidance": "⚙️ Use layered config: global defaults → project .archguard.toml → runtime parameters. Higher layers override lower ones",
+                "guidance": "⚙️ Use layered config: global defaults → project .symmetra.toml → runtime parameters. Higher layers override lower ones",
                 "rationale": "Layered configuration provides flexibility while maintaining sensible defaults. Users can customize at the appropriate level without breaking the system.",
                 "keywords": ["config", "configuration", "layered", "toml", "defaults", "override", "settings"],
                 "contexts": ["ide-assistant", "agent"],
@@ -139,15 +139,15 @@ class KeywordRuleEngine(RuleEngine):
                 "priority": "medium",
                 "category": "architecture",
                 "examples": [
-                    "Global: ~/.config/archguard/config.toml",
-                    "Project: .archguard.toml in project root", 
+                    "Global: ~/.config/symmetra/config.toml",
+                    "Project: .symmetra.toml in project root", 
                     "Runtime: --context, --project CLI parameters"
                 ]
             },
             {
                 "rule_id": "testing-multiple-transports",
                 "title": "Multi-Transport Testing Strategy",
-                "guidance": "🧪 Test ArchGuard across all transports: in-memory (fast iteration), stdio (Claude Code), HTTP (production)",
+                "guidance": "🧪 Test Symmetra across all transports: in-memory (fast iteration), stdio (Claude Code), HTTP (production)",
                 "rationale": "Different transports have different failure modes. Comprehensive testing ensures reliable operation across all deployment scenarios.",
                 "keywords": ["testing", "transport", "stdio", "http", "memory", "mcp", "integration"],
                 "contexts": ["ide-assistant"],
@@ -293,14 +293,14 @@ class VectorRuleEngine(RuleEngine):
     def __init__(self, supabase_url: str = None, supabase_key: str = None, 
                  embedding_model: str = "all-MiniLM-L6-v2"):
         # Load from environment variables if not provided
-        self.supabase_url = supabase_url or os.getenv("ARCHGUARD_SUPABASE_URL")
-        self.supabase_key = supabase_key or os.getenv("ARCHGUARD_SUPABASE_KEY")
+        self.supabase_url = supabase_url or os.getenv("SYMMETRA_SUPABASE_URL")
+        self.supabase_key = supabase_key or os.getenv("SYMMETRA_SUPABASE_KEY")
         self.embedding_model = embedding_model
         
         if not self.supabase_url or not self.supabase_key:
             raise ValueError(
-                "Supabase credentials required. Set ARCHGUARD_SUPABASE_URL and "
-                "ARCHGUARD_SUPABASE_KEY environment variables or pass as parameters."
+                "Supabase credentials required. Set SYMMETRA_SUPABASE_URL and "
+                "SYMMETRA_SUPABASE_KEY environment variables or pass as parameters."
             )
         
         # Initialize Supabase client
@@ -443,7 +443,7 @@ def create_rule_engine(engine_type: str = None, **kwargs) -> RuleEngine:
     """Create a rule engine of the specified type"""
     # Auto-detect engine type based on environment variables
     if engine_type is None:
-        engine_type = os.getenv("ARCHGUARD_ENGINE_TYPE", "keyword")
+        engine_type = os.getenv("SYMMETRA_ENGINE_TYPE", "keyword")
     
     if engine_type == "keyword":
         return KeywordRuleEngine()

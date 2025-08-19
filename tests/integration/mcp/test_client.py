@@ -1,6 +1,6 @@
 """
-ArchGuard Test Client
-Tests the ArchGuard MCP server through all phases.
+Symmetra Test Client
+Tests the Symmetra MCP server through all phases.
 """
 
 import asyncio
@@ -12,7 +12,7 @@ import pytest
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'src'))
 
 from fastmcp import Client
-from archguard.server import mcp
+from symmetra.server import mcp
 
 @pytest.mark.asyncio
 async def test_phase_1_in_memory():
@@ -57,7 +57,7 @@ async def test_phase_1_in_memory():
         
         # Test 6: Read rules resource
         print("\n📖 Testing rules resource...")
-        rules = await client.read_resource("archguard://rules")
+        rules = await client.read_resource("symmetra://rules")
         if isinstance(rules, list) and len(rules) > 0:
             print(f"✅ Rules content: {rules[0].text[:100]}...")
         else:
@@ -78,7 +78,7 @@ async def test_phase_2_stdio():
     print("=" * 50)
     
     # Connect via stdio to server file  
-    server_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'src', 'archguard', 'server.py')
+    server_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'src', 'symmetra', 'server.py')
     async with Client(server_path) as client:
         print("📋 Testing stdio connection...")
         
@@ -103,14 +103,14 @@ async def test_phase_3_http():
     
     # This will be run separately since HTTP server needs to be started first
     print("ℹ️ HTTP testing requires manual server startup:")
-    print("   archguard http --port 8000")
+    print("   symmetra http --port 8000")
     print("   Then run: python test_http_client.py")
     
     return True
 
 async def main():
     """Run all test phases"""
-    print("🛡️ ArchGuard MCP Server Testing")
+    print("🛡️ Symmetra MCP Server Testing")
     print("=" * 60)
     
     try:

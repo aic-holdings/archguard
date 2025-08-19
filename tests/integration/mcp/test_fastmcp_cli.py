@@ -1,5 +1,5 @@
 """
-Test ArchGuard with FastMCP CLI commands
+Test Symmetra with FastMCP CLI commands
 """
 
 import subprocess
@@ -23,7 +23,7 @@ def test_fastmcp_commands():
         assert False, f"FastMCP version check failed: {e}"
     
     # Test 2: Validate our server file
-    print("\n🔍 Validating ArchGuard server...")
+    print("\n🔍 Validating Symmetra server...")
     try:
         # Add src directory to Python path for import  
         import sys
@@ -31,9 +31,9 @@ def test_fastmcp_commands():
         sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'src'))
         
         # Import our server to check for syntax errors
-        import archguard.server
+        import symmetra.server
         print("✅ Server file syntax is valid")
-        print(f"✅ Server name: {archguard.server.mcp.name}")
+        print(f"✅ Server name: {symmetra.server.mcp.name}")
     except Exception as e:
         print(f"❌ Server validation failed: {e}")
         assert False, f"Server validation failed: {e}"
@@ -42,7 +42,7 @@ def test_fastmcp_commands():
     print("\n🚀 Testing FastMCP run command...")
     try:
         # Start server process
-        server_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'src', 'archguard', 'server.py')
+        server_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'src', 'symmetra', 'server.py')
         proc = subprocess.Popen(
             ["fastmcp", "run", server_path],
             stdout=subprocess.PIPE, 
@@ -90,7 +90,7 @@ if __name__ == "__main__":
     if success:
         print("\n🎉 FastMCP CLI testing completed successfully!")
         print("\n📋 Next steps:")
-        print("1. Install for Claude Code: pip install -e . && archguard server")
-        print("2. Test HTTP mode: archguard http --port 8000")
+        print("1. Install for Claude Code: pip install -e . && symmetra server")
+        print("2. Test HTTP mode: symmetra http --port 8000")
     else:
         print("\n❌ Some tests failed. Check the output above.")

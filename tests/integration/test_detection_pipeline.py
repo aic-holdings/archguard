@@ -6,9 +6,9 @@ and report generation.
 """
 
 import pytest
-from src.archguard.detectors import create_detection_engine
-from src.archguard.analyzers import LLMAnalyzer, ReportGenerator
-from src.archguard.detectors.base import Severity, IssueType
+from src.symmetra.detectors import create_detection_engine
+from src.symmetra.analyzers import LLMAnalyzer, ReportGenerator
+from src.symmetra.detectors.base import Severity, IssueType
 
 
 class TestDetectionPipeline:

@@ -1,8 +1,8 @@
-# ArchGuard MCP Server Specification
+# Symmetra MCP Server Specification
 
 ## Overview
 
-The ArchGuard MCP server provides constitutional governance tools for AI agents through the Model Context Protocol. This document defines the server's capabilities, tools, and data models.
+The Symmetra MCP server provides constitutional governance tools for AI agents through the Model Context Protocol. This document defines the server's capabilities, tools, and data models.
 
 ## MCP Tools Provided
 
@@ -196,13 +196,13 @@ Get summary of rule violations.
 ## Configuration
 
 ### Database Connection
-- **SQLite** (default): `sqlite:///archguard_constitution.db`
-- **PostgreSQL**: Configurable via `ARCHGUARD_DATABASE_URL`
+- **SQLite** (default): `sqlite:///symmetra_constitution.db`
+- **PostgreSQL**: Configurable via `SYMMETRA_DATABASE_URL`
 
 ### Environment Variables
-- `ARCHGUARD_DATABASE_URL`: Database connection string
-- `ARCHGUARD_LOG_LEVEL`: Logging level (DEBUG, INFO, WARNING, ERROR)
-- `ARCHGUARD_SESSION_TIMEOUT`: Session timeout in minutes (default: 60)
+- `SYMMETRA_DATABASE_URL`: Database connection string
+- `SYMMETRA_LOG_LEVEL`: Logging level (DEBUG, INFO, WARNING, ERROR)
+- `SYMMETRA_SESSION_TIMEOUT`: Session timeout in minutes (default: 60)
 
 ## Usage Patterns
 

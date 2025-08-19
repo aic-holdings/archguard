@@ -6,8 +6,8 @@ SQL injection risks, and insecure protocols.
 """
 
 import pytest
-from src.archguard.detectors.security import SecurityDetector
-from src.archguard.detectors.base import Severity, IssueType
+from src.symmetra.detectors.security import SecurityDetector
+from src.symmetra.detectors.base import Severity, IssueType
 
 
 class TestSecurityDetector:

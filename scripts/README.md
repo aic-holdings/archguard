@@ -1,6 +1,6 @@
-# ArchGuard Scripts
+# Symmetra Scripts
 
-This directory contains utility scripts organized by purpose for ArchGuard development and deployment.
+This directory contains utility scripts organized by purpose for Symmetra development and deployment.
 
 ## 📁 Directory Structure
 
@@ -53,4 +53,4 @@ When adding new scripts:
 
 ---
 
-*Scripts are organized to support ArchGuard's development workflow and operational needs.*
+*Scripts are organized to support Symmetra's development workflow and operational needs.*

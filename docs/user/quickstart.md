@@ -1,14 +1,14 @@
-# ArchGuard Quick Start Guide
+# Symmetra Quick Start Guide
 
-Get ArchGuard running in 5 minutes and start receiving architectural guidance immediately.
+Get Symmetra running in 5 minutes and start receiving architectural guidance immediately.
 
 ## 🚀 Quick Setup (5 minutes)
 
-### Step 1: Install ArchGuard (1 minute)
+### Step 1: Install Symmetra (1 minute)
 ```bash
 # Clone and install
-git clone https://github.com/aic-holdings/archguard.git
-cd archguard
+git clone https://github.com/aic-holdings/symmetra.git
+cd symmetra
 python -m venv .venv
 source .venv/bin/activate  # or .venv\Scripts\activate on Windows
 pip install -e .
@@ -19,12 +19,12 @@ Add to your `.claude/mcp.json`:
 ```json
 {
   "mcpServers": {
-    "archguard": {
+    "symmetra": {
       "command": "python",
-      "args": ["-m", "archguard.server"],
-      "cwd": "/path/to/archguard",
+      "args": ["-m", "symmetra.server"],
+      "cwd": "/path/to/symmetra",
       "env": {
-        "ARCHGUARD_ENGINE_TYPE": "keyword"
+        "SYMMETRA_ENGINE_TYPE": "keyword"
       }
     }
   }
@@ -52,9 +52,9 @@ ollama pull nomic-embed-text
 ```
 👤 "Review this authentication function for security issues"
 
-🤖 [AI calls ArchGuard get_guidance tool]
+🤖 [AI calls Symmetra get_guidance tool]
 
-🏗️ ArchGuard provides:
+🏗️ Symmetra provides:
 - 🔐 Never store passwords in plaintext - use bcrypt hashing
 - 🔑 Implement JWT tokens with short expiration times  
 - 🚦 Add rate limiting to prevent brute force attacks
@@ -67,7 +67,7 @@ ollama pull nomic-embed-text
 
 🤖 [AI calls search_rules tool for "microservices architecture"]
 
-🔍 ArchGuard returns:
+🔍 Symmetra returns:
 - microservice-boundaries: Define services around business capabilities
 - api-gateway-pattern: Use gateway for routing and authentication
 - data-consistency: Plan for eventual consistency across services
@@ -79,7 +79,7 @@ ollama pull nomic-embed-text
 
 🤖 [AI calls get_guidance tool]
 
-🏗️ ArchGuard provides:
+🏗️ Symmetra provides:
 - ⚡ Use Redis for distributed session storage
 - 🕒 Set appropriate TTL based on data freshness requirements
 - 🔄 Implement cache invalidation strategy for data updates
@@ -104,25 +104,25 @@ ollama pull nomic-embed-text
 ### Context-Aware Guidance
 ```bash
 # For real-time coding assistance
-export ARCHGUARD_DEFAULT_CONTEXT=ide-assistant
+export SYMMETRA_DEFAULT_CONTEXT=ide-assistant
 
 # For automated processing  
-export ARCHGUARD_DEFAULT_CONTEXT=agent
+export SYMMETRA_DEFAULT_CONTEXT=agent
 
 # For learning and discussion
-export ARCHGUARD_DEFAULT_CONTEXT=desktop-app
+export SYMMETRA_DEFAULT_CONTEXT=desktop-app
 ```
 
 ### Performance Tuning
 ```bash
 # Fast keyword search (default)
-export ARCHGUARD_ENGINE_TYPE=keyword
+export SYMMETRA_ENGINE_TYPE=keyword
 
 # Intelligent semantic search
-export ARCHGUARD_ENGINE_TYPE=vector
+export SYMMETRA_ENGINE_TYPE=vector
 
 # Limit results for speed
-export ARCHGUARD_MAX_RULES=5
+export SYMMETRA_MAX_RULES=5
 ```
 
 ## 🎨 Advanced Features
@@ -152,13 +152,13 @@ python scripts/generate_embeddings_ollama.py --project-id your-project-id
 ### Project Context
 Configure for your specific project:
 ```bash
-export ARCHGUARD_PROJECT_ID=https://github.com/yourteam/yourproject
-export ARCHGUARD_TECH_STACK=python,fastapi,postgresql
+export SYMMETRA_PROJECT_ID=https://github.com/yourteam/yourproject
+export SYMMETRA_TECH_STACK=python,fastapi,postgresql
 ```
 
 ## 🐛 Quick Troubleshooting
 
-### ArchGuard tools not appearing?
+### Symmetra tools not appearing?
 ```bash
 # Restart Claude Code completely
 # Check MCP configuration in ~/.claude/mcp.json
@@ -169,7 +169,7 @@ export ARCHGUARD_TECH_STACK=python,fastapi,postgresql
 ```bash
 # Check virtual environment
 source .venv/bin/activate
-pip list | grep archguard
+pip list | grep symmetra
 
 # Reinstall if needed
 pip install -e .
@@ -178,10 +178,10 @@ pip install -e .
 ### Slow responses?
 ```bash
 # Use keyword engine for speed
-export ARCHGUARD_ENGINE_TYPE=keyword
+export SYMMETRA_ENGINE_TYPE=keyword
 
 # Reduce result count
-export ARCHGUARD_MAX_RULES=3
+export SYMMETRA_MAX_RULES=3
 ```
 
 ### Want more details?
@@ -206,8 +206,8 @@ export ARCHGUARD_MAX_RULES=3
 ### 3. Use Search for Discovery
 ```bash
 # Explore available guidance
-"Search ArchGuard rules for Python testing best practices"
-"What categories of rules are available in ArchGuard?"
+"Search Symmetra rules for Python testing best practices"
+"What categories of rules are available in Symmetra?"
 ```
 
 ### 4. Leverage Different Contexts
@@ -224,12 +224,12 @@ context="desktop-app" → Detailed explanations
 
 ## 🎉 You're Ready!
 
-ArchGuard is now providing architectural guidance to your AI assistant. Start by asking for guidance on your current coding challenges and discover how ArchGuard can improve your development workflow.
+Symmetra is now providing architectural guidance to your AI assistant. Start by asking for guidance on your current coding challenges and discover how Symmetra can improve your development workflow.
 
 **Next Steps:**
 1. Try the example queries above
 2. Explore different rule categories
 3. Add custom rules for your project
-4. Share ArchGuard with your team
+4. Share Symmetra with your team
 
 **Happy coding with better architecture! 🚀**

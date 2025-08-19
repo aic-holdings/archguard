@@ -1,5 +1,5 @@
 """
-Test ArchGuard CLI --context and --project parameters
+Test Symmetra CLI --context and --project parameters
 """
 
 import subprocess
@@ -26,7 +26,7 @@ def test_context_parameter():
         
         result = subprocess.run([
             sys.executable, "-c", 
-            "from archguard.cli import main; main()", 
+            "from symmetra.cli import main; main()", 
             "server", "--help"
         ], capture_output=True, text=True, timeout=10, env=env)
         
@@ -56,7 +56,7 @@ def test_context_parameter():
             
             proc = subprocess.Popen([
                 sys.executable, "-c", 
-                f"from archguard.cli import main; main()", 
+                f"from symmetra.cli import main; main()", 
                 "server", "--context", context
             ], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, env=env)
             
@@ -104,7 +104,7 @@ def test_project_parameter():
         
         result = subprocess.run([
             sys.executable, "-c", 
-            "from archguard.cli import main; main()", 
+            "from symmetra.cli import main; main()", 
             "server", "--help"
         ], capture_output=True, text=True, timeout=10, env=env)
         
@@ -135,7 +135,7 @@ def test_project_parameter():
                 
                 proc = subprocess.Popen([
                     sys.executable, "-c", 
-                    f"from archguard.cli import main; main()", 
+                    f"from symmetra.cli import main; main()", 
                     "server", "--project", project
                 ], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, env=env)
                 
@@ -182,7 +182,7 @@ def test_combined_parameters():
             
             proc = subprocess.Popen([
                 sys.executable, "-c", 
-                f"from archguard.cli import main; main()", 
+                f"from symmetra.cli import main; main()", 
                 "server", "--context", "ide-assistant", "--project", temp_dir
             ], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, env=env)
             
@@ -229,12 +229,12 @@ def test_server_context_in_guidance():
     
     try:
         # Import and create server with different contexts
-        import archguard.server
+        import symmetra.server
         
         # Test with different contexts
         for context in ["desktop-app", "ide-assistant", "agent"]:
             # Get guidance using test helper function
-            result = archguard.server.test_guidance_with_context("create a new component", server_context=context)
+            result = symmetra.server.test_guidance_with_context("create a new component", server_context=context)
             
             # Check if context-specific guidance is included
             guidance_text = " ".join(result["guidance"])

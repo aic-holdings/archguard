@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-ArchGuard Database Setup Script
+Symmetra Database Setup Script
 
-This script sets up the ArchGuard database using:
+This script sets up the Symmetra database using:
 1. Supabase CLI (preferred method)
 2. MCP Supabase integration (fallback)
 
@@ -173,7 +173,7 @@ def generate_embeddings(project_id: str) -> bool:
         return True
 
 def main():
-    parser = argparse.ArgumentParser(description="Set up ArchGuard database")
+    parser = argparse.ArgumentParser(description="Set up Symmetra database")
     parser.add_argument("--project-id", required=True, 
                        help="Supabase project ID")
     parser.add_argument("--force-mcp", action="store_true",
@@ -183,7 +183,7 @@ def main():
     
     args = parser.parse_args()
     
-    print("🏗️  Setting up ArchGuard database...")
+    print("🏗️  Setting up Symmetra database...")
     print(f"📋 Project ID: {args.project_id}")
     
     # Get migration files
@@ -211,13 +211,13 @@ def main():
     print("")
     print("Next steps:")
     print("1. Set environment variables:")
-    print(f"   export ARCHGUARD_SUPABASE_URL=https://{args.project_id}.supabase.co")
-    print("   export ARCHGUARD_SUPABASE_KEY=your-anon-key")
-    print("   export ARCHGUARD_ENGINE_TYPE=vector  # to enable vector search")
+    print(f"   export SYMMETRA_SUPABASE_URL=https://{args.project_id}.supabase.co")
+    print("   export SYMMETRA_SUPABASE_KEY=your-anon-key")
+    print("   export SYMMETRA_ENGINE_TYPE=vector  # to enable vector search")
     print("2. Generate embeddings:")
     print("   python scripts/generate_embeddings.py")
     print("3. Test the setup:")
-    print("   python -c \"from archguard.rules_engine import create_rule_engine; print('✅ Success')\"")
+    print("   python -c \"from symmetra.rules_engine import create_rule_engine; print('✅ Success')\"")
 
 if __name__ == "__main__":
     main()

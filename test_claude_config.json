@@ -1,11 +1,15 @@
 {
   "mcpServers": {
-    "archguard-test": {
+    "symmetra-test": {
       "command": "uvx",
-      "args": ["--from", ".", "archguard", "server", "--mode", "simple"],
-      "cwd": "/Users/dshanklinbv/repos/archguard",
+      "args": ["--from", ".", "symmetra", "server", "--mode", "simple"],
+      "cwd": "/Users/dshanklinbv/repos/symmetra",
       "env": {
-        "ARCHGUARD_LOG_LEVEL": "INFO"
+        "SYMMETRA_LOG_LEVEL": "INFO",
+        "SYMMETRA_ENGINE_TYPE": "vector",
+        "SYMMETRA_SUPABASE_URL": "https://trzfyaopymlgxehhdfqf.supabase.co",
+        "SYMMETRA_SUPABASE_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRyemZ5YW9weW1sZ3hlaGhkZnFmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU1NTM1NzAsImV4cCI6MjA3MTEyOTU3MH0.oUlbRO6r7P3Cgkrz4Kfj5phLwYTXU9SfC4Zc1oKmhIo",
+        "SYMMETRA_SUPABASE_PROJECT_ID": "trzfyaopymlgxehhdfqf"
       }
     }
   }

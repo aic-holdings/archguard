@@ -1,5 +1,5 @@
 """
-ArchGuard Tools Package
+Symmetra Tools Package
 
 This package contains all MCP tools organized by functionality:
 - guidance_tools: Traditional architectural guidance and best practices
@@ -14,7 +14,7 @@ from .detection_tools import (
     batch_analyze_issues, 
     get_detection_info
 )
-from .help_tools import get_archguard_help, get_rules_resource, get_review_code_prompt
+from .help_tools import get_symmetra_help, get_rules_resource, get_review_code_prompt
 
 __all__ = [
     # Guidance tools
@@ -29,7 +29,7 @@ __all__ = [
     'get_detection_info',
     
     # Help tools
-    'get_archguard_help',
+    'get_symmetra_help',
     'get_rules_resource',
     'get_review_code_prompt'
 ]

@@ -2,7 +2,7 @@
 """
 Test Serena-Style uvx Execution Pattern
 
-Validates that ArchGuard works correctly with the uvx --from pattern
+Validates that Symmetra works correctly with the uvx --from pattern
 used by Serena for temporary execution without permanent installation.
 """
 
@@ -18,11 +18,11 @@ def test_uvx_from_help():
     
     try:
         result = subprocess.run([
-            "uvx", "--from", "git+https://github.com/aic-holdings/archguard", 
-            "archguard", "--help"
+            "uvx", "--from", "git+https://github.com/aic-holdings/symmetra", 
+            "symmetra", "--help"
         ], capture_output=True, text=True, timeout=30)
         
-        if result.returncode == 0 and "ArchGuard - Your AI-powered architectural co-pilot" in result.stdout:
+        if result.returncode == 0 and "Symmetra - Your AI-powered architectural co-pilot" in result.stdout:
             print("✅ uvx --from help command works")
             return True
         else:
@@ -43,8 +43,8 @@ def test_uvx_from_server_startup():
     try:
         # Start server with uvx --from
         proc = subprocess.Popen([
-            "uvx", "--from", "git+https://github.com/aic-holdings/archguard",
-            "archguard", "server"
+            "uvx", "--from", "git+https://github.com/aic-holdings/symmetra",
+            "symmetra", "server"
         ], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         
         # Give it time to start
@@ -92,11 +92,11 @@ def test_claude_code_config_compatibility():
     # Test configuration for uvx --from pattern
     claude_config = {
         "mcpServers": {
-            "archguard": {
+            "symmetra": {
                 "command": "uvx",
-                "args": ["--from", "git+https://github.com/aic-holdings/archguard", "archguard", "server"],
+                "args": ["--from", "git+https://github.com/aic-holdings/symmetra", "symmetra", "server"],
                 "env": {
-                    "ARCHGUARD_LOG_LEVEL": "INFO"
+                    "SYMMETRA_LOG_LEVEL": "INFO"
                 }
             }
         }
@@ -108,8 +108,8 @@ def test_claude_code_config_compatibility():
         parsed = json.loads(json_str)
         
         # Check required fields
-        if "mcpServers" in parsed and "archguard" in parsed["mcpServers"]:
-            server_config = parsed["mcpServers"]["archguard"]
+        if "mcpServers" in parsed and "symmetra" in parsed["mcpServers"]:
+            server_config = parsed["mcpServers"]["symmetra"]
             if all(key in server_config for key in ["command", "args"]):
                 print("✅ Claude Code configuration is valid")
                 print(f"   Command: {server_config['command']}")
@@ -124,31 +124,31 @@ def test_claude_code_config_compatibility():
         return False
 
 def test_comparison_with_serena_pattern():
-    """Compare ArchGuard's uvx --from pattern with Serena's"""
+    """Compare Symmetra's uvx --from pattern with Serena's"""
     print("\n🧪 Comparing with Serena's uvx --from pattern...")
     
     serena_pattern = "uvx --from git+https://github.com/oraios/serena serena start-mcp-server"
-    archguard_pattern = "uvx --from git+https://github.com/aic-holdings/archguard archguard server"
+    symmetra_pattern = "uvx --from git+https://github.com/aic-holdings/symmetra symmetra server"
     
     print(f"   Serena:    {serena_pattern}")
-    print(f"   ArchGuard: {archguard_pattern}")
+    print(f"   Symmetra: {symmetra_pattern}")
     
     # Check pattern consistency
     serena_parts = serena_pattern.split()
-    archguard_parts = archguard_pattern.split()
+    symmetra_parts = symmetra_pattern.split()
     
-    if (len(serena_parts) == len(archguard_parts) and 
-        serena_parts[0:2] == archguard_parts[0:2] and  # uvx --from
-        serena_parts[2].startswith("git+") and archguard_parts[2].startswith("git+")):
-        print("✅ ArchGuard follows Serena's uvx --from pattern correctly")
+    if (len(serena_parts) == len(symmetra_parts) and 
+        serena_parts[0:2] == symmetra_parts[0:2] and  # uvx --from
+        serena_parts[2].startswith("git+") and symmetra_parts[2].startswith("git+")):
+        print("✅ Symmetra follows Serena's uvx --from pattern correctly")
         return True
     else:
-        print("❌ ArchGuard pattern doesn't match Serena structure")
+        print("❌ Symmetra pattern doesn't match Serena structure")
         return False
 
 def main():
     """Run all Serena-style execution tests"""
-    print("🛡️  ArchGuard Serena-Style Execution Tests")
+    print("🛡️  Symmetra Serena-Style Execution Tests")
     print("=" * 60)
     print("Testing uvx --from pattern compatibility with Serena's approach...")
     
@@ -183,12 +183,12 @@ def main():
     print(f"\n📊 Results: {passed}/{total} tests passed")
     
     if passed == total:
-        print("🎉 ArchGuard fully supports Serena-style uvx --from execution!")
+        print("🎉 Symmetra fully supports Serena-style uvx --from execution!")
         print("\n📋 Usage:")
-        print("Direct execution: uvx --from git+https://github.com/aic-holdings/archguard archguard server")
+        print("Direct execution: uvx --from git+https://github.com/aic-holdings/symmetra symmetra server")
         print("\n📋 Claude Code config:")
         print('"command": "uvx",')
-        print('"args": ["--from", "git+https://github.com/aic-holdings/archguard", "archguard", "server"]')
+        print('"args": ["--from", "git+https://github.com/aic-holdings/symmetra", "symmetra", "server"]')
         return True
     else:
         print("❌ Some Serena-style tests failed")

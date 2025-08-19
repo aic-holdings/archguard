@@ -1,7 +1,7 @@
-# ArchGuard Database Setup Information
+# Symmetra Database Setup Information
 
 ## Supabase Project Details
-- **Project Name**: archguard
+- **Project Name**: symmetra
 - **Project ID**: kkvkwxfirmeywhvndjaa  
 - **Region**: us-east-1
 - **URL**: https://kkvkwxfirmeywhvndjaa.supabase.co
@@ -25,7 +25,7 @@
 2. Get Supabase anon key and update .env
 3. Generate embeddings for bootstrap rules
 4. Test vector search functionality
-5. Update ARCHGUARD_ENGINE_TYPE to 'vector'
+5. Update SYMMETRA_ENGINE_TYPE to 'vector'
 
 ## Access Information
 - Database Host: db.kkvkwxfirmeywhvndjaa.supabase.co

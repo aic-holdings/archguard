@@ -1,4 +1,4 @@
-"""ArchGuard MCP Server - Architectural decision tracking and governance."""
+"""Symmetra MCP Server - Architectural decision tracking and governance."""
 
 __version__ = "0.1.0"
 __author__ = "Claude"

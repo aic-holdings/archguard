@@ -11,7 +11,7 @@ from dataclasses import dataclass
 import logging
 
 # Import vector search engine
-from archguard.vector_search import vector_search_engine
+from symmetra.vector_search import vector_search_engine
 
 logger = logging.getLogger(__name__)
 
@@ -208,7 +208,7 @@ class AIGuidanceEngine:
                 "• Consider OAuth 2.0 for third-party integrations",
                 "",
                 "⚠️ **Note**: For comprehensive implementation guides, ensure your team's",
-                "authentication patterns are stored in the ArchGuard vector database.",
+                "authentication patterns are stored in the Symmetra vector database.",
                 "This fallback provides basic guidance only."
             ])
             

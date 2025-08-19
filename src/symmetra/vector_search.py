@@ -1,5 +1,5 @@
 """
-Vector Search Engine for ArchGuard Rules
+Vector Search Engine for Symmetra Rules
 
 This module provides vector-based semantic search for architectural rules
 stored in Supabase with pgvector.
@@ -34,8 +34,8 @@ class VectorSearchEngine:
             try:
                 from supabase import create_client
                 
-                url = os.getenv('ARCHGUARD_SUPABASE_URL')
-                key = os.getenv('ARCHGUARD_SUPABASE_KEY')
+                url = os.getenv('SYMMETRA_SUPABASE_URL')
+                key = os.getenv('SYMMETRA_SUPABASE_KEY')
                 
                 if not url or not key:
                     self.logger.warning("Supabase credentials not found, falling back to local mode")
@@ -56,7 +56,7 @@ class VectorSearchEngine:
             try:
                 from sentence_transformers import SentenceTransformer
                 
-                model_name = os.getenv('ARCHGUARD_EMBEDDING_MODEL', 'all-MiniLM-L6-v2')
+                model_name = os.getenv('SYMMETRA_EMBEDDING_MODEL', 'all-MiniLM-L6-v2')
                 self._model = SentenceTransformer(model_name)
                 self.logger.info(f"Loaded embedding model: {model_name}")
                 

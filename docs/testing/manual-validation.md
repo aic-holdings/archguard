@@ -1,6 +1,6 @@
 # Manual Validation Testing
 
-This guide provides step-by-step manual testing procedures to validate ArchGuard's functionality without requiring MCP Inspector or other tools.
+This guide provides step-by-step manual testing procedures to validate Symmetra's functionality without requiring MCP Inspector or other tools.
 
 ## 🎯 Testing Objectives
 
@@ -24,7 +24,7 @@ This guide provides step-by-step manual testing procedures to validate ArchGuard
 ### Test 1.1: Help Command Validation
 ```bash
 # Test main help
-uvx --from git+https://github.com/aic-holdings/archguard archguard --help
+uvx --from git+https://github.com/aic-holdings/symmetra symmetra --help
 
 # Expected output:
 # - Usage information displayed
@@ -42,13 +42,13 @@ uvx --from git+https://github.com/aic-holdings/archguard archguard --help
 ### Test 1.2: Subcommand Help Validation
 ```bash
 # Test server help
-uvx --from git+https://github.com/aic-holdings/archguard archguard server --help
+uvx --from git+https://github.com/aic-holdings/symmetra symmetra server --help
 
 # Test http help  
-uvx --from git+https://github.com/aic-holdings/archguard archguard http --help
+uvx --from git+https://github.com/aic-holdings/symmetra symmetra http --help
 
 # Test init help
-uvx --from git+https://github.com/aic-holdings/archguard archguard init --help
+uvx --from git+https://github.com/aic-holdings/symmetra symmetra init --help
 ```
 
 **✅ Pass Criteria:**
@@ -59,7 +59,7 @@ uvx --from git+https://github.com/aic-holdings/archguard archguard init --help
 ### Test 1.3: Version and Info Commands
 ```bash
 # Test basic execution (should not hang)
-timeout 5 uvx --from git+https://github.com/aic-holdings/archguard archguard server --help || echo "Help completed"
+timeout 5 uvx --from git+https://github.com/aic-holdings/symmetra symmetra server --help || echo "Help completed"
 ```
 
 **✅ Pass Criteria:**
@@ -71,7 +71,7 @@ timeout 5 uvx --from git+https://github.com/aic-holdings/archguard archguard ser
 ### Test 2.1: Server Startup
 ```bash
 # Start server and test basic startup
-echo '{"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {"protocolVersion": "2024-11-05", "capabilities": {}, "clientInfo": {"name": "test", "version": "1.0"}}}' | uvx --from git+https://github.com/aic-holdings/archguard archguard server
+echo '{"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {"protocolVersion": "2024-11-05", "capabilities": {}, "clientInfo": {"name": "test", "version": "1.0"}}}' | uvx --from git+https://github.com/aic-holdings/symmetra symmetra server
 ```
 
 **✅ Pass Criteria:**
@@ -82,23 +82,23 @@ echo '{"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {"protocolVe
 ### Test 2.2: Tool Discovery
 ```bash
 # Test tools/list method
-echo '{"jsonrpc": "2.0", "id": 2, "method": "tools/list"}' | uvx --from git+https://github.com/aic-holdings/archguard archguard server
+echo '{"jsonrpc": "2.0", "id": 2, "method": "tools/list"}' | uvx --from git+https://github.com/aic-holdings/symmetra symmetra server
 ```
 
 **✅ Pass Criteria:**
 - Returns list of available tools
-- Should include: get_guidance, get_archguard_help, review_code
+- Should include: get_guidance, get_symmetra_help, review_code
 - Valid JSON response format
 
 ### Test 2.3: Resource Discovery  
 ```bash
 # Test resources/list method
-echo '{"jsonrpc": "2.0", "id": 3, "method": "resources/list"}' | uvx --from git+https://github.com/aic-holdings/archguard archguard server
+echo '{"jsonrpc": "2.0", "id": 3, "method": "resources/list"}' | uvx --from git+https://github.com/aic-holdings/symmetra symmetra server
 ```
 
 **✅ Pass Criteria:**
 - Returns list of available resources
-- Should include: archguard://rules
+- Should include: symmetra://rules
 - Valid JSON response format
 
 ## 3. uvx Execution Pattern Testing
@@ -106,7 +106,7 @@ echo '{"jsonrpc": "2.0", "id": 3, "method": "resources/list"}' | uvx --from git+
 ### Test 3.1: Direct Execution Pattern
 ```bash
 # Test Serena-style direct execution
-uvx --from git+https://github.com/aic-holdings/archguard archguard --help
+uvx --from git+https://github.com/aic-holdings/symmetra symmetra --help
 ```
 
 **✅ Pass Criteria:**
@@ -117,8 +117,8 @@ uvx --from git+https://github.com/aic-holdings/archguard archguard --help
 ### Test 3.2: Repeated Execution
 ```bash
 # Test multiple executions (caching behavior)
-uvx --from git+https://github.com/aic-holdings/archguard archguard --help
-uvx --from git+https://github.com/aic-holdings/archguard archguard server --help
+uvx --from git+https://github.com/aic-holdings/symmetra symmetra --help
+uvx --from git+https://github.com/aic-holdings/symmetra symmetra server --help
 ```
 
 **✅ Pass Criteria:**
@@ -129,7 +129,7 @@ uvx --from git+https://github.com/aic-holdings/archguard archguard server --help
 ### Test 3.3: Network Dependency Testing
 ```bash
 # Test GitHub access and download
-time uvx --from git+https://github.com/aic-holdings/archguard archguard --help
+time uvx --from git+https://github.com/aic-holdings/symmetra symmetra --help
 ```
 
 **✅ Pass Criteria:**
@@ -142,10 +142,10 @@ time uvx --from git+https://github.com/aic-holdings/archguard archguard --help
 ### Test 4.1: Invalid Commands
 ```bash
 # Test invalid command
-uvx --from git+https://github.com/aic-holdings/archguard archguard invalid-command
+uvx --from git+https://github.com/aic-holdings/symmetra symmetra invalid-command
 
 # Test invalid options
-uvx --from git+https://github.com/aic-holdings/archguard archguard server --invalid-option
+uvx --from git+https://github.com/aic-holdings/symmetra symmetra server --invalid-option
 ```
 
 **✅ Pass Criteria:**
@@ -156,7 +156,7 @@ uvx --from git+https://github.com/aic-holdings/archguard archguard server --inva
 ### Test 4.2: Network Issues Simulation
 ```bash
 # Test with invalid repository (should fail gracefully)
-uvx --from git+https://github.com/invalid/nonexistent archguard --help
+uvx --from git+https://github.com/invalid/nonexistent symmetra --help
 ```
 
 **✅ Pass Criteria:**
@@ -167,7 +167,7 @@ uvx --from git+https://github.com/invalid/nonexistent archguard --help
 ### Test 4.3: MCP Protocol Error Handling
 ```bash
 # Test invalid JSON message
-echo 'invalid json' | uvx --from git+https://github.com/aic-holdings/archguard archguard server
+echo 'invalid json' | uvx --from git+https://github.com/aic-holdings/symmetra symmetra server
 ```
 
 **✅ Pass Criteria:**
@@ -190,8 +190,8 @@ import sys
 def test_guidance():
     # Start server process
     proc = subprocess.Popen([
-        'uvx', '--from', 'git+https://github.com/aic-holdings/archguard',
-        'archguard', 'server'
+        'uvx', '--from', 'git+https://github.com/aic-holdings/symmetra',
+        'symmetra', 'server'
     ], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     
     # Send initialization
@@ -255,11 +255,11 @@ python test_guidance.py
 cat > claude_config_test.json << 'EOF'
 {
   "mcpServers": {
-    "archguard": {
+    "symmetra": {
       "command": "uvx",
-      "args": ["--from", "git+https://github.com/aic-holdings/archguard", "archguard", "server"],
+      "args": ["--from", "git+https://github.com/aic-holdings/symmetra", "symmetra", "server"],
       "env": {
-        "ARCHGUARD_LOG_LEVEL": "INFO"
+        "SYMMETRA_LOG_LEVEL": "INFO"
       }
     }
   }
@@ -278,10 +278,10 @@ python -m json.tool claude_config_test.json
 ### Test 6.2: Environment Variable Testing
 ```bash
 # Test with different log levels
-ARCHGUARD_LOG_LEVEL=DEBUG uvx --from git+https://github.com/aic-holdings/archguard archguard server --help
+SYMMETRA_LOG_LEVEL=DEBUG uvx --from git+https://github.com/aic-holdings/symmetra symmetra server --help
 
 # Test with custom config path
-ARCHGUARD_CONFIG_PATH=/tmp/test-config.toml uvx --from git+https://github.com/aic-holdings/archguard archguard server --help
+SYMMETRA_CONFIG_PATH=/tmp/test-config.toml uvx --from git+https://github.com/aic-holdings/symmetra symmetra server --help
 ```
 
 **✅ Pass Criteria:**
@@ -294,10 +294,10 @@ ARCHGUARD_CONFIG_PATH=/tmp/test-config.toml uvx --from git+https://github.com/ai
 ### Test 7.1: Startup Time Measurement
 ```bash
 # Measure cold start time
-time uvx --from git+https://github.com/aic-holdings/archguard archguard --help
+time uvx --from git+https://github.com/aic-holdings/symmetra symmetra --help
 
 # Measure warm start time (cached)
-time uvx --from git+https://github.com/aic-holdings/archguard archguard --help
+time uvx --from git+https://github.com/aic-holdings/symmetra symmetra --help
 ```
 
 **✅ Pass Criteria:**
@@ -308,7 +308,7 @@ time uvx --from git+https://github.com/aic-holdings/archguard archguard --help
 ### Test 7.2: Memory Usage Monitoring
 ```bash
 # Monitor memory usage during execution
-echo '{"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {"protocolVersion": "2024-11-05", "capabilities": {}, "clientInfo": {"name": "test", "version": "1.0"}}}' | (uvx --from git+https://github.com/aic-holdings/archguard archguard server &) && sleep 5 && pkill -f archguard
+echo '{"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {"protocolVersion": "2024-11-05", "capabilities": {}, "clientInfo": {"name": "test", "version": "1.0"}}}' | (uvx --from git+https://github.com/aic-holdings/symmetra symmetra server &) && sleep 5 && pkill -f symmetra
 ```
 
 **✅ Pass Criteria:**
@@ -337,12 +337,12 @@ Test various error conditions and verify:
 Create a test report using this template:
 
 ```markdown
-# ArchGuard Manual Validation Report
+# Symmetra Manual Validation Report
 
 **Date**: [Date]
 **Tester**: [Name]
 **Environment**: [OS, Python version]
-**ArchGuard Version**: [Git commit hash]
+**Symmetra Version**: [Git commit hash]
 
 ## Test Results Summary
 - Total Tests: 24
@@ -407,4 +407,4 @@ After completing manual validation:
 
 ---
 
-**Tip**: Run manual validation tests regularly, especially after making changes to ArchGuard's core functionality.
+**Tip**: Run manual validation tests regularly, especially after making changes to Symmetra's core functionality.

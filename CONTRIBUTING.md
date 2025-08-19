@@ -1,6 +1,6 @@
-# Contributing to ArchGuard
+# Contributing to Symmetra
 
-We love your input! We want to make contributing to ArchGuard as easy and transparent as possible, whether it's:
+We love your input! We want to make contributing to Symmetra as easy and transparent as possible, whether it's:
 
 - Reporting a bug
 - Discussing the current state of the code
@@ -35,8 +35,8 @@ Pull requests are the best way to propose changes to the codebase. We actively w
 
 ```bash
 # Clone the repository
-git clone https://github.com/aic-holdings/archguard
-cd archguard
+git clone https://github.com/aic-holdings/symmetra
+cd symmetra
 
 # Install development dependencies
 uv sync --dev
@@ -52,7 +52,7 @@ pip install -e ".[dev]"
 pytest
 
 # Run tests with coverage
-pytest --cov=archguard
+pytest --cov=symmetra
 
 # Run specific test file
 pytest test/test_server.py
@@ -86,13 +86,13 @@ uv run pre-commit run --all-files
 
 ```bash
 # Start the MCP server
-uv run archguard server
+uv run symmetra server
 
 # Start the HTTP server
-uv run archguard http --port 8080
+uv run symmetra http --port 8080
 
 # Run with debug logging
-ARCHGUARD_LOG_LEVEL=DEBUG uv run archguard server
+SYMMETRA_LOG_LEVEL=DEBUG uv run symmetra server
 ```
 
 ## Testing
@@ -109,7 +109,7 @@ We use pytest for testing. Here's a simple test example:
 
 ```python
 import pytest
-from archguard.server import get_guidance
+from symmetra.server import get_guidance
 
 def test_get_guidance_basic():
     """Test basic guidance functionality."""
@@ -139,7 +139,7 @@ async def test_async_function():
 
 ### Architectural Guidance Rules
 
-To add new guidance rules, modify `src/archguard/server.py`:
+To add new guidance rules, modify `src/symmetra/server.py`:
 
 ```python
 @mcp.tool
@@ -161,7 +161,7 @@ def get_guidance(action: str, code: str = "") -> dict:
 
 ### CLI Commands
 
-To add new CLI commands, modify `src/archguard/cli.py`:
+To add new CLI commands, modify `src/symmetra/cli.py`:
 
 ```python
 def main() -> None:
@@ -176,14 +176,14 @@ def main() -> None:
 
 ### Configuration Options
 
-To add new configuration options, modify `src/archguard/config.py`:
+To add new configuration options, modify `src/symmetra/config.py`:
 
 ```python
-class ArchGuardConfig:
+class SymmetraConfig:
     @classmethod
     def get_new_option(cls) -> str:
         """Get new configuration option"""
-        return os.getenv("ARCHGUARD_NEW_OPTION", "default_value")
+        return os.getenv("SYMMETRA_NEW_OPTION", "default_value")
 ```
 
 ## Documentation
@@ -258,7 +258,7 @@ Don't hesitate to ask questions:
 
 - Open an issue for bugs or feature requests
 - Start a discussion for general questions
-- Email us at support@archguard.dev
+- Email us at support@symmetra.dev
 
 ## Recognition
 
@@ -268,4 +268,4 @@ Contributors who make significant improvements will be:
 - Mentioned in release notes
 - Invited to join the maintainer team (for regular contributors)
 
-Thank you for contributing to ArchGuard! 🎉
+Thank you for contributing to Symmetra! 🎉

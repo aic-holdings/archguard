@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-ArchGuard Embedding System Tests - Self-Documenting Vector Operations
+Symmetra Embedding System Tests - Self-Documenting Vector Operations
 
 These tests demonstrate and validate the embedding job queue system,
 vector operations, and Ollama integration patterns.
@@ -471,11 +471,11 @@ class TestProductionReadiness:
         Supports containerized deployments and configuration management.
         """
         production_config = {
-            "ARCHGUARD_SUPABASE_URL": "https://project.supabase.co",
-            "ARCHGUARD_SUPABASE_KEY": "eyJ...",
-            "ARCHGUARD_EMBEDDING_MODEL": "nomic-embed-text",
-            "ARCHGUARD_MAX_WORKERS": "3",
-            "ARCHGUARD_BATCH_SIZE": "50"
+            "SYMMETRA_SUPABASE_URL": "https://project.supabase.co",
+            "SYMMETRA_SUPABASE_KEY": "eyJ...",
+            "SYMMETRA_EMBEDDING_MODEL": "nomic-embed-text",
+            "SYMMETRA_MAX_WORKERS": "3",
+            "SYMMETRA_BATCH_SIZE": "50"
         }
         
         # All required configuration should be available
@@ -502,7 +502,7 @@ if __name__ == "__main__":
         "python", "-m", "pytest", __file__, "-v", "--tb=short"
     ], capture_output=True, text=True)
     
-    print("ArchGuard Embedding System Test Results:")
+    print("Symmetra Embedding System Test Results:")
     print("=" * 50)
     print(result.stdout)
     if result.stderr:

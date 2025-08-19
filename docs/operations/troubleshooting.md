@@ -1,6 +1,6 @@
-# ArchGuard Troubleshooting Guide
+# Symmetra Troubleshooting Guide
 
-Comprehensive troubleshooting guide for common ArchGuard issues and their solutions.
+Comprehensive troubleshooting guide for common Symmetra issues and their solutions.
 
 ## Quick Diagnostics
 
@@ -10,9 +10,9 @@ Run this diagnostic script to check system health:
 
 ```bash
 # Create diagnostic script
-cat > check_archguard_health.sh << 'EOF'
+cat > check_symmetra_health.sh << 'EOF'
 #!/bin/bash
-echo "🔍 ArchGuard System Health Check"
+echo "🔍 Symmetra System Health Check"
 echo "================================"
 
 # Check Python environment
@@ -20,13 +20,13 @@ echo "📍 Python Environment:"
 python --version
 which python
 
-# Check ArchGuard installation
-echo -e "\n📦 ArchGuard Installation:"
-python -c "import archguard; print('✅ ArchGuard imported successfully')" 2>/dev/null || echo "❌ ArchGuard import failed"
+# Check Symmetra installation
+echo -e "\n📦 Symmetra Installation:"
+python -c "import symmetra; print('✅ Symmetra imported successfully')" 2>/dev/null || echo "❌ Symmetra import failed"
 
 # Check environment variables
 echo -e "\n🔧 Environment Configuration:"
-env | grep ARCHGUARD | while read line; do
+env | grep SYMMETRA | while read line; do
     key=$(echo $line | cut -d= -f1)
     value=$(echo $line | cut -d= -f2-)
     if [[ $key == *"KEY"* ]] || [[ $key == *"SECRET"* ]]; then
@@ -59,20 +59,20 @@ except Exception as e:
 echo -e "\n📊 System Status: Complete"
 EOF
 
-chmod +x check_archguard_health.sh
-./check_archguard_health.sh
+chmod +x check_symmetra_health.sh
+./check_symmetra_health.sh
 ```
 
 ## Installation Issues
 
 ### Python Environment Problems
 
-#### Issue: `ModuleNotFoundError: No module named 'archguard'`
+#### Issue: `ModuleNotFoundError: No module named 'symmetra'`
 
 **Symptoms:**
 ```bash
-python -c "import archguard"
-# ModuleNotFoundError: No module named 'archguard'
+python -c "import symmetra"
+# ModuleNotFoundError: No module named 'symmetra'
 ```
 
 **Solutions:**
@@ -83,20 +83,20 @@ python -c "import archguard"
 source .venv/bin/activate  # Linux/macOS
 # .venv\Scripts\activate     # Windows
 
-# Verify ArchGuard is installed
-pip list | grep archguard
+# Verify Symmetra is installed
+pip list | grep symmetra
 ```
 
-2. **Reinstall ArchGuard:**
+2. **Reinstall Symmetra:**
 ```bash
-pip uninstall archguard
+pip uninstall symmetra
 pip install -e .
 ```
 
 3. **Check Python path:**
 ```bash
 python -c "import sys; print('\n'.join(sys.path))"
-# Should include ArchGuard src directory
+# Should include Symmetra src directory
 ```
 
 #### Issue: `Permission denied` during installation
@@ -159,14 +159,14 @@ pip-sync requirements.txt
 
 **Symptoms:**
 ```bash
-# Claude Code shows: "Failed to start MCP server 'archguard'"
+# Claude Code shows: "Failed to start MCP server 'symmetra'"
 ```
 
 **Diagnosis:**
 ```bash
 # Test MCP server directly
-cd /path/to/archguard
-python -m archguard.server
+cd /path/to/symmetra
+python -m symmetra.server
 
 # Check for errors in output
 ```
@@ -177,14 +177,14 @@ python -m archguard.server
 ```json
 {
   "mcpServers": {
-    "archguard": {
+    "symmetra": {
       "command": "python",
-      "args": ["-m", "archguard.server"],
-      "cwd": "/absolute/path/to/archguard",
+      "args": ["-m", "symmetra.server"],
+      "cwd": "/absolute/path/to/symmetra",
       "env": {
-        "ARCHGUARD_ENGINE_TYPE": "keyword",
-        "ARCHGUARD_SUPABASE_URL": "https://your-project.supabase.co",
-        "ARCHGUARD_SUPABASE_KEY": "your-anon-key"
+        "SYMMETRA_ENGINE_TYPE": "keyword",
+        "SYMMETRA_SUPABASE_URL": "https://your-project.supabase.co",
+        "SYMMETRA_SUPABASE_KEY": "your-anon-key"
       }
     }
   }
@@ -195,10 +195,10 @@ python -m archguard.server
 ```json
 {
   "mcpServers": {
-    "archguard": {
+    "symmetra": {
       "command": "/absolute/path/to/.venv/bin/python",
-      "args": ["-m", "archguard.server"],
-      "cwd": "/absolute/path/to/archguard"
+      "args": ["-m", "symmetra.server"],
+      "cwd": "/absolute/path/to/symmetra"
     }
   }
 }
@@ -209,15 +209,15 @@ python -m archguard.server
 # macOS
 tail -f ~/.claude/logs/mcp.log
 
-# Look for ArchGuard-related errors
-grep -i archguard ~/.claude/logs/mcp.log
+# Look for Symmetra-related errors
+grep -i symmetra ~/.claude/logs/mcp.log
 ```
 
 #### Issue: Tools not appearing in Claude Code
 
 **Symptoms:**
 - MCP server starts successfully
-- No ArchGuard tools available in Claude Code
+- No Symmetra tools available in Claude Code
 
 **Solutions:**
 
@@ -230,7 +230,7 @@ grep -i archguard ~/.claude/logs/mcp.log
 2. **Verify tool registration:**
 ```bash
 python -c "
-from archguard.server import get_guidance, search_rules, list_rule_categories
+from symmetra.server import get_guidance, search_rules, list_rule_categories
 print('Available tools:')
 print('- get_guidance')
 print('- search_rules') 
@@ -250,7 +250,7 @@ pip show fastmcp
 #### Issue: Cursor MCP configuration not working
 
 **Symptoms:**
-- Cursor doesn't recognize ArchGuard MCP server
+- Cursor doesn't recognize Symmetra MCP server
 
 **Solutions:**
 
@@ -259,12 +259,12 @@ pip show fastmcp
 {
   "mcp": {
     "servers": {
-      "archguard": {
+      "symmetra": {
         "command": "python",
-        "args": ["-m", "archguard.server"],
-        "cwd": "/path/to/archguard",
+        "args": ["-m", "symmetra.server"],
+        "cwd": "/path/to/symmetra",
         "env": {
-          "ARCHGUARD_ENGINE_TYPE": "vector"
+          "SYMMETRA_ENGINE_TYPE": "vector"
         }
       }
     }
@@ -303,8 +303,8 @@ curl -X POST https://your-project.supabase.co/rest/v1/rules \
 
 1. **Check environment variables:**
 ```bash
-echo $ARCHGUARD_SUPABASE_URL
-echo $ARCHGUARD_SUPABASE_KEY
+echo $SYMMETRA_SUPABASE_URL
+echo $SYMMETRA_SUPABASE_KEY
 # Should not be empty
 ```
 
@@ -319,8 +319,8 @@ echo $ARCHGUARD_SUPABASE_KEY
 import os
 from supabase import create_client
 
-url = os.getenv('ARCHGUARD_SUPABASE_URL')
-key = os.getenv('ARCHGUARD_SUPABASE_KEY')
+url = os.getenv('SYMMETRA_SUPABASE_URL')
+key = os.getenv('SYMMETRA_SUPABASE_KEY')
 
 client = create_client(url, key)
 result = client.table('rules').select('*').limit(1).execute()
@@ -384,7 +384,7 @@ SELECT * FROM pg_policies WHERE tablename IN ('rules', 'embedding_jobs');
 3. **Use service role for admin operations:**
 ```bash
 # Use service_role key instead of anon key for admin operations
-export ARCHGUARD_SUPABASE_KEY="your-service-role-key"
+export SYMMETRA_SUPABASE_KEY="your-service-role-key"
 ```
 
 ## Embedding System Issues
@@ -458,7 +458,7 @@ df -h  # Check available disk space
 ```bash
 # Try smaller model if space is limited
 ollama pull all-minilm
-export ARCHGUARD_EMBEDDING_MODEL=all-minilm
+export SYMMETRA_EMBEDDING_MODEL=all-minilm
 ```
 
 ### Embedding Generation Issues
@@ -538,13 +538,13 @@ print(result)
    **Timeout errors:**
    ```bash
    # Increase timeout in worker
-   export ARCHGUARD_EMBEDDING_TIMEOUT=120  # 2 minutes
+   export SYMMETRA_EMBEDDING_TIMEOUT=120  # 2 minutes
    ```
 
    **Memory errors:**
    ```bash
    # Reduce batch size
-   export ARCHGUARD_BATCH_SIZE=10
+   export SYMMETRA_BATCH_SIZE=10
    ```
 
    **Model errors:**
@@ -575,24 +575,24 @@ WHERE status = 'failed' AND attempts < max_attempts;
 **Diagnosis:**
 ```bash
 # Time the operations
-time python -c "from archguard.server import get_guidance; get_guidance(action='test')"
+time python -c "from symmetra.server import get_guidance; get_guidance(action='test')"
 ```
 
 **Solutions:**
 
 1. **Use keyword engine for speed:**
 ```bash
-export ARCHGUARD_ENGINE_TYPE=keyword
+export SYMMETRA_ENGINE_TYPE=keyword
 ```
 
 2. **Reduce rule set size:**
 ```bash
-export ARCHGUARD_MAX_RULES=10
+export SYMMETRA_MAX_RULES=10
 ```
 
 3. **Enable caching:**
 ```bash
-export ARCHGUARD_CACHE_TTL=3600  # 1 hour
+export SYMMETRA_CACHE_TTL=3600  # 1 hour
 ```
 
 #### Issue: Vector search very slow
@@ -622,7 +622,7 @@ ON rules USING hnsw (embedding vector_cosine_ops);
 
 3. **Use smaller embedding model:**
 ```bash
-export ARCHGUARD_EMBEDDING_MODEL=all-minilm  # 384D instead of 768D
+export SYMMETRA_EMBEDDING_MODEL=all-minilm  # 384D instead of 768D
 ```
 
 ### Memory Usage Issues
@@ -645,7 +645,7 @@ python scripts/embedding_worker.py --project-id your-project-id
 
 2. **Reduce batch sizes:**
 ```bash
-export ARCHGUARD_BATCH_SIZE=10  # Smaller batches
+export SYMMETRA_BATCH_SIZE=10  # Smaller batches
 ```
 
 3. **Monitor memory usage:**
@@ -665,16 +665,16 @@ done
 
 **Symptoms:**
 ```bash
-# ArchGuard ignoring environment variables
+# Symmetra ignoring environment variables
 ```
 
 **Diagnosis:**
 ```bash
 # Check which variables are set
-env | grep ARCHGUARD | sort
+env | grep SYMMETRA | sort
 
 # Test variable access
-python -c "import os; print('ENGINE_TYPE:', os.getenv('ARCHGUARD_ENGINE_TYPE', 'NOT_SET'))"
+python -c "import os; print('ENGINE_TYPE:', os.getenv('SYMMETRA_ENGINE_TYPE', 'NOT_SET'))"
 ```
 
 **Solutions:**
@@ -683,19 +683,19 @@ python -c "import os; print('ENGINE_TYPE:', os.getenv('ARCHGUARD_ENGINE_TYPE', '
 ```bash
 # Make sure .env is sourced
 source .env
-env | grep ARCHGUARD
+env | grep SYMMETRA
 ```
 
 2. **Check variable names:**
 ```bash
 # Correct variable names
-export ARCHGUARD_ENGINE_TYPE=vector     # Not ARCHGUARD_ENGINE
-export ARCHGUARD_SUPABASE_URL=...       # Not SUPABASE_URL
+export SYMMETRA_ENGINE_TYPE=vector     # Not SYMMETRA_ENGINE
+export SYMMETRA_SUPABASE_URL=...       # Not SUPABASE_URL
 ```
 
 3. **Use absolute paths:**
 ```bash
-export ARCHGUARD_CONFIG_PATH=/absolute/path/to/config
+export SYMMETRA_CONFIG_PATH=/absolute/path/to/config
 ```
 
 ### Logging Issues
@@ -711,9 +711,9 @@ export ARCHGUARD_CONFIG_PATH=/absolute/path/to/config
 
 1. **Set appropriate log level:**
 ```bash
-export ARCHGUARD_LOG_LEVEL=DEBUG    # For troubleshooting
-export ARCHGUARD_LOG_LEVEL=INFO     # For normal operation
-export ARCHGUARD_LOG_LEVEL=WARNING  # For production
+export SYMMETRA_LOG_LEVEL=DEBUG    # For troubleshooting
+export SYMMETRA_LOG_LEVEL=INFO     # For normal operation
+export SYMMETRA_LOG_LEVEL=WARNING  # For production
 ```
 
 2. **Check log output:**
@@ -722,7 +722,7 @@ export ARCHGUARD_LOG_LEVEL=WARNING  # For production
 python -c "
 import logging
 logging.basicConfig(level=logging.DEBUG)
-from archguard.server import get_guidance
+from symmetra.server import get_guidance
 get_guidance(action='debug test')
 "
 ```
@@ -785,16 +785,16 @@ dig your-project.supabase.co
 2. **Use correct key type:**
 ```bash
 # Use anon key for general access
-export ARCHGUARD_SUPABASE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+export SYMMETRA_SUPABASE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
 
 # Use service_role key for admin operations (be careful!)
-export ARCHGUARD_SUPABASE_SERVICE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+export SYMMETRA_SUPABASE_SERVICE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
 ```
 
 3. **Check key format:**
 ```bash
 # Keys should start with "eyJ"
-echo $ARCHGUARD_SUPABASE_KEY | head -c 10
+echo $SYMMETRA_SUPABASE_KEY | head -c 10
 # Should output: eyJhbGciOi
 ```
 
@@ -806,7 +806,7 @@ If everything is broken, follow this recovery procedure:
 
 ```bash
 # 1. Stop all processes
-pkill -f archguard
+pkill -f symmetra
 pkill -f embedding_worker
 
 # 2. Clean Python environment
@@ -824,7 +824,7 @@ cp .env.example .env
 # Edit .env with correct values
 
 # 5. Test basic functionality
-python -c "from archguard.server import get_guidance; print(get_guidance(action='recovery test'))"
+python -c "from symmetra.server import get_guidance; print(get_guidance(action='recovery test'))"
 
 # 6. Rebuild database (if needed)
 python scripts/setup_database.py --project-id your-project-id --force-rebuild
@@ -856,22 +856,22 @@ Before requesting help, collect this information:
 ```bash
 # Create debug report
 cat > debug_report.txt << 'EOF'
-ArchGuard Debug Report
+Symmetra Debug Report
 =====================
 
 System Information:
 - OS: $(uname -a)
 - Python: $(python --version)
-- ArchGuard: $(python -c "import archguard; print(archguard.__version__)" 2>/dev/null || echo "Not installed")
+- Symmetra: $(python -c "import symmetra; print(symmetra.__version__)" 2>/dev/null || echo "Not installed")
 
 Environment Variables:
-$(env | grep ARCHGUARD | sed 's/\(KEY.*=\).*/\1***masked***/')
+$(env | grep SYMMETRA | sed 's/\(KEY.*=\).*/\1***masked***/')
 
 MCP Configuration:
-$(cat ~/.claude/mcp.json 2>/dev/null | jq .mcpServers.archguard 2>/dev/null || echo "Not found")
+$(cat ~/.claude/mcp.json 2>/dev/null | jq .mcpServers.symmetra 2>/dev/null || echo "Not found")
 
 Recent Logs:
-$(tail -20 ~/.claude/logs/mcp.log 2>/dev/null | grep -i archguard || echo "No MCP logs found")
+$(tail -20 ~/.claude/logs/mcp.log 2>/dev/null | grep -i symmetra || echo "No MCP logs found")
 
 Database Status:
 $(python -c "
@@ -886,7 +886,7 @@ except Exception as e:
 Test Results:
 $(python -c "
 try:
-    from archguard.server import get_guidance
+    from symmetra.server import get_guidance
     result = get_guidance(action='debug test')
     print('✅ get_guidance working')
 except Exception as e:
@@ -899,9 +899,9 @@ echo "Debug report saved to debug_report.txt"
 
 ### Support Channels
 
-- **GitHub Issues**: [archguard/issues](https://github.com/aic-holdings/archguard/issues)
-- **GitHub Discussions**: [archguard/discussions](https://github.com/aic-holdings/archguard/discussions)
-- **Documentation**: [docs/](https://github.com/aic-holdings/archguard/tree/main/docs)
+- **GitHub Issues**: [symmetra/issues](https://github.com/aic-holdings/symmetra/issues)
+- **GitHub Discussions**: [symmetra/discussions](https://github.com/aic-holdings/symmetra/discussions)
+- **Documentation**: [docs/](https://github.com/aic-holdings/symmetra/tree/main/docs)
 
 When reporting issues, include:
 1. Your debug report (above)
@@ -914,7 +914,7 @@ When reporting issues, include:
 
 For critical production issues, follow this escalation:
 
-1. Check [GitHub Issues](https://github.com/aic-holdings/archguard/issues) for similar problems
+1. Check [GitHub Issues](https://github.com/aic-holdings/symmetra/issues) for similar problems
 2. Create detailed issue with debug information
 3. Tag as `urgent` if system is completely down
 4. Include recovery timeline requirements

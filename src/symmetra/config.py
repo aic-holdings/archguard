@@ -1,5 +1,5 @@
 """
-ArchGuard Configuration Management
+Symmetra Configuration Management
 Layered configuration system with global and project-specific settings.
 """
 
@@ -9,8 +9,8 @@ from pathlib import Path
 from typing import Dict, Any, Optional
 
 
-class ArchGuardConfig:
-    """Layered configuration management for ArchGuard."""
+class SymmetraConfig:
+    """Layered configuration management for Symmetra."""
     
     _global_config: Optional[Dict[str, Any]] = None
     _project_config: Optional[Dict[str, Any]] = None
@@ -19,7 +19,7 @@ class ArchGuardConfig:
     @classmethod
     def _get_global_config_path(cls) -> Path:
         """Get global configuration file path."""
-        config_dir = Path.home() / ".config" / "archguard"
+        config_dir = Path.home() / ".config" / "symmetra"
         return config_dir / "config.toml"
     
     @classmethod
@@ -30,16 +30,16 @@ class ArchGuardConfig:
         else:
             current = Path.cwd().resolve()
         
-        # Walk up the directory tree looking for .archguard.toml
+        # Walk up the directory tree looking for .symmetra.toml
         for parent in [current] + list(current.parents):
-            config_file = parent / ".archguard.toml"
+            config_file = parent / ".symmetra.toml"
             if config_file.exists():
                 return config_file
         return None
     
     @classmethod
     def _load_global_config(cls) -> Dict[str, Any]:
-        """Load global configuration from ~/.config/archguard/config.toml"""
+        """Load global configuration from ~/.config/symmetra/config.toml"""
         if cls._global_config is not None:
             return cls._global_config
         
@@ -56,7 +56,7 @@ class ArchGuardConfig:
     
     @classmethod
     def _load_project_config(cls, start_path: Optional[str] = None) -> Dict[str, Any]:
-        """Load project configuration from .archguard.toml"""
+        """Load project configuration from .symmetra.toml"""
         if cls._project_config is not None:
             return cls._project_config
         
@@ -119,40 +119,40 @@ class ArchGuardConfig:
     @classmethod
     def get_http_host(cls) -> str:
         """Get HTTP server host."""
-        return cls.get_config_value("server", "http_host", "0.0.0.0", "ARCHGUARD_HTTP_HOST")
+        return cls.get_config_value("server", "http_host", "0.0.0.0", "SYMMETRA_HTTP_HOST")
     
     @classmethod
     def get_http_port(cls) -> int:
         """Get HTTP server port."""
-        port = cls.get_config_value("server", "http_port", 8080, "ARCHGUARD_HTTP_PORT")
+        port = cls.get_config_value("server", "http_port", 8080, "SYMMETRA_HTTP_PORT")
         return int(port)
     
     @classmethod
     def get_http_path(cls) -> str:
         """Get HTTP server path."""
-        return cls.get_config_value("server", "http_path", "/mcp", "ARCHGUARD_HTTP_PATH")
+        return cls.get_config_value("server", "http_path", "/mcp", "SYMMETRA_HTTP_PATH")
     
     @classmethod
     def get_log_level(cls) -> str:
         """Get logging level."""
-        return cls.get_config_value("general", "log_level", "INFO", "ARCHGUARD_LOG_LEVEL")
+        return cls.get_config_value("general", "log_level", "INFO", "SYMMETRA_LOG_LEVEL")
     
     @classmethod
     def get_max_file_lines(cls) -> int:
         """Get maximum file lines recommendation."""
-        lines = cls.get_config_value("rules", "max_file_lines", 300, "ARCHGUARD_MAX_FILE_LINES")
+        lines = cls.get_config_value("rules", "max_file_lines", 300, "SYMMETRA_MAX_FILE_LINES")
         return int(lines)
     
     @classmethod
     def get_max_function_lines(cls) -> int:
         """Get maximum function lines recommendation."""
-        lines = cls.get_config_value("rules", "max_function_lines", 50, "ARCHGUARD_MAX_FUNCTION_LINES")
+        lines = cls.get_config_value("rules", "max_function_lines", 50, "SYMMETRA_MAX_FUNCTION_LINES")
         return int(lines)
     
     @classmethod
     def get_complexity_threshold(cls) -> str:
         """Get complexity threshold level."""
-        return cls.get_config_value("rules", "complexity_threshold", "medium", "ARCHGUARD_COMPLEXITY_THRESHOLD")
+        return cls.get_config_value("rules", "complexity_threshold", "medium", "SYMMETRA_COMPLEXITY_THRESHOLD")
     
     @classmethod
     def get_project_name(cls) -> Optional[str]:

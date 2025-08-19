@@ -1,12 +1,12 @@
 """
 Guidance Tools - Traditional architectural guidance and advice
 
-This module contains the original ArchGuard tools focused on providing
+This module contains the original Symmetra tools focused on providing
 general architectural guidance, best practices, and design recommendations.
 """
 
 from typing import Dict, Any
-from archguard.rules_engine import create_rule_engine
+from symmetra.rules_engine import create_rule_engine
 
 # Initialize rule engine (use vector search for comprehensive guides)
 rule_engine = create_rule_engine("vector")
@@ -16,7 +16,7 @@ def get_guidance(action: str, code: str = "", context: str = "",
     """
     🏗️ Get comprehensive architectural guidance for coding actions
     
-    This is ArchGuard's primary tool for providing real-time architectural guidance.
+    This is Symmetra's primary tool for providing real-time architectural guidance.
     Use this tool whenever you're about to:
     - Create new files, functions, or components
     - Design APIs, databases, or system architecture  
@@ -114,7 +114,7 @@ def get_guidance(action: str, code: str = "", context: str = "",
     # Add project-specific guidance if project directory is available
     if server_project:
         guidance.append(f"📁 Project Context: Working in {server_project}")
-        # TODO: Add project-specific configuration loading from .archguard.toml
+        # TODO: Add project-specific configuration loading from .symmetra.toml
     
     # Provide default guidance if no rules matched
     if not guidance:
@@ -156,9 +156,9 @@ def get_guidance(action: str, code: str = "", context: str = "",
 
 def search_rules(query: str, max_results: int = 5) -> dict:
     """
-    🔍 Search ArchGuard rules by query text
+    🔍 Search Symmetra rules by query text
     
-    This tool allows you to search through ArchGuard's rule database to find
+    This tool allows you to search through Symmetra's rule database to find
     specific guidance on architectural patterns, best practices, and design decisions.
     
     Args:
@@ -191,7 +191,7 @@ def list_rule_categories() -> dict:
     """
     📋 List all available rule categories
     
-    Returns all rule categories available in ArchGuard's rule engine,
+    Returns all rule categories available in Symmetra's rule engine,
     helping you understand what types of guidance are available.
     """
     all_rules = rule_engine.list_all_rules()

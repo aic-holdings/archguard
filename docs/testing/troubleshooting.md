@@ -1,13 +1,13 @@
-# ArchGuard Troubleshooting Guide
+# Symmetra Troubleshooting Guide
 
-This guide helps diagnose and resolve common issues when setting up, testing, or using ArchGuard with MCP clients.
+This guide helps diagnose and resolve common issues when setting up, testing, or using Symmetra with MCP clients.
 
 ## 🔍 Quick Diagnosis
 
-### Is ArchGuard Working at All?
+### Is Symmetra Working at All?
 ```bash
 # Test basic functionality
-uvx --from git+https://github.com/aic-holdings/archguard archguard --help
+uvx --from git+https://github.com/aic-holdings/symmetra symmetra --help
 
 # Expected: Help text displays without errors
 # If this fails, see "Installation Issues" section
@@ -16,7 +16,7 @@ uvx --from git+https://github.com/aic-holdings/archguard archguard --help
 ### Is the MCP Server Responding?
 ```bash
 # Test MCP server startup
-timeout 10 uvx --from git+https://github.com/aic-holdings/archguard archguard server --help
+timeout 10 uvx --from git+https://github.com/aic-holdings/symmetra symmetra server --help
 
 # Expected: Help text for server command
 # If this hangs or fails, see "MCP Server Issues" section
@@ -48,7 +48,7 @@ uvx --version
 ```
 
 ### Error: "Package not found on GitHub"
-**Symptoms**: uvx fails to find ArchGuard repository
+**Symptoms**: uvx fails to find Symmetra repository
 **Cause**: Network issues or incorrect repository URL
 **Solutions**:
 ```bash
@@ -56,11 +56,11 @@ uvx --version
 ping github.com
 
 # Test repository access
-git ls-remote https://github.com/aic-holdings/archguard.git
+git ls-remote https://github.com/aic-holdings/symmetra.git
 
 # Try alternative installation
-uvx install git+https://github.com/aic-holdings/archguard.git
-archguard --help
+uvx install git+https://github.com/aic-holdings/symmetra.git
+symmetra --help
 ```
 
 ### Error: "Python version not supported"
@@ -88,14 +88,14 @@ pyenv global 3.11.0
 **Diagnosis**:
 ```bash
 # Test with detailed output
-ARCHGUARD_LOG_LEVEL=DEBUG uvx --from git+https://github.com/aic-holdings/archguard archguard server --help
+SYMMETRA_LOG_LEVEL=DEBUG uvx --from git+https://github.com/aic-holdings/symmetra symmetra server --help
 
 # Check for import errors
 python -c "
 import sys
 sys.path.insert(0, '/tmp')  # uvx cache location varies
 try:
-    import archguard.server
+    import symmetra.server
     print('✅ Imports successful')
 except Exception as e:
     print(f'❌ Import error: {e}')
@@ -108,13 +108,13 @@ except Exception as e:
 uvx cache clear
 
 # Reinstall dependencies
-uvx install --force git+https://github.com/aic-holdings/archguard.git
+uvx install --force git+https://github.com/aic-holdings/symmetra.git
 
 # Try local installation
-git clone https://github.com/aic-holdings/archguard.git
-cd archguard
+git clone https://github.com/aic-holdings/symmetra.git
+cd symmetra
 pip install -e .
-archguard server --help
+symmetra server --help
 ```
 
 ### Error: "Tools not discoverable"
@@ -123,7 +123,7 @@ archguard server --help
 **Diagnosis**:
 ```bash
 # Test tool discovery directly
-echo '{"jsonrpc": "2.0", "id": 1, "method": "tools/list"}' | uvx --from git+https://github.com/aic-holdings/archguard archguard server
+echo '{"jsonrpc": "2.0", "id": 1, "method": "tools/list"}' | uvx --from git+https://github.com/aic-holdings/symmetra symmetra server
 
 # Should return JSON with tools list
 ```
@@ -144,15 +144,15 @@ print('✅ FastMCP working')
 ```
 
 ### Error: "Resource access denied"
-**Symptoms**: Cannot access archguard://rules resource
+**Symptoms**: Cannot access symmetra://rules resource
 **Cause**: Resource registration or permission issues
 **Solutions**:
 ```bash
 # Test resource access
-echo '{"jsonrpc": "2.0", "id": 1, "method": "resources/read", "params": {"uri": "archguard://rules"}}' | uvx --from git+https://github.com/aic-holdings/archguard archguard server
+echo '{"jsonrpc": "2.0", "id": 1, "method": "resources/read", "params": {"uri": "symmetra://rules"}}' | uvx --from git+https://github.com/aic-holdings/symmetra symmetra server
 
 # Verify resource registration
-grep -n "@mcp.resource" src/archguard/server.py
+grep -n "@mcp.resource" src/symmetra/server.py
 ```
 
 ## MCP Client Integration Issues
@@ -170,7 +170,7 @@ grep -n "@mcp.resource" src/archguard/server.py
 python -m json.tool ~/.config/claude-code/mcp.json
 
 # Test server manually with exact same command
-uvx --from git+https://github.com/aic-holdings/archguard archguard server
+uvx --from git+https://github.com/aic-holdings/symmetra symmetra server
 
 # Try absolute paths
 which uvx  # Use full path in configuration
@@ -180,9 +180,9 @@ which uvx  # Use full path in configuration
 ```json
 {
   "mcpServers": {
-    "archguard": {
+    "symmetra": {
       "command": "/full/path/to/uvx",
-      "args": ["--from", "git+https://github.com/aic-holdings/archguard", "archguard", "server"],
+      "args": ["--from", "git+https://github.com/aic-holdings/symmetra", "symmetra", "server"],
       "env": {
         "PATH": "/usr/local/bin:/usr/bin:/bin"
       }
@@ -203,11 +203,11 @@ pkill -f "Claude Desktop"
 open "/Applications/Claude Desktop.app"
 
 # Verify server process
-ps aux | grep archguard
+ps aux | grep symmetra
 ```
 
 ### Error: "Permission Denied"
-**Symptoms**: Cannot execute uvx or ArchGuard commands
+**Symptoms**: Cannot execute uvx or Symmetra commands
 **Cause**: File permissions or security restrictions
 **Solutions**:
 ```bash
@@ -224,31 +224,31 @@ chmod +x $(which uvx)
 ## Performance Issues
 
 ### Slow Startup Times
-**Symptoms**: ArchGuard takes > 30 seconds to start
+**Symptoms**: Symmetra takes > 30 seconds to start
 **Causes**: Network latency, large downloads, system resources
 **Solutions**:
 ```bash
 # Pre-install to avoid repeated downloads
-uvx install git+https://github.com/aic-holdings/archguard.git
+uvx install git+https://github.com/aic-holdings/symmetra.git
 
 # Use local development setup
-git clone https://github.com/aic-holdings/archguard.git
-cd archguard
+git clone https://github.com/aic-holdings/symmetra.git
+cd symmetra
 pip install -e .
 
 # Monitor download progress
-uvx --verbose --from git+https://github.com/aic-holdings/archguard archguard --help
+uvx --verbose --from git+https://github.com/aic-holdings/symmetra symmetra --help
 ```
 
 ### High Memory Usage
-**Symptoms**: System becomes slow when using ArchGuard
+**Symptoms**: System becomes slow when using Symmetra
 **Solutions**:
 ```bash
 # Monitor memory usage
-ps aux | grep archguard
+ps aux | grep symmetra
 
 # Restart server if memory usage is excessive
-pkill -f archguard
+pkill -f symmetra
 
 # Consider local installation instead of uvx
 ```
@@ -260,9 +260,9 @@ pkill -f archguard
 # Increase timeout in MCP client configuration
 {
   "mcpServers": {
-    "archguard": {
+    "symmetra": {
       "command": "uvx",
-      "args": ["--from", "git+https://github.com/aic-holdings/archguard", "archguard", "server"],
+      "args": ["--from", "git+https://github.com/aic-holdings/symmetra", "symmetra", "server"],
       "timeout": 30000
     }
   }
@@ -274,18 +274,18 @@ pkill -f archguard
 ## Connectivity Issues
 
 ### Network/Firewall Problems
-**Symptoms**: Cannot download ArchGuard from GitHub
+**Symptoms**: Cannot download Symmetra from GitHub
 **Solutions**:
 ```bash
 # Test GitHub connectivity
-curl -I https://github.com/aic-holdings/archguard
+curl -I https://github.com/aic-holdings/symmetra
 
 # Check proxy settings
 env | grep -i proxy
 
 # Try with proxy configuration
 export https_proxy=http://proxy.company.com:8080
-uvx --from git+https://github.com/aic-holdings/archguard archguard --help
+uvx --from git+https://github.com/aic-holdings/symmetra symmetra --help
 ```
 
 ### Corporate Network Issues
@@ -293,9 +293,9 @@ uvx --from git+https://github.com/aic-holdings/archguard archguard --help
 **Solutions**:
 ```bash
 # Download manually and install locally
-wget https://github.com/aic-holdings/archguard/archive/main.zip
+wget https://github.com/aic-holdings/symmetra/archive/main.zip
 unzip main.zip
-cd archguard-main
+cd symmetra-main
 pip install -e .
 
 # Configure git to use HTTPS instead of SSH
@@ -305,17 +305,17 @@ git config --global url."https://github.com/".insteadOf git@github.com:
 ## Development Issues
 
 ### Import Errors During Development
-**Symptoms**: Cannot import ArchGuard modules
+**Symptoms**: Cannot import Symmetra modules
 **Solutions**:
 ```bash
 # Verify Python path
-export PYTHONPATH=/path/to/archguard/src:$PYTHONPATH
+export PYTHONPATH=/path/to/symmetra/src:$PYTHONPATH
 
 # Install in development mode
 pip install -e .
 
 # Check for circular imports
-python -c "import archguard.server; print('✅ Import successful')"
+python -c "import symmetra.server; print('✅ Import successful')"
 ```
 
 ### Test Failures
@@ -337,16 +337,16 @@ python -m pytest test/test_specific.py::test_name -v
 ### Enable Debug Logging
 ```bash
 # Enable detailed logging
-export ARCHGUARD_LOG_LEVEL=DEBUG
+export SYMMETRA_LOG_LEVEL=DEBUG
 
 # Run with debug output
-uvx --from git+https://github.com/aic-holdings/archguard archguard server 2>&1 | tee debug.log
+uvx --from git+https://github.com/aic-holdings/symmetra symmetra server 2>&1 | tee debug.log
 ```
 
 ### MCP Protocol Debugging
 ```bash
 # Test MCP communication manually
-echo '{"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {"protocolVersion": "2024-11-05", "capabilities": {}, "clientInfo": {"name": "debug", "version": "1.0"}}}' | uvx --from git+https://github.com/aic-holdings/archguard archguard server | jq .
+echo '{"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {"protocolVersion": "2024-11-05", "capabilities": {}, "clientInfo": {"name": "debug", "version": "1.0"}}}' | uvx --from git+https://github.com/aic-holdings/symmetra symmetra server | jq .
 ```
 
 ### Trace Network Requests
@@ -371,7 +371,7 @@ When reporting issues, include this information:
 ### Error Details
 - [ ] Exact error message
 - [ ] Command that triggered the error
-- [ ] Debug logs (with ARCHGUARD_LOG_LEVEL=DEBUG)
+- [ ] Debug logs (with SYMMETRA_LOG_LEVEL=DEBUG)
 - [ ] Steps to reproduce
 
 ### Configuration
@@ -388,7 +388,7 @@ When reporting issues, include this information:
 ## 🆘 Getting Additional Help
 
 ### Community Resources
-1. **GitHub Issues**: [ArchGuard Issues](https://github.com/aic-holdings/archguard/issues)
+1. **GitHub Issues**: [Symmetra Issues](https://github.com/aic-holdings/symmetra/issues)
 2. **Documentation**: [Full Documentation](../README.md)
 3. **MCP Protocol**: [Official MCP Docs](https://modelcontextprotocol.io/)
 
@@ -407,10 +407,10 @@ rm -rf ~/.config/claude-code/mcp.json
 # Reconfigure from scratch
 
 # Fallback to local installation
-git clone https://github.com/aic-holdings/archguard.git
-cd archguard
+git clone https://github.com/aic-holdings/symmetra.git
+cd symmetra
 pip install -e .
-# Use "archguard server" instead of uvx command
+# Use "symmetra server" instead of uvx command
 ```
 
 ---

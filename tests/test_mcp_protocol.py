@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-ArchGuard MCP Protocol Tests - Self-Documenting MCP Integration
+Symmetra MCP Protocol Tests - Self-Documenting MCP Integration
 
 These tests demonstrate Model Context Protocol (MCP) compliance,
 tool definitions, and integration patterns with AI assistants.
@@ -20,18 +20,18 @@ from unittest.mock import Mock, patch
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 try:
-    from archguard.server import (
+    from symmetra.server import (
         get_guidance, 
         search_rules, 
         list_rule_categories,
-        get_archguard_help
+        get_symmetra_help
     )
 except ImportError:
     # Fallback for testing without full setup
     def get_guidance(**kwargs): return {"guidance": ["Mock guidance"], "status": "advisory"}
     def search_rules(**kwargs): return {"rules": [{"rule_id": "mock", "title": "Mock"}]}
     def list_rule_categories(**kwargs): return {"categories": [{"name": "mock", "rule_count": 1}]}
-    def get_archguard_help(**kwargs): return {"help": "Mock help"}
+    def get_symmetra_help(**kwargs): return {"help": "Mock help"}
 
 
 class TestMCPCompliance:
@@ -73,7 +73,7 @@ class TestMCPCompliance:
         Helps clients understand available functionality.
         """
         server_info = {
-            "name": "archguard",
+            "name": "symmetra",
             "version": "0.1.0",
             "description": "Architectural guidance for AI coding agents",
             "protocol_version": "2024-11-05",
@@ -268,7 +268,7 @@ class TestContextAwareness:
         Uses project URL and technology stack for targeted advice.
         """
         # Test with project context
-        with patch.dict(os.environ, {'ARCHGUARD_PROJECT_ID': 'https://github.com/user/python-api'}):
+        with patch.dict(os.environ, {'SYMMETRA_PROJECT_ID': 'https://github.com/user/python-api'}):
             result = get_guidance(action="add authentication")
             
             assert 'guidance' in result
@@ -540,7 +540,7 @@ if __name__ == "__main__":
         "python", "-m", "pytest", __file__, "-v", "--tb=short"
     ], capture_output=True, text=True)
     
-    print("ArchGuard MCP Protocol Test Results:")
+    print("Symmetra MCP Protocol Test Results:")
     print("=" * 50)
     print(result.stdout)
     if result.stderr:

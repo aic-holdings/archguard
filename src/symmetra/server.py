@@ -1,5 +1,5 @@
 """
-ArchGuard v0 - AI Governance MCP Server (Refactored)
+Symmetra v0 - AI Governance MCP Server (Refactored)
 Provides real-time coding guidance for AI agents.
 
 This is the clean, refactored version with proper separation of concerns.
@@ -9,11 +9,11 @@ from fastmcp import FastMCP
 from .tools import (
     get_guidance, search_rules, list_rule_categories,
     detect_issues, analyze_code_context, batch_analyze_issues, get_detection_info,
-    get_archguard_help, get_rules_resource, get_review_code_prompt
+    get_symmetra_help, get_rules_resource, get_review_code_prompt
 )
 
-# Create the ArchGuard MCP server
-mcp = FastMCP("ArchGuard")
+# Create the Symmetra MCP server
+mcp = FastMCP("Symmetra")
 
 # Global variables to store server context and project
 _server_context = "desktop-app"
@@ -24,7 +24,7 @@ def get_guidance_tool(action: str, code: str = "", context: str = "") -> dict:
     """
     🏗️ Get comprehensive architectural guidance for coding actions
     
-    This is ArchGuard's primary tool for providing real-time architectural guidance.
+    This is Symmetra's primary tool for providing real-time architectural guidance.
     Use this tool whenever you're about to:
     - Create new files, functions, or components
     - Design APIs, databases, or system architecture  
@@ -63,9 +63,9 @@ def get_guidance_tool(action: str, code: str = "", context: str = "") -> dict:
 @mcp.tool  
 def search_rules_tool(query: str, max_results: int = 5) -> dict:
     """
-    🔍 Search ArchGuard rules by query text
+    🔍 Search Symmetra rules by query text
     
-    This tool allows you to search through ArchGuard's rule database to find
+    This tool allows you to search through Symmetra's rule database to find
     specific guidance on architectural patterns, best practices, and design decisions.
     
     Args:
@@ -82,7 +82,7 @@ def list_rule_categories_tool() -> dict:
     """
     📋 List all available rule categories
     
-    Returns all rule categories available in ArchGuard's rule engine,
+    Returns all rule categories available in Symmetra's rule engine,
     helping you understand what types of guidance are available.
     """
     return list_rule_categories()
@@ -93,7 +93,7 @@ def detect_issues_tool(code: str, file_path: str = "unknown.py", language: str =
     """
     🔍 Detect specific code issues using hybrid analysis
     
-    This tool provides the second mode of ArchGuard - specific issue detection.
+    This tool provides the second mode of Symmetra - specific issue detection.
     Unlike get_guidance() which provides general architectural advice, this tool
     performs deep analysis to find concrete, actionable issues in your code.
     
@@ -179,11 +179,11 @@ def batch_analyze_issues_tool(code: str, file_path: str = "unknown.py",
 @mcp.tool
 def get_detection_info_tool() -> dict:
     """
-    ℹ️ Get information about ArchGuard's detection capabilities
+    ℹ️ Get information about Symmetra's detection capabilities
     
     This tool provides details about the detection engine, available detectors,
     supported languages, and detection patterns. Use this to understand what
-    types of issues ArchGuard can detect and how the detection system works.
+    types of issues Symmetra can detect and how the detection system works.
     
     Returns:
         Comprehensive information about:
@@ -195,30 +195,30 @@ def get_detection_info_tool() -> dict:
     return get_detection_info()
 
 @mcp.tool
-def get_archguard_help_tool() -> dict:
+def get_symmetra_help_tool() -> dict:
     """
-    📚 Get comprehensive help on using ArchGuard effectively
+    📚 Get comprehensive help on using Symmetra effectively
     
     This tool provides coding agents with detailed instructions on how to best
-    utilize ArchGuard's capabilities. Use this tool when you want to understand:
+    utilize Symmetra's capabilities. Use this tool when you want to understand:
     - How to phrase requests to get the most helpful guidance
-    - What types of architectural questions ArchGuard can answer
-    - Best practices for integrating ArchGuard into your development workflow
-    - Examples of effective ArchGuard interactions
+    - What types of architectural questions Symmetra can answer
+    - Best practices for integrating Symmetra into your development workflow
+    - Examples of effective Symmetra interactions
     
     Returns:
-        Complete guide on ArchGuard usage, capabilities, and best practices
+        Complete guide on Symmetra usage, capabilities, and best practices
     """
-    return get_archguard_help()
+    return get_symmetra_help()
 
-@mcp.resource("archguard://rules")
+@mcp.resource("symmetra://rules")
 def get_rules() -> str:
     """
-    📋 Access ArchGuard's comprehensive architectural governance rules
+    📋 Access Symmetra's comprehensive architectural governance rules
     
     This resource provides the complete set of architectural standards and 
-    best practices that ArchGuard uses to evaluate code and provide guidance.
-    Use this when you need to understand ArchGuard's recommendations or 
+    best practices that Symmetra uses to evaluate code and provide guidance.
+    Use this when you need to understand Symmetra's recommendations or 
     when establishing coding standards for a project.
     
     Contains rules for: security, performance, maintainability, scalability,
@@ -233,7 +233,7 @@ def review_code(code: str) -> str:
     
     This prompt template guides thorough code review with focus on architectural
     principles, security, performance, and maintainability. Use this when you
-    want to perform a detailed review of code against ArchGuard's standards.
+    want to perform a detailed review of code against Symmetra's standards.
     
     The generated prompt will analyze:
     - Architectural patterns and design principles
@@ -255,7 +255,7 @@ def main(context: str = "desktop-app", project: str = None):
     import sys
     global _server_context, _server_project
     
-    print(f"🛡️ Starting ArchGuard MCP Server (Refactored)...", file=sys.stderr)
+    print(f"🛡️ Starting Symmetra MCP Server (Refactored)...", file=sys.stderr)
     print(f"🎯 Context: {context}", file=sys.stderr)
     if project:
         print(f"📁 Project: {project}", file=sys.stderr)

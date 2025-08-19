@@ -1,5 +1,5 @@
 """
-ArchGuard Analysis System
+Symmetra Analysis System
 
 Provides contextual analysis and interpretation of detected issues
 using LLM-powered analysis for nuanced understanding.

@@ -1,8 +1,8 @@
-# ArchGuard Development Roadmap
+# Symmetra Development Roadmap
 
 ## Purpose
 
-This roadmap focuses on the practical steps needed to complete ArchGuard and get it working in production with Claude Code. No enterprise planning - just development tasks.
+This roadmap focuses on the practical steps needed to complete Symmetra and get it working in production with Claude Code. No enterprise planning - just development tasks.
 
 ---
 
@@ -23,7 +23,7 @@ This roadmap focuses on the practical steps needed to complete ArchGuard and get
 **Actions:**
 - [ ] Test uvx installation process end-to-end
 - [ ] Verify MCP server starts correctly via uvx
-- [ ] Test Claude Code integration with installed ArchGuard
+- [ ] Test Claude Code integration with installed Symmetra
 - [ ] Fix any installation or startup issues
 
 **Owner:** Claude Code  
@@ -42,7 +42,7 @@ This roadmap focuses on the practical steps needed to complete ArchGuard and get
 - [ ] Test on various real codebases
 
 **Owner:** Claude Code  
-**Success Criteria:** ArchGuard provides helpful, reliable guidance
+**Success Criteria:** Symmetra provides helpful, reliable guidance
 
 ### Documentation & Setup
 **Actions:**
@@ -90,7 +90,7 @@ This roadmap focuses on the practical steps needed to complete ArchGuard and get
 ### Milestone 2: Claude Code Integration (Week 3)
 - uvx installation works smoothly
 - MCP server starts reliably
-- Claude Code can use ArchGuard tools
+- Claude Code can use Symmetra tools
 - Basic architectural guidance working
 
 ### Milestone 3: Production Ready (Week 6)
@@ -117,7 +117,7 @@ This roadmap focuses on the practical steps needed to complete ArchGuard and get
 3. Ensure MCP integration tests pass
 4. Validate uvx installation workflow
 
-**Key Principle:** Keep it simple. Focus on making ArchGuard work well with Claude Code, not on enterprise features or market validation.
+**Key Principle:** Keep it simple. Focus on making Symmetra work well with Claude Code, not on enterprise features or market validation.
 
 ---
 

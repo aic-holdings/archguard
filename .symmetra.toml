@@ -1,8 +1,8 @@
-# ArchGuard Project Configuration
+# Symmetra Project Configuration
 # This file defines architectural rules and settings for your project
 
 [project]
-name = "archguard"
+name = "symmetra"
 # architecture_style = "clean_architecture"  # Options: clean_architecture, layered, microservices
 
 [rules]

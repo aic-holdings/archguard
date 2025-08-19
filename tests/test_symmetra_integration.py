@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """
-ArchGuard Integration Tests - Self-Documenting System Tests
+Symmetra Integration Tests - Self-Documenting System Tests
 
-These tests serve as both validation and living documentation for ArchGuard.
+These tests serve as both validation and living documentation for Symmetra.
 Each test demonstrates key functionality and expected behavior.
 
-Run with: pytest tests/test_archguard_integration.py -v
+Run with: pytest tests/test_symmetra_integration.py -v
 """
 
 import asyncio
@@ -22,16 +22,16 @@ from unittest.mock import Mock, patch
 # Add src to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from archguard.rules_engine import create_rule_engine, KeywordRuleEngine, VectorRuleEngine
-from archguard.server import get_guidance, search_rules, list_rule_categories
+from symmetra.rules_engine import create_rule_engine, KeywordRuleEngine, VectorRuleEngine
+from symmetra.server import get_guidance, search_rules, list_rule_categories
 
 
-class TestArchGuardCore:
-    """Test core ArchGuard functionality"""
+class TestSymmetraCore:
+    """Test core Symmetra functionality"""
     
     def test_rule_engine_factory_creates_keyword_engine_by_default(self):
         """
-        DOCS: ArchGuard defaults to keyword-based rule matching for fast responses.
+        DOCS: Symmetra defaults to keyword-based rule matching for fast responses.
         Expected: ~25ms response time with exact keyword matching.
         """
         engine = create_rule_engine()
@@ -43,22 +43,22 @@ class TestArchGuardCore:
         DOCS: Vector engine provides semantic search for natural language queries.
         Expected: ~50-200ms response time with conceptual understanding.
         """
-        with patch.dict(os.environ, {'ARCHGUARD_ENGINE_TYPE': 'vector'}):
+        with patch.dict(os.environ, {'SYMMETRA_ENGINE_TYPE': 'vector'}):
             engine = create_rule_engine()
             assert isinstance(engine, VectorRuleEngine)
             assert engine.engine_type == "vector"
     
     def test_bootstrap_rules_are_loaded_automatically(self):
         """
-        DOCS: ArchGuard ships with self-bootstrapping rules for its own development.
-        These rules guide AI agents in building ArchGuard itself.
+        DOCS: Symmetra ships with self-bootstrapping rules for its own development.
+        These rules guide AI agents in building Symmetra itself.
         """
         engine = create_rule_engine("keyword")
-        rules = engine.search_rules("archguard vector embeddings", max_results=10)
+        rules = engine.search_rules("symmetra vector embeddings", max_results=10)
         
-        # Should find ArchGuard-specific development rules
+        # Should find Symmetra-specific development rules
         rule_ids = [rule['rule_id'] for rule in rules]
-        assert any('archguard' in rule_id for rule_id in rule_ids)
+        assert any('symmetra' in rule_id for rule_id in rule_ids)
         assert len(rules) > 0
     
     def test_rule_categories_are_properly_organized(self):
@@ -144,7 +144,7 @@ class TestContextAwareGuidance:
     ])
     def test_guidance_adapts_to_context(self, context, expected_characteristics):
         """
-        DOCS: ArchGuard adapts its responses based on usage context.
+        DOCS: Symmetra adapts its responses based on usage context.
         - ide-assistant: Quick, actionable advice during coding
         - agent: Structured data for automated processing  
         - desktop-app: Educational explanations for learning
@@ -206,7 +206,7 @@ class TestErrorHandling:
     
     def test_graceful_handling_of_missing_rules(self):
         """
-        DOCS: ArchGuard gracefully handles empty rule sets and missing data.
+        DOCS: Symmetra gracefully handles empty rule sets and missing data.
         Returns helpful messages instead of crashing.
         """
         engine = KeywordRuleEngine()
@@ -232,7 +232,7 @@ class TestErrorHandling:
     
     def test_malformed_action_request_handled_safely(self):
         """
-        DOCS: ArchGuard handles malformed or empty requests safely.
+        DOCS: Symmetra handles malformed or empty requests safely.
         Provides helpful guidance on proper usage.
         """
         result = get_guidance(action="")
@@ -243,32 +243,32 @@ class TestErrorHandling:
 
 
 class TestSelfBootstrapping:
-    """Test ArchGuard's self-bootstrapping rules"""
+    """Test Symmetra's self-bootstrapping rules"""
     
-    def test_archguard_development_rules_exist(self):
+    def test_symmetra_development_rules_exist(self):
         """
-        DOCS: ArchGuard includes rules to guide its own development.
+        DOCS: Symmetra includes rules to guide its own development.
         Meta-programming: the system helps build itself.
         """
         engine = create_rule_engine("keyword")
-        rules = engine.search_rules("archguard sqlite vector", max_results=10)
+        rules = engine.search_rules("symmetra sqlite vector", max_results=10)
         
-        # Should find rules about ArchGuard's own tech stack
+        # Should find rules about Symmetra's own tech stack
         assert len(rules) > 0
         
-        # Rules should mention ArchGuard development concepts
+        # Rules should mention Symmetra development concepts
         rule_text = ' '.join([
             f"{rule['title']} {rule['guidance']}" 
             for rule in rules
         ]).lower()
         
-        archguard_concepts = ['vector', 'embedding', 'sqlite', 'mcp', 'rules']
-        found_concepts = [concept for concept in archguard_concepts if concept in rule_text]
+        symmetra_concepts = ['vector', 'embedding', 'sqlite', 'mcp', 'rules']
+        found_concepts = [concept for concept in symmetra_concepts if concept in rule_text]
         assert len(found_concepts) >= 2
     
     def test_mcp_server_development_guidance(self):
         """
-        DOCS: ArchGuard provides specific guidance for MCP server development.
+        DOCS: Symmetra provides specific guidance for MCP server development.
         Helps AI agents understand MCP patterns and best practices.
         """
         result = get_guidance(
@@ -287,7 +287,7 @@ class TestPerformanceCharacteristics:
     
     def test_guidance_generation_performance(self):
         """
-        DOCS: ArchGuard provides real-time guidance suitable for IDE integration.
+        DOCS: Symmetra provides real-time guidance suitable for IDE integration.
         Performance targets: <100ms for keyword, <300ms for vector search.
         """
         start_time = time.time()
@@ -327,7 +327,7 @@ class TestIntegrationPatterns:
     
     def test_code_review_integration_pattern(self):
         """
-        DOCS: ArchGuard integrates with code review workflows.
+        DOCS: Symmetra integrates with code review workflows.
         Provides architectural feedback on code changes.
         """
         # Simulate code review scenario
@@ -352,7 +352,7 @@ class TestIntegrationPatterns:
     
     def test_ci_cd_integration_pattern(self):
         """
-        DOCS: ArchGuard supports CI/CD pipeline integration.
+        DOCS: Symmetra supports CI/CD pipeline integration.
         Provides automated architectural review as part of build process.
         """
         # Simulate CI/CD scenario with agent context
@@ -371,13 +371,13 @@ class TestConfigurationManagement:
     
     def test_environment_variable_configuration(self):
         """
-        DOCS: ArchGuard configuration via environment variables.
+        DOCS: Symmetra configuration via environment variables.
         Supports deployment flexibility and container environments.
         """
         test_cases = [
-            ('ARCHGUARD_ENGINE_TYPE', 'keyword'),
-            ('ARCHGUARD_DEFAULT_CONTEXT', 'ide-assistant'),
-            ('ARCHGUARD_MAX_RULES', '10')
+            ('SYMMETRA_ENGINE_TYPE', 'keyword'),
+            ('SYMMETRA_DEFAULT_CONTEXT', 'ide-assistant'),
+            ('SYMMETRA_MAX_RULES', '10')
         ]
         
         for env_var, test_value in test_cases:
@@ -388,7 +388,7 @@ class TestConfigurationManagement:
     
     def test_project_specific_configuration(self):
         """
-        DOCS: ArchGuard supports project-specific rule customization.
+        DOCS: Symmetra supports project-specific rule customization.
         Enables different guidance for different codebases.
         """
         # Test with project context
@@ -422,7 +422,7 @@ class TestDocumentationAsCode:
     
     def test_examples_demonstrate_usage_patterns(self):
         """
-        DOCS: ArchGuard provides practical examples for each guidance type.
+        DOCS: Symmetra provides practical examples for each guidance type.
         Examples serve as both tests and documentation.
         """
         # This test itself is an example of documentation-as-code
@@ -448,7 +448,7 @@ if __name__ == "__main__":
         "python", "-m", "pytest", __file__, "-v", "--tb=short"
     ], capture_output=True, text=True)
     
-    print("ArchGuard Integration Test Results:")
+    print("Symmetra Integration Test Results:")
     print("=" * 50)
     print(result.stdout)
     if result.stderr:

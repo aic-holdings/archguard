@@ -1,5 +1,5 @@
 """
-Base classes for ArchGuard detection system.
+Base classes for Symmetra detection system.
 
 Provides the foundation for all detectors with consistent interfaces
 and data structures for issue reporting.
@@ -165,7 +165,7 @@ class DetectionResult:
 
 
 class Detector(ABC):
-    """Base class for all ArchGuard detectors"""
+    """Base class for all Symmetra detectors"""
     
     def __init__(self, enabled: bool = True):
         self.enabled = enabled

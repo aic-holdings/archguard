@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Setup Ollama for ArchGuard embeddings
+Setup Ollama for Symmetra embeddings
 
 This script sets up Ollama with nomic-embed-text for local, cost-free embedding generation.
 Provides significant cost savings compared to cloud embedding APIs.
@@ -97,7 +97,7 @@ def test_embedding_generation(model_name: str) -> bool:
         return False
 
 def create_ollama_config():
-    """Create Ollama configuration for ArchGuard"""
+    """Create Ollama configuration for Symmetra"""
     config = {
         "embedding": {
             "provider": "ollama",
@@ -142,17 +142,17 @@ def update_env_file(model_name: str):
     # Update or add Ollama settings
     ollama_settings = [
         "# Ollama Embedding Configuration\n",
-        "ARCHGUARD_EMBEDDING_PROVIDER=ollama\n",
-        f"ARCHGUARD_EMBEDDING_MODEL={model_name}\n",
-        "ARCHGUARD_OLLAMA_ENDPOINT=http://localhost:11434\n",
-        "ARCHGUARD_EMBEDDING_DIMENSIONS=768\n",
+        "SYMMETRA_EMBEDDING_PROVIDER=ollama\n",
+        f"SYMMETRA_EMBEDDING_MODEL={model_name}\n",
+        "SYMMETRA_OLLAMA_ENDPOINT=http://localhost:11434\n",
+        "SYMMETRA_EMBEDDING_DIMENSIONS=768\n",
         "\n"
     ]
     
     # Remove existing Ollama settings
     env_content = [line for line in env_content 
-                   if not line.startswith('ARCHGUARD_EMBEDDING_') 
-                   and not line.startswith('ARCHGUARD_OLLAMA_')]
+                   if not line.startswith('SYMMETRA_EMBEDDING_') 
+                   and not line.startswith('SYMMETRA_OLLAMA_')]
     
     # Add new settings
     env_content.extend(ollama_settings)
@@ -163,7 +163,7 @@ def update_env_file(model_name: str):
     print(f"✅ Updated {env_path} with Ollama configuration")
 
 def main():
-    parser = argparse.ArgumentParser(description="Setup Ollama embeddings for ArchGuard")
+    parser = argparse.ArgumentParser(description="Setup Ollama embeddings for Symmetra")
     parser.add_argument("--model", default="nomic-embed-text:latest",
                        help="Embedding model to use (default: nomic-embed-text:latest)")
     parser.add_argument("--test-only", action="store_true",
@@ -171,7 +171,7 @@ def main():
     
     args = parser.parse_args()
     
-    print("🚀 Setting up Ollama embeddings for ArchGuard...")
+    print("🚀 Setting up Ollama embeddings for Symmetra...")
     print(f"📋 Target model: {args.model}")
     
     # Check Ollama installation
@@ -201,12 +201,12 @@ def main():
     if test_embedding_generation(args.model):
         print("\n🎉 Ollama embeddings setup complete!")
         print("\nNext steps:")
-        print("1. Generate embeddings for ArchGuard rules:")
+        print("1. Generate embeddings for Symmetra rules:")
         print("   python scripts/generate_embeddings_ollama.py")
-        print("2. Update ArchGuard to use vector search:")
-        print("   export ARCHGUARD_ENGINE_TYPE=vector")
+        print("2. Update Symmetra to use vector search:")
+        print("   export SYMMETRA_ENGINE_TYPE=vector")
         print("3. Test the system:")
-        print("   python -c \"from archguard.rules_engine import create_rule_engine; print('✅ Ready!')\"")
+        print("   python -c \"from symmetra.rules_engine import create_rule_engine; print('✅ Ready!')\"")
         
         print(f"\n💰 Cost savings: $0/month vs ~$5-50/month for cloud embeddings")
         print(f"📈 Performance: 15-50ms local vs 200-800ms cloud")

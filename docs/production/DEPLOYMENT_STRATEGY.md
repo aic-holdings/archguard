@@ -1,8 +1,8 @@
-# ArchGuard Deployment Strategy: Getting Team-Specific Guidance Into Production
+# Symmetra Deployment Strategy: Getting Team-Specific Guidance Into Production
 
 ## The Deployment Philosophy
 
-ArchGuard's deployment strategy centers on getting teams real value quickly while building toward a more sophisticated system over time. Instead of waiting for a perfect solution, we deploy a working system that provides immediate benefits and evolves based on actual usage patterns. The goal is to have teams using ArchGuard for their daily architectural decisions within weeks, not months.
+Symmetra's deployment strategy centers on getting teams real value quickly while building toward a more sophisticated system over time. Instead of waiting for a perfect solution, we deploy a working system that provides immediate benefits and evolves based on actual usage patterns. The goal is to have teams using Symmetra for their daily architectural decisions within weeks, not months.
 
 This approach recognizes that architectural guidance systems succeed or fail based on adoption, not technical sophistication. A simple system that teams actually use is infinitely more valuable than a complex system that sits unused. The deployment strategy prioritizes user feedback and iterative improvement over feature completeness.
 
@@ -16,9 +16,9 @@ This infrastructure choice means we're not building a deployment from scratch. S
 
 The first production deployment uses the existing bootstrap rules to provide immediate value while teams learn how to create their own specific guidance. This creates a working system that teams can evaluate and provide feedback on, rather than asking them to imagine how a future system might work.
 
-The MCP server configuration for Claude Code uses the uvx execution pattern we've already tested. This means teams can start using ArchGuard without complex installation procedures. The configuration points directly to the production Supabase instance, with authentication and project context handled transparently.
+The MCP server configuration for Claude Code uses the uvx execution pattern we've already tested. This means teams can start using Symmetra without complex installation procedures. The configuration points directly to the production Supabase instance, with authentication and project context handled transparently.
 
-Teams access ArchGuard through their existing Claude Code workflows. When they ask architectural questions, they automatically get guidance that starts with sensible defaults and becomes more specific as they add their own rules. This creates a natural adoption path where teams see immediate value and are motivated to customize the system for their specific needs.
+Teams access Symmetra through their existing Claude Code workflows. When they ask architectural questions, they automatically get guidance that starts with sensible defaults and becomes more specific as they add their own rules. This creates a natural adoption path where teams see immediate value and are motivated to customize the system for their specific needs.
 
 ## Team Onboarding Process
 
@@ -26,7 +26,7 @@ New teams start with global bootstrap rules that provide general architectural g
 
 The onboarding conversation typically covers authentication patterns, database interaction strategies, API design conventions, testing approaches, and deployment requirements. Instead of creating comprehensive documentation, teams create rules that capture the specific choices they've made. This builds a useful rule set quickly while focusing on decisions that actually matter for daily development work.
 
-Teams don't need to become rule management experts to benefit from ArchGuard. The initial rules they create can be simple and focused on their most important architectural patterns. The system evolves as teams discover which types of guidance are most valuable for their specific development workflows.
+Teams don't need to become rule management experts to benefit from Symmetra. The initial rules they create can be simple and focused on their most important architectural patterns. The system evolves as teams discover which types of guidance are most valuable for their specific development workflows.
 
 ## Production Environment Setup
 
@@ -42,7 +42,7 @@ Production monitoring focuses on both technical performance and user experience 
 
 The monitoring system alerts on both technical issues and content quality problems. If vector searches start returning irrelevant rules, or if AI synthesis begins generating unhelpful responses, the monitoring system provides early warning so issues can be addressed before they impact user experience.
 
-Reliability requirements are modest initially, since ArchGuard provides advisory guidance rather than critical functionality. The system needs to be available when teams want architectural guidance, but brief outages don't break development workflows. This allows a focus on functionality and user experience rather than complex high-availability infrastructure.
+Reliability requirements are modest initially, since Symmetra provides advisory guidance rather than critical functionality. The system needs to be available when teams want architectural guidance, but brief outages don't break development workflows. This allows a focus on functionality and user experience rather than complex high-availability infrastructure.
 
 ## Data Management and Privacy
 
@@ -70,19 +70,19 @@ The feedback loop operates quickly, with monthly updates that incorporate user s
 
 ## Integration with Development Workflows
 
-The deployment strategy recognizes that ArchGuard succeeds when it integrates seamlessly with how teams already work. The Claude Code integration means developers get architectural guidance in the context where they're already asking questions. The MCP protocol ensures compatibility with other development tools as the ecosystem evolves.
+The deployment strategy recognizes that Symmetra succeeds when it integrates seamlessly with how teams already work. The Claude Code integration means developers get architectural guidance in the context where they're already asking questions. The MCP protocol ensures compatibility with other development tools as the ecosystem evolves.
 
-Teams using other development environments can access ArchGuard through API endpoints or custom integrations. The core guidance logic is independent of the delivery mechanism, so the same rule database can power guidance in different contexts. This flexibility ensures teams can adopt ArchGuard regardless of their specific toolchain preferences.
+Teams using other development environments can access Symmetra through API endpoints or custom integrations. The core guidance logic is independent of the delivery mechanism, so the same rule database can power guidance in different contexts. This flexibility ensures teams can adopt Symmetra regardless of their specific toolchain preferences.
 
-The integration strategy also considers how ArchGuard fits with existing architectural review processes. Instead of replacing human review, ArchGuard provides consistent guidance that helps teams prepare for architectural discussions and ensures basic patterns are followed before human review begins.
+The integration strategy also considers how Symmetra fits with existing architectural review processes. Instead of replacing human review, Symmetra provides consistent guidance that helps teams prepare for architectural discussions and ensures basic patterns are followed before human review begins.
 
 ## Success Metrics and Validation
 
 Success is measured primarily by adoption and perceived value rather than technical metrics. The key indicators include daily active teams, frequency of guidance requests, rule creation rates, and qualitative feedback about guidance quality. Technical metrics like response time and search accuracy support these user-focused measures.
 
-The validation approach includes both short-term adoption metrics and longer-term architectural consistency measures. In the short term, teams should be using ArchGuard regularly and finding the guidance helpful. In the longer term, teams should show improved architectural consistency and faster onboarding of new team members.
+The validation approach includes both short-term adoption metrics and longer-term architectural consistency measures. In the short term, teams should be using Symmetra regularly and finding the guidance helpful. In the longer term, teams should show improved architectural consistency and faster onboarding of new team members.
 
-Regular surveys and interviews with using teams provide qualitative validation that complements the quantitative metrics. These conversations reveal how teams are actually using ArchGuard, what types of guidance are most valuable, and where the system could be improved to better support their development workflows.
+Regular surveys and interviews with using teams provide qualitative validation that complements the quantitative metrics. These conversations reveal how teams are actually using Symmetra, what types of guidance are most valuable, and where the system could be improved to better support their development workflows.
 
 ## Risk Management and Contingency Planning
 
@@ -90,4 +90,4 @@ The main deployment risks involve guidance quality and user adoption. If teams r
 
 Technical risks are relatively low given the Supabase foundation, but the contingency planning includes backup deployment options and data recovery procedures. The system architecture supports migration to different infrastructure if needed, ensuring teams aren't locked into specific technical choices.
 
-The rollback strategy allows rapid reversion to previous configurations if new deployments introduce problems. Since ArchGuard provides advisory guidance rather than critical functionality, the impact of temporary issues is limited, but quick recovery maintains user confidence in the system reliability.
+The rollback strategy allows rapid reversion to previous configurations if new deployments introduce problems. Since Symmetra provides advisory guidance rather than critical functionality, the impact of temporary issues is limited, but quick recovery maintains user confidence in the system reliability.

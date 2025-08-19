@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Generate embeddings using Ollama for ArchGuard rules
+Generate embeddings using Ollama for Symmetra rules
 
 This script generates vector embeddings using local Ollama models (cost-free!)
 and inserts them into the Supabase database.
@@ -65,7 +65,7 @@ def insert_python_essential_rules(project_id: str) -> bool:
     """Insert essential Python project rules into Supabase"""
     print("📝 Inserting essential Python project rules...")
     
-    # Essential Python project rules for ArchGuard self-improvement (start small!)
+    # Essential Python project rules for Symmetra self-improvement (start small!)
     python_rules = [
         {
             "rule_id": "python-project-structure",
@@ -304,7 +304,7 @@ def test_vector_search(project_id: str) -> bool:
         return False
 
 def main():
-    parser = argparse.ArgumentParser(description="Generate embeddings using Ollama for ArchGuard rules")
+    parser = argparse.ArgumentParser(description="Generate embeddings using Ollama for Symmetra rules")
     parser.add_argument("--project-id", required=True, 
                        help="Supabase project ID")
     parser.add_argument("--model", default="nomic-embed-text",
@@ -350,10 +350,10 @@ def main():
         print("")
         print("Next steps:")
         print("1. Update your environment to use vector search:")
-        print("   export ARCHGUARD_ENGINE_TYPE=vector")
-        print("   export ARCHGUARD_EMBEDDING_PROVIDER=ollama")
-        print("2. Test ArchGuard with vector search:")
-        print("   python -c \"from archguard.server import get_guidance; print(get_guidance('repository structure'))\"")
+        print("   export SYMMETRA_ENGINE_TYPE=vector")
+        print("   export SYMMETRA_EMBEDDING_PROVIDER=ollama")
+        print("2. Test Symmetra with vector search:")
+        print("   python -c \"from symmetra.server import get_guidance; print(get_guidance('repository structure'))\"")
         print("")
         print("💰 Cost savings: $0 vs $5-50/month for cloud embeddings")
         print("🔒 Privacy: 100% local processing")

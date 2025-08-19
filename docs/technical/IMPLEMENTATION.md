@@ -1,16 +1,16 @@
-# ArchGuard v0 Implementation Documentation
+# Symmetra v0 Implementation Documentation
 
 ## Overview
 
-ArchGuard v0 is a working MCP (Model Context Protocol) server that provides real-time coding guidance to AI agents. Built with FastMCP 2.0, it supports both local development (stdio) and production deployment (HTTP).
+Symmetra v0 is a working MCP (Model Context Protocol) server that provides real-time coding guidance to AI agents. Built with FastMCP 2.0, it supports both local development (stdio) and production deployment (HTTP).
 
 ## Architecture
 
 ### Core Components
 
-1. **`src/archguard/server.py`** - Main MCP server implementation
-2. **`src/archguard/http_server.py`** - Production HTTP wrapper
-3. **`src/archguard/cli.py`** - Command line interface
+1. **`src/symmetra/server.py`** - Main MCP server implementation
+2. **`src/symmetra/http_server.py`** - Production HTTP wrapper
+3. **`src/symmetra/cli.py`** - Command line interface
 4. **Test Suite** - Comprehensive testing across all transports
 
 ### Technology Stack
@@ -49,7 +49,7 @@ Provides coding guidance based on action description and optional code content.
 
 ### MCP Resources
 
-#### `archguard://rules`
+#### `symmetra://rules`
 Returns the current governance rules as a readable text resource.
 
 ### MCP Prompts
@@ -61,12 +61,12 @@ Generates structured prompts for code review sessions.
 
 ### Stdio Transport (Default)
 - **Use Case**: Local development, Claude Code integration
-- **Command**: `python archguard_server.py`
+- **Command**: `python symmetra_server.py`
 - **Benefits**: Zero network overhead, simple debugging
 
 ### HTTP Transport
 - **Use Case**: Production deployment, Docker containers
-- **Command**: `python archguard_http_server.py`
+- **Command**: `python symmetra_http_server.py`
 - **Endpoint**: `http://localhost:8001/mcp`
 - **Benefits**: Horizontal scaling, monitoring, load balancing
 
@@ -87,7 +87,7 @@ python test_client.py
 
 ### Phase 3: HTTP Testing
 ```bash
-python archguard_http_server.py &
+python symmetra_http_server.py &
 python test_http_client.py
 ```
 - Production deployment validation
@@ -99,7 +99,7 @@ python test_http_client.py
 ### For Claude Code
 ```bash
 pip install -e .
-archguard server
+symmetra server
 ```
 
 ### For Development
@@ -111,7 +111,7 @@ python test_client.py
 ### For Production
 ```bash
 # Docker deployment
-python archguard_http_server.py
+python symmetra_http_server.py
 
 # Or with custom settings
 mcp.run(transport="http", host="0.0.0.0", port=8001, path="/mcp")
@@ -178,7 +178,7 @@ mcp.run(transport="http", host="0.0.0.0", port=8001, path="/mcp")
 
 ### Adding New Rules
 ```python
-# In archguard_server.py get_guidance function
+# In symmetra_server.py get_guidance function
 if "new_pattern" in action.lower():
     guidance.append("💡 New guidance message")
 ```
@@ -190,7 +190,7 @@ python test_client.py
 
 # Full validation
 python test_client.py
-python archguard_http_server.py &
+python symmetra_http_server.py &
 python test_http_client.py
 ```
 
@@ -198,11 +198,11 @@ python test_http_client.py
 ```bash
 # Update server
 git pull
-python archguard_http_server.py
+python symmetra_http_server.py
 
 # Update Claude Code integration
 pip install -e .
-archguard server --force
+symmetra server --force
 ```
 
 This implementation provides a solid foundation for AI governance while maintaining simplicity and extensibility.
