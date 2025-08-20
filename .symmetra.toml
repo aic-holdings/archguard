@@ -5,6 +5,14 @@
 name = "symmetra"
 # architecture_style = "clean_architecture"  # Options: clean_architecture, layered, microservices
 
+[api]
+# OpenAI API key for embeddings and analysis
+openai_api_key = "sk-your-api-key-here"
+
+# Optional: Custom Supabase database (leave commented to use shared database)
+# supabase_url = "YOUR_CUSTOM_SUPABASE_URL"
+# supabase_key = "YOUR_CUSTOM_SUPABASE_ANON_KEY"
+
 [rules]
 max_file_lines = 300
 max_function_lines = 50

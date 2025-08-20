@@ -11,6 +11,7 @@ import logging
 from typing import List, Dict, Any, Optional
 from datetime import datetime, timezone
 from dotenv import load_dotenv
+from .config import SymmetraConfig
 
 logger = logging.getLogger(__name__)
 
@@ -33,8 +34,12 @@ class CloudVectorSearchEngine:
             try:
                 from supabase import create_client
                 
-                url = os.getenv('SYMMETRA_SUPABASE_URL')
-                key = os.getenv('SYMMETRA_SUPABASE_KEY')
+                url = (SymmetraConfig.get_supabase_url() or 
+                       os.getenv('SYMMETRA_SUPABASE_URL') or 
+                       "https://trzfyaopymlgxehhdfqf.supabase.co")
+                key = (SymmetraConfig.get_supabase_key() or 
+                       os.getenv('SYMMETRA_SUPABASE_KEY') or 
+                       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRyemZ5YW9weW1sZ3hlaGhkZnFmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU1NTM1NzAsImV4cCI6MjA3MTEyOTU3MH0.oUlbRO6r7P3Cgkrz4Kfj5phLwYTXU9SfC4Zc1oKmhIo")
                 
                 if not url or not key:
                     self.logger.warning("Supabase credentials not found")
@@ -55,7 +60,7 @@ class CloudVectorSearchEngine:
             try:
                 from openai import OpenAI
                 
-                api_key = os.getenv('OPENAI_API_KEY')
+                api_key = SymmetraConfig.get_openai_api_key() or os.getenv('OPENAI_API_KEY')
                 if not api_key:
                     self.logger.warning("OPENAI_API_KEY not found, vector search unavailable")
                     return None
@@ -91,7 +96,7 @@ class CloudVectorSearchEngine:
             self.logger.error(f"Failed to generate embedding: {e}")
             return None
     
-    def search_rules(self, query: str, project_id: Optional[str] = None, limit: int = 5, threshold: float = 0.1) -> List[Dict[str, Any]]:
+    def search_rules(self, query: str, project_id: Optional[str] = None, limit: int = 5, threshold: float = -1.0) -> List[Dict[str, Any]]:
         """
         Search for rules semantically similar to the query using cloud embeddings
         
@@ -125,7 +130,7 @@ class CloudVectorSearchEngine:
                     'match_count': limit
                 }).execute()
                 
-                if search_result.data:
+                if search_result.data and len(search_result.data) > 0:
                     results = []
                     for match in search_result.data:
                         # Transform to expected format
@@ -145,11 +150,14 @@ class CloudVectorSearchEngine:
                         })
                     
                     # Log retrieval times for retrieved rules
-                    if results:
-                        self._log_retrieval_times([rule['rule_id'] for rule in results])
+                    self._log_retrieval_times([rule['rule_id'] for rule in results])
                     
-                    self.logger.info(f"Found {len(results)} relevant rules for query: '{query[:50]}...'")
+                    self.logger.info(f"RPC found {len(results)} relevant rules for query: '{query[:50]}...'")
                     return results
+                else:
+                    # RPC returned empty results, fall back to manual search
+                    self.logger.info(f"RPC returned no results for query '{query[:50]}...', falling back to manual search")
+                    return self._manual_vector_search(query_embedding, project_id, limit, threshold)
                 
             except Exception as rpc_error:
                 self.logger.warning(f"RPC search failed: {rpc_error}, falling back to manual search")

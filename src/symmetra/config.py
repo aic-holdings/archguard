@@ -173,6 +173,21 @@ class SymmetraConfig:
         return ignored or []
     
     @classmethod
+    def get_openai_api_key(cls) -> Optional[str]:
+        """Get OpenAI API key from project config or environment."""
+        return cls.get_config_value("api", "openai_api_key", None, "OPENAI_API_KEY")
+    
+    @classmethod
+    def get_supabase_url(cls) -> Optional[str]:
+        """Get Supabase URL from project config or environment."""
+        return cls.get_config_value("api", "supabase_url", None, "SYMMETRA_SUPABASE_URL")
+    
+    @classmethod
+    def get_supabase_key(cls) -> Optional[str]:
+        """Get Supabase key from project config or environment."""
+        return cls.get_config_value("api", "supabase_key", None, "SYMMETRA_SUPABASE_KEY")
+    
+    @classmethod
     def reset_cache(cls):
         """Reset configuration cache - useful for testing."""
         cls._global_config = None

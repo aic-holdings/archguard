@@ -11,6 +11,7 @@ import logging
 from typing import List, Dict, Any, Optional, Union
 from enum import Enum
 from dotenv import load_dotenv
+from .config import SymmetraConfig
 
 logger = logging.getLogger(__name__)
 
@@ -64,7 +65,7 @@ class OpenAIEmbeddingProvider(EmbeddingProvider):
         if self._client is None:
             try:
                 from openai import OpenAI
-                api_key = os.getenv('OPENAI_API_KEY')
+                api_key = SymmetraConfig.get_openai_api_key() or os.getenv('OPENAI_API_KEY')
                 if not api_key:
                     self.logger.warning("OPENAI_API_KEY not found")
                     return None

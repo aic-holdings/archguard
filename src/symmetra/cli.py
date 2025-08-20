@@ -15,6 +15,7 @@ try:
     from symmetra.simple_server import run_server as simple_server_main
     from symmetra.http_server import main as http_server_main
     from symmetra.config import SymmetraConfig
+    from symmetra.guidance_manager import guidance_manager
 except ImportError:
     # Fallback for development/direct execution
     import sys
@@ -24,6 +25,7 @@ except ImportError:
     from symmetra.simple_server import run_server as simple_server_main
     from symmetra.http_server import main as http_server_main
     from symmetra.config import SymmetraConfig
+    from symmetra.guidance_manager import guidance_manager
 
 
 def init_command(args) -> None:
@@ -189,6 +191,94 @@ enforce_type_hints = true
         except Exception as e:
             print(f"❌ Failed to create global config: {e}")
             sys.exit(1)
+
+
+def add_command(args) -> None:
+    """Add new architectural guidance."""
+    description = args.description
+    category = args.category
+    priority = args.priority
+    
+    if not description.strip():
+        print("❌ Description cannot be empty")
+        sys.exit(1)
+    
+    print("💡 Adding guidance...")
+    
+    # Use quick_add for simple one-liner descriptions  
+    if len(description.split()) < 10 and not args.detailed:
+        result = guidance_manager.quick_add(description, category)
+    else:
+        # Split into title and guidance for longer descriptions
+        lines = description.split('\n')
+        if len(lines) > 1:
+            title = lines[0].strip()
+            guidance = '\n'.join(lines[1:]).strip()
+        else:
+            # Use first few words as title
+            words = description.split()
+            if len(words) > 8:
+                title = ' '.join(words[:8]) + "..."
+                guidance = description
+            else:
+                title = description
+                guidance = description
+        
+        result = guidance_manager.add_guidance(
+            title=title,
+            guidance=guidance,
+            category=category,
+            priority=priority,
+            rationale=args.rationale
+        )
+    
+    if result['success']:
+        print(f"✅ {result['message']}")
+        print(f"🔖 Rule ID: {result['rule_id']}")
+        print(f"📂 Category: {result['category']}")
+        print(f"⭐ Priority: {result['priority']}")
+        
+        if args.test:
+            print(f"\n🔍 Testing searchability...")
+            test_results = guidance_manager.search_guidance(description[:50], limit=3)
+            if any(r['rule_id'] == result['rule_id'] for r in test_results):
+                print("✅ Guidance is searchable!")
+            else:
+                print("⚠️  Guidance might not be immediately searchable (embedding processing)")
+    else:
+        print(f"❌ Failed to add guidance: {result['error']}")
+        sys.exit(1)
+
+
+def search_command(args) -> None:
+    """Search existing architectural guidance."""
+    query = args.query
+    limit = args.limit
+    
+    if not query.strip():
+        print("❌ Search query cannot be empty")
+        sys.exit(1)
+    
+    print(f"🔍 Searching for: '{query}'")
+    results = guidance_manager.search_guidance(query, limit=limit)
+    
+    if not results:
+        print("❌ No guidance found matching your query")
+        print("💡 Try different keywords or add new guidance with 'symmetra add'")
+        return
+    
+    print(f"\n📋 Found {len(results)} relevant guidance:")
+    print("=" * 60)
+    
+    for i, result in enumerate(results, 1):
+        print(f"\n{i}. {result['title']}")
+        print(f"   🔖 ID: {result['rule_id']}")
+        print(f"   📂 Category: {result['category']}")
+        print(f"   ⭐ Priority: {result['priority']}")
+        print(f"   🎯 Similarity: {result['similarity']:.3f}")
+        print(f"   💡 Guidance: {result['guidance'][:200]}{'...' if len(result['guidance']) > 200 else ''}")
+        if result.get('contexts'):
+            print(f"   🏷️  Contexts: {', '.join(result['contexts'])}")
 
 
 def main() -> None:
