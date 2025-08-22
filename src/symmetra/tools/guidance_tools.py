@@ -6,10 +6,16 @@ general architectural guidance, best practices, and design recommendations.
 """
 
 from typing import Dict, Any
-from symmetra.rules_engine import create_rule_engine
 
-# Initialize rule engine (use vector search for comprehensive guides)
-rule_engine = create_rule_engine("vector")
+# Lazy initialization to avoid import-time dependencies
+_rule_engine = None
+
+def _get_rule_engine():
+    global _rule_engine
+    if _rule_engine is None:
+        from symmetra.rules_engine import create_rule_engine
+        _rule_engine = create_rule_engine("vector")
+    return _rule_engine
 
 def get_guidance(action: str, code: str = "", context: str = "", 
                 server_context: str = None, server_project: str = None) -> dict:
@@ -59,6 +65,7 @@ def get_guidance(action: str, code: str = "", context: str = "",
     }
     
     # Use rule engine to find relevant rules
+    rule_engine = _get_rule_engine()
     relevant_rules = rule_engine.find_relevant_rules(
         action=action,
         code=code,
@@ -168,6 +175,7 @@ def search_rules(query: str, max_results: int = 5) -> dict:
     Returns:
         Dictionary with matching rules and their relevance scores
     """
+    rule_engine = _get_rule_engine()
     results = rule_engine.search_rules(query, max_results)
     
     return {
@@ -194,6 +202,7 @@ def list_rule_categories() -> dict:
     Returns all rule categories available in Symmetra's rule engine,
     helping you understand what types of guidance are available.
     """
+    rule_engine = _get_rule_engine()
     all_rules = rule_engine.list_all_rules()
     categories = {}
     
