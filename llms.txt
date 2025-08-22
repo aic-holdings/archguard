@@ -6,44 +6,27 @@ All documentation is provided in markdown format for optimal AI consumption.
 ## Core Documentation
 
 - Overview: https://raw.githubusercontent.com/aic-holdings/symmetra/main/README.md
-- Quick Start: https://raw.githubusercontent.com/aic-holdings/symmetra/main/docs/user/quickstart.md
-- Installation: https://raw.githubusercontent.com/aic-holdings/symmetra/main/docs/user/installation.md
-- Configuration: https://raw.githubusercontent.com/aic-holdings/symmetra/main/docs/user/configuration.md
-- Setup Guide: https://raw.githubusercontent.com/aic-holdings/symmetra/main/docs/operations/setup.md
+- Architecture Overview: https://raw.githubusercontent.com/aic-holdings/symmetra/main/AI_FIRST_ARCHITECTURE.md
+- Contributing Guide: https://raw.githubusercontent.com/aic-holdings/symmetra/main/CONTRIBUTING.md
+- Project Configuration Example: https://raw.githubusercontent.com/aic-holdings/symmetra/main/docs/setup/PROJECT_CONFIG_EXAMPLE.md
 
-## Strategic Documentation
+## Guidance System
 
-- End Goals: https://raw.githubusercontent.com/aic-holdings/symmetra/main/docs/strategy/END_GOALS.md
-- Next-to-Last Goals: https://raw.githubusercontent.com/aic-holdings/symmetra/main/docs/strategy/NEXT_TO_LAST_GOALS.md
-- Roadmap: https://raw.githubusercontent.com/aic-holdings/symmetra/main/docs/strategy/ROADMAP_TO_N_MINUS_1.md
+- Drizzle ORM for AI Agents: https://raw.githubusercontent.com/aic-holdings/symmetra/main/docs/guidance/drizzle-orm-for-ai-agents.md
 
 ## API Documentation
 
-- MCP Tools: https://raw.githubusercontent.com/aic-holdings/symmetra/main/docs/api/mcp-tools.md
-- Rules Engine: https://raw.githubusercontent.com/aic-holdings/symmetra/main/docs/api/rules-engine.md
-- Database Schema: https://raw.githubusercontent.com/aic-holdings/symmetra/main/docs/api/database-schema.md
-- Environment Variables: https://raw.githubusercontent.com/aic-holdings/symmetra/main/docs/api/environment.md
-
-## Integration Guides
-
-- Supabase Setup: https://raw.githubusercontent.com/aic-holdings/symmetra/main/docs/integrations/supabase.md
-- Vector Search: https://raw.githubusercontent.com/aic-holdings/symmetra/main/docs/integrations/vector-search.md
-- Custom Rules: https://raw.githubusercontent.com/aic-holdings/symmetra/main/docs/integrations/custom-rules.md
+Available through MCP server introspection - the server provides tool descriptions and usage examples for:
+- Guidance capture and search tools
+- Code detection and analysis tools
+- Configuration and project management tools
 
 ## Development
 
-- Contributing: https://raw.githubusercontent.com/aic-holdings/symmetra/main/docs/development/contributing.md
-- Testing: https://raw.githubusercontent.com/aic-holdings/symmetra/main/docs/development/testing.md
-- Rule Development: https://raw.githubusercontent.com/aic-holdings/symmetra/main/docs/development/rule-development.md
-
-## Examples and Patterns
-
-- Usage Examples: https://raw.githubusercontent.com/aic-holdings/symmetra/main/docs/examples/usage.md
-- Best Practices: https://raw.githubusercontent.com/aic-holdings/symmetra/main/docs/examples/best-practices.md
-- Common Patterns: https://raw.githubusercontent.com/aic-holdings/symmetra/main/docs/examples/patterns.md
+- Contributing: https://raw.githubusercontent.com/aic-holdings/symmetra/main/CONTRIBUTING.md
 
 # About Symmetra
 
-Symmetra is an extensible AI-powered toolkit that helps development teams define, verify, and maintain their software architecture through real-time guidance and automated analysis. Unlike traditional linters that focus on syntax, Symmetra provides semantic architectural guidance that understands your codebase's structure, patterns, and design decisions.
+Symmetra is a conversational guidance capture system that enables developers to capture architectural patterns directly from their codebase through natural conversation with Claude Code. The core innovation is the ability to say "This error handling pattern is clean - let's add it as guidance!" and have it instantly searchable for future use.
 
-Built as a Model Context Protocol (MCP) server, Symmetra integrates seamlessly with Claude Code, Cursor, and any MCP-compatible AI assistant to provide L7-level architectural guidance in real-time.
+Built as a Model Context Protocol (MCP) server, Symmetra integrates seamlessly with Claude Code and any MCP-compatible AI assistant to provide conversational pattern capture, semantic search, and comprehensive code analysis in real-time.

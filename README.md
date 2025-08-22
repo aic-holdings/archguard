@@ -10,6 +10,8 @@
 
 Instead of researching Stack Overflow and piecing together tutorials, your AI assistant gets **complete, production-ready solutions** with built-in security, error handling, and deployment guidance - accelerating development while reducing architectural risk.
 
+🆕 **NEW: Conversational Guidance Capture** - Capture architectural patterns directly from your codebase through natural conversation with Claude Code. Say *"This error handling pattern is clean - let's add it as guidance!"* and Symmetra will help you capture, refine, and make it searchable for future use.
+
 ---
 
 <!-- TODO: Add demo GIF or screenshot -->
@@ -28,6 +30,7 @@ Instead of researching Stack Overflow and piecing together tutorials, your AI as
 - **⚡ Instant Delivery**: Vector-powered search returns comprehensive solutions in milliseconds
 - **🎯 Context-Aware**: Patterns adapt to your stack (Next.js, Supabase, Tailwind, ShadCN, etc.)
 - **🤖 AI-Native Integration**: Seamless integration with Claude Code and other MCP-compatible assistants
+- **📝 Conversational Capture**: Add new guidance through natural conversation - capture patterns as you discover them
 - **📋 Project Checklists**: Step-by-step guidance for building complete applications from scratch
 
 ## 🚀 Quick Start
@@ -64,20 +67,30 @@ docker run --rm -i --network host \
 
 **Claude Code Integration**
 
-Add to your Claude Code MCP settings (`~/claude_desktop_config.json`):
+Add to your Claude Code MCP settings:
 
 ```json
 {
   "mcpServers": {
     "symmetra": {
-      "command": "uvx",
-      "args": [
-        "--from", "git+https://github.com/aic-holdings/symmetra",
-        "symmetra-server"
-      ]
+      "command": "symmetra",
+      "args": ["server"],
+      "env": {
+        "OPENAI_API_KEY": "YOUR_OPENAI_API_KEY_HERE"
+      }
     }
   }
 }
+```
+
+For project-specific configuration, create `.symmetra.toml` in your project root:
+
+```toml
+[project]
+name = "my-project"
+
+[api]
+openai_api_key = "sk-your-api-key-here"
 ```
 
 **Claude Desktop Integration**
