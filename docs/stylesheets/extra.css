@@ -1,0 +1,310 @@
+/* Custom CSS for Symmetra Documentation */
+
+:root {
+  --md-primary-fg-color: #3f51b5;
+  --md-primary-fg-color--light: #5c6bc0;
+  --md-primary-fg-color--dark: #303f9f;
+  --md-accent-fg-color: #ff4081;
+  --symmetra-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --symmetra-gradient-soft: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+}
+
+/* Logo styling - using built-in MkDocs Material classes */
+/* The .only-light and .only-dark classes are handled by Material theme automatically */
+
+/* Hero section styling */
+.hero-banner {
+  background: var(--symmetra-gradient);
+  color: white;
+  padding: 4rem 2rem;
+  text-align: center;
+  margin: -1.5rem -1.5rem 2rem -1.5rem;
+  border-radius: 0 0 1rem 1rem;
+}
+
+.hero-banner h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  font-weight: 300;
+}
+
+.hero-banner p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Card grid system */
+.grid.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.card {
+  background: var(--md-default-bg-color);
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  border-color: var(--md-primary-fg-color);
+}
+
+.card h3 {
+  margin-top: 0;
+  color: var(--md-primary-fg-color);
+}
+
+.card .lg.middle {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--md-primary-fg-color);
+}
+
+/* Code block enhancements */
+.highlight pre {
+  border-radius: 0.5rem;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Mermaid diagrams styling */
+.mermaid {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+/* Admonition enhancements */
+.md-typeset .admonition {
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.md-typeset .admonition.tip {
+  border-left: 4px solid #00c851;
+}
+
+.md-typeset .admonition.warning {
+  border-left: 4px solid #ff8800;
+}
+
+.md-typeset .admonition.danger {
+  border-left: 4px solid #ff4444;
+}
+
+.md-typeset .admonition.info {
+  border-left: 4px solid #33b5e5;
+}
+
+.md-typeset .admonition.success {
+  border-left: 4px solid #00c851;
+}
+
+.md-typeset .admonition.question {
+  border-left: 4px solid #9c27b0;
+}
+
+.md-typeset .admonition.example {
+  border-left: 4px solid #ff9800;
+}
+
+/* Table enhancements */
+.md-typeset table {
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.md-typeset table th {
+  background: var(--symmetra-gradient-soft);
+  font-weight: 600;
+}
+
+/* Navigation enhancements */
+.md-nav__link--active {
+  background: var(--symmetra-gradient-soft);
+  border-radius: 0.25rem;
+}
+
+/* Search enhancements */
+.md-search__form {
+  border-radius: 2rem;
+}
+
+/* Button styling */
+.md-button {
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.md-button--primary {
+  background: var(--symmetra-gradient);
+  border: none;
+}
+
+.md-button--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Code annotation styling */
+.md-typeset .md-annotation {
+  border-radius: 0.25rem;
+}
+
+/* Tabs styling */
+.md-typeset .tabbed-set {
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Sequence diagram styling */
+.mermaid .actor {
+  fill: var(--md-primary-fg-color) !important;
+}
+
+.mermaid .messageLine0,
+.mermaid .messageLine1 {
+  stroke: var(--md-primary-fg-color) !important;
+}
+
+/* Dark mode adjustments */
+[data-md-color-scheme="slate"] .card {
+  background: var(--md-code-bg-color);
+  border-color: var(--md-default-fg-color--lightest);
+}
+
+[data-md-color-scheme="slate"] .hero-banner {
+  background: linear-gradient(135deg, #424242 0%, #212121 100%);
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+  .hero-banner h1 {
+    font-size: 2rem;
+  }
+  
+  .hero-banner {
+    padding: 2rem 1rem;
+  }
+  
+  .grid.cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Loading animation for mermaid */
+.mermaid[data-processed="false"] {
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.mermaid[data-processed="true"] {
+  opacity: 1;
+}
+
+/* Copy code button enhancement */
+.md-clipboard {
+  border-radius: 0.25rem;
+}
+
+/* Footer customization */
+.md-footer {
+  background: var(--symmetra-gradient);
+}
+
+/* Logo animation */
+.md-header__button.md-logo img,
+.md-header__button.md-logo svg {
+  transition: transform 0.3s ease;
+}
+
+.md-header__button.md-logo:hover img,
+.md-header__button.md-logo:hover svg {
+  transform: scale(1.1);
+}
+
+/* API reference styling */
+.api-endpoint {
+  background: var(--md-code-bg-color);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-left: 4px solid var(--md-primary-fg-color);
+}
+
+.api-method {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-weight: bold;
+  font-size: 0.8rem;
+  margin-right: 0.5rem;
+}
+
+.api-method.get { background: #61affe; color: white; }
+.api-method.post { background: #49cc90; color: white; }
+.api-method.put { background: #fca130; color: white; }
+.api-method.delete { background: #f93e3e; color: white; }
+
+/* Performance metrics styling */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.metric-card {
+  background: var(--md-code-bg-color);
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  border: 1px solid var(--md-default-fg-color--lightest);
+}
+
+.metric-value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--md-primary-fg-color);
+}
+
+.metric-label {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* Status badges */
+.status-badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 1rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.status-badge.success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.status-badge.warning {
+  background: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+.status-badge.error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}

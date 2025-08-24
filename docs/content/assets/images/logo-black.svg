@@ -1,0 +1,27 @@
+<svg width="300" height="80" viewBox="0 0 300 80" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="40" cy="40" r="30" fill="black" opacity="0.1"/>
+  
+  <!-- Abstract geometric shape suggesting "S" -->
+  <path d="M20 24 Q40 16 60 24 Q40 32 20 40 Q40 48 60 56 Q40 64 20 56" 
+        stroke="black" 
+        stroke-width="5" 
+        fill="none" 
+        stroke-linecap="round"
+        opacity="0.9"/>
+  
+  <!-- Company name -->
+  <text x="90" y="32" 
+        font-family="'Roboto', sans-serif" 
+        font-size="28" 
+        font-weight="500" 
+        fill="black">SYMMETRA</text>
+        
+  <!-- Tagline -->
+  <text x="90" y="56" 
+        font-family="'Roboto', sans-serif" 
+        font-size="16" 
+        font-weight="300" 
+        fill="black" 
+        opacity="0.7">Conversational Guidance</text>
+</svg>

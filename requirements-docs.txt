@@ -1,0 +1,17 @@
+# MkDocs and plugins for Symmetra documentation
+mkdocs>=1.5.3
+mkdocs-material>=9.4.0
+mkdocs-mermaid2-plugin>=1.1.1
+mkdocs-minify-plugin>=0.7.1
+mkdocs-redirects>=1.2.0
+mkdocs-git-revision-date-localized-plugin>=1.2.0
+
+# Additional dependencies for enhanced features
+pygments>=2.16.0
+pymdown-extensions>=10.3.0
+pyyaml>=6.0
+markdown>=3.5.0
+
+# Optional dependencies for advanced features
+mkdocs-macros-plugin>=1.0.0
+mkdocs-include-markdown-plugin>=6.0.0
